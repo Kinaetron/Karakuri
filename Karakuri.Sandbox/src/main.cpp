@@ -2,5 +2,5 @@
 
 int main()
 {
-	 Game("This is a test", 10, 10);
+	 Game Something = Game("This is a test", 10, 10);
 }

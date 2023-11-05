@@ -3,12 +3,16 @@
 
 #include <string>
 
-#ifdef MATHLIBRARY_EXPORTS
+#ifdef KARAKURI_EXPORTS
 #define KARAKURI_API __declspec(dllexport)
 #else
 #define KARAKURI_API __declspec(dllimport)
 #endif
 
-extern "C" KARAKURI_API void Game(std::string title, int width, int height);
+class KARAKURI_API Game
+{
+public:
+	Game(std::string title, int width, int height);
+};
 
 #endif

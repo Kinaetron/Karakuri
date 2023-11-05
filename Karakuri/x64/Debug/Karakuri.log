@@ -1,1 +1,5 @@
-﻿
+﻿  Game.cpp
+C:\Work\Karakuri\Karakuri\src\Game.cpp(4,7): warning C4273: 'Game::Game': inconsistent dll linkage
+C:\Work\Karakuri\Karakuri\src\Game.h(15,2): message : see previous definition of '{ctor}'
+     Creating library C:\Work\Karakuri\x64\Debug\Karakuri.lib and object C:\Work\Karakuri\x64\Debug\Karakuri.exp
+  Karakuri.vcxproj -> C:\Work\Karakuri\x64\Debug\Karakuri.dll
