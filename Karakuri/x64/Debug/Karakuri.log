@@ -1,0 +1,4 @@
+﻿  Game.cpp
+C:\Work\Karakuri\Karakuri\src\Game.cpp(4,6): warning C4273: 'Game': inconsistent dll linkage
+C:\Work\Karakuri\Karakuri\src\Game.h(12,30): message : see previous definition of 'Game'
+  Karakuri.vcxproj -> C:\Work\Karakuri\x64\Debug\Karakuri.dll
