@@ -1,6 +1,7 @@
-#include "Game.h"
+#include "GameSandbox.h"
 
 int main()
 {
-	 Game Something = Game("This is a test", 10, 10);
+	 GameSandbox Something = GameSandbox("Karakuri Sandbox", 1920, 1080);
+	 Something.Run();
 }

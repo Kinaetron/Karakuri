@@ -2,17 +2,19 @@
 #define GAME_H
 
 #include <string>
-
-#ifdef KARAKURI_EXPORTS
-#define KARAKURI_API __declspec(dllexport)
-#else
-#define KARAKURI_API __declspec(dllimport)
-#endif
+#include "GraphicsDevice.h"
+#include "API.h"
 
 class KARAKURI_API Game
 {
 public:
 	Game(std::string title, int width, int height);
+	virtual void Initialize();
+	virtual void Update();
+	virtual void Draw();
+	void Run();
+
+	GraphicsDevice* graphicsDevice;
 };
 
 #endif

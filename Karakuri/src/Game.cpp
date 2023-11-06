@@ -1,9 +1,39 @@
 #include "Game.h"
-#include <iostream>
+#include <SDL2/SDL.h>
 
 Game::Game(std::string title, int width, int height)
 {
-	std::cout << "The title is: " << title << std::endl;
-	std::cout << "The window width is: " << width << std::endl;
-	std::cout << "The window height is: " << height << std::endl;
+	graphicsDevice = new GraphicsDevice(title, width, height);
+}
+
+void Game::Initialize()
+{
+}
+
+void Game::Update()
+{
+}
+
+void Game::Draw()
+{
+}
+
+void Game::Run()
+{
+	this->Initialize();
+
+	bool isRunning = true;
+	while (isRunning)
+	{
+		SDL_Event event;
+		while (SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_QUIT) {
+				isRunning = false;
+			}
+		}
+
+		this->Update();
+		this->Draw();
+	}
 }
