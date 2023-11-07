@@ -6,7 +6,9 @@
 SDL_Window* window;
 
 GraphicsDevice::GraphicsDevice(std::string title, int width, int height):
-	color_range(255.0f)
+	color_range(255.0f),
+	width(width),
+	height(height)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) 
 	{

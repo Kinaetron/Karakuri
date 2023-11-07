@@ -11,8 +11,12 @@ public:
 	void Clear(unsigned short red, unsigned short green, unsigned short blue, unsigned short alpha);
 	void SwapBuffer();
 	void FullScreen(bool state);
+	const int WindowWidth() const { return width; }
+	const int WindowHeight() const { return height; }
 
 private:
 	const float color_range;
+	const int width;
+	const int height;
 };
 #endif
