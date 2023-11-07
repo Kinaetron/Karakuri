@@ -18,12 +18,12 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameSandbox.cpp">
+    <ClCompile Include="src\game_sandbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\GameSandbox.h">
+    <ClInclude Include="src\game_sandbox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

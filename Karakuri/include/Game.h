@@ -3,8 +3,8 @@
 
 #include <string>
 #include <cstdint>
-#include "GraphicsDevice.h"
-#include "API.h"
+#include "graphics_device.h"
+#include "api.h"
 
 class KARAKURI_API Game
 {
