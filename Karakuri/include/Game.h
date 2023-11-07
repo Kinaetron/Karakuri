@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <string>
+#include <cstdint>
 #include "GraphicsDevice.h"
 #include "API.h"
 
@@ -15,6 +16,12 @@ public:
 	void Run();
 
 	GraphicsDevice* graphicsDevice;
+
+private:
+	std::uint64_t oldTime;
+	std::uint64_t deltaTime;
+	std::uint64_t accumlator;
+	const std::uint64_t TARGET_FRAME_RATE;
 };
 
 #endif

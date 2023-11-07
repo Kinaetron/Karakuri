@@ -71,20 +71,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Work\Karakuri\Karakuri\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Work\Karakuri\Karakuri\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\Karakuri\Karakuri\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\Karakuri\Karakuri\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Work\Karakuri\Karakuri\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Work\Karakuri\Karakuri\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\Karakuri\Karakuri\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\Karakuri\Karakuri\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Work\Karakuri\Karakuri\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Work\Karakuri\Karakuri\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\Karakuri\Karakuri\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\Karakuri\Karakuri\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Work\Karakuri\Karakuri\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Work\Karakuri\Karakuri\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\Karakuri\Karakuri\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\Karakuri\Karakuri\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -151,9 +151,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\API.h" />
-    <ClInclude Include="src\Game.h" />
-    <ClInclude Include="src\GraphicsDevice.h" />
+    <ClInclude Include="include\API.h" />
+    <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\GraphicsDevice.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game.cpp" />
