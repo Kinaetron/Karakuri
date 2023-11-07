@@ -71,3 +71,8 @@ void GraphicsDevice::SwapBuffer()
 {
 	SDL_GL_SwapWindow(window);
 }
+
+void GraphicsDevice::FullScreen(bool state) 
+{
+	SDL_SetWindowFullscreen(window, state);
+}

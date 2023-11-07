@@ -10,6 +10,7 @@ public:
 	GraphicsDevice(std::string title, int width, int height);
 	void Clear(unsigned short red, unsigned short green, unsigned short blue, unsigned short alpha);
 	void SwapBuffer();
+	void FullScreen(bool state);
 
 private:
 	const float color_range;
