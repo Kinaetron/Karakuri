@@ -5,7 +5,8 @@
 
 SDL_Window* window;
 
-GraphicsDevice::GraphicsDevice(std::string title, int width, int height)
+GraphicsDevice::GraphicsDevice(std::string title, int width, int height):
+	color_range(255.0f)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) 
 	{
@@ -53,9 +54,14 @@ GraphicsDevice::GraphicsDevice(std::string title, int width, int height)
 	}
 }
 
-void GraphicsDevice::Clear()
+void GraphicsDevice::Clear(unsigned short red, unsigned short green, unsigned short blue, unsigned short alpha)
 {
-	glClearColor(0.392f, 0.584f, 0.929f, 1.0f);
+	float r = (float)red / color_range;
+	float g = (float)green/ color_range;
+	float b = (float)blue / color_range;
+	float a = (float)alpha / color_range;
+
+	glClearColor(r, g, b, a);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 

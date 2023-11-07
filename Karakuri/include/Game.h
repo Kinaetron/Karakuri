@@ -18,10 +18,11 @@ public:
 	GraphicsDevice* graphicsDevice;
 
 private:
-	std::uint64_t oldTime;
-	std::uint64_t deltaTime;
-	std::uint64_t accumlator;
-	const std::uint64_t TARGET_FRAME_RATE;
+	std::int64_t oldTime;
+	std::int64_t deltaTime;
+	double accumlator;
+	const std::int64_t TARGET_FRAME_RATE;
+	const double TARGET_FRAME_TIME;
 };
 
 #endif

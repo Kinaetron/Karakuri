@@ -19,7 +19,7 @@ void GameSandbox::Update()
 
 void GameSandbox::Draw()
 {
-	graphicsDevice->Clear();
+	graphicsDevice->Clear(0, 0, 0, 0);
 	graphicsDevice->SwapBuffer();
 	Game::Draw();
 }

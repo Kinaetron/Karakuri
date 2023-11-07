@@ -5,7 +5,8 @@ Game::Game(std::string title, int width, int height)
 	:oldTime(0), 
 	 deltaTime(0), 
 	 accumlator(0),
-	 TARGET_FRAME_RATE(60)
+	 TARGET_FRAME_RATE(60),
+	 TARGET_FRAME_TIME(1.0 / TARGET_FRAME_RATE)
 {
 	graphicsDevice = new GraphicsDevice(title, width, height);
 }
@@ -41,10 +42,10 @@ void Game::Run()
 		oldTime = SDL_GetTicks64();
 		accumlator += deltaTime;
 
-		while (accumlator > 1.0 / TARGET_FRAME_RATE)
+		while (accumlator > TARGET_FRAME_TIME)
 		{
 			this->Update();
-			accumlator -= 1.0 / TARGET_FRAME_RATE;
+			accumlator -= TARGET_FRAME_TIME;
 		}
 		this->Draw();
 	}
