@@ -7,7 +7,7 @@
 GameSandbox::GameSandbox(std::string title, int width, int height)
 	:Game(title, width, height)
 {
-	texture = new Texture("sprites/luffy.png");
+	texture = new Texture("resources/sprites/luffy.jpg");
 	renderer = new SpriteRenderer(*graphicsDevice);
 }
 

@@ -31,5 +31,8 @@
     <Image Include="sprites\luffy.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="resources\sprites\luffy.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
