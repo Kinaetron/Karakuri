@@ -18,5 +18,6 @@ private:
 	const float color_range;
 	const int width;
 	const int height;
+	class SDL_Window* window;
 };
 #endif

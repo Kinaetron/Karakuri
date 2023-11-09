@@ -3,12 +3,11 @@
 #include <SDL2/SDL.h>
 #include <glad/glad.h>
 
-SDL_Window* window;
-
 GraphicsDevice::GraphicsDevice(std::string title, int width, int height):
 	color_range(255.0f),
 	width(width),
-	height(height)
+	height(height),
+	window(NULL)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) 
 	{

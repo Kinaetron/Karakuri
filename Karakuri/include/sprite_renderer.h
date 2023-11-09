@@ -10,11 +10,13 @@ class KARAKURI_API SpriteRenderer
 {
 public:
 	SpriteRenderer(GraphicsDevice& device);
-	void Draw(glm::vec2 position, Texture& texture);
+	void Draw(Texture& texture, glm::vec2 position, glm::vec2 size, float rotate, glm::vec3 color);
 
 private:
-	int LoadTexture(Texture& texture);
-	glm::mat4 projection;
+	void InitalizeRenderData(GraphicsDevice& device);
+
+	class Shader* shader;
+	unsigned int quadVAO;
 };
 
 #endif

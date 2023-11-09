@@ -23,10 +23,8 @@ void GameSandbox::Update()
 
 void GameSandbox::Draw()
 {
-	graphicsDevice->Clear(100, 100, 100, 0);
-	
-	renderer->Draw(glm::vec2(100, 100), *texture);
-
+	graphicsDevice->Clear(0, 0, 0, 0);
+	renderer->Draw(*texture, glm::vec2(200, 400), glm::vec2(540, 405), 0, glm::vec3(1, 1, 1));
 	graphicsDevice->SwapBuffer();
 	Game::Draw();
 }

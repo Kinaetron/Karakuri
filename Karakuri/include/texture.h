@@ -11,7 +11,7 @@ public:
 	const int Width() const { return width; }
 	const int Height() const { return height; }
 	const int ChannelType() const { return channelType; }
-	const unsigned char* Data() const { return data; }
+	void Bind();
 
 
 private:
@@ -19,6 +19,7 @@ private:
 	int height;
 	int channelType;
 	unsigned char* data;
+	unsigned int textureID;
 };
 
 #endif
