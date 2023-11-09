@@ -11,10 +11,10 @@ void Keyboard::Update() {
 	keyboardState = (uint8_t*)SDL_GetKeyboardState(NULL);
 }
 
-const bool Keyboard::IsKeyDown(int keycode) const {
-	return keyboardState[keycode];
+const bool Keyboard::IsKeyDown(Keys key) const {
+	return keyboardState[(uint8_t)key];
 }
 
-const bool Keyboard::IsKeyUp(int keycode) const {
-	return !keyboardState[keycode];
+const bool Keyboard::IsKeyUp(Keys key) const {
+	return !keyboardState[(uint8_t)key];
 }

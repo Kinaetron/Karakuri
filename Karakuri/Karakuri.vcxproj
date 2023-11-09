@@ -449,6 +449,7 @@
     <ClInclude Include="include\glm\vector_relational.hpp" />
     <ClInclude Include="include\graphics_device.h" />
     <ClInclude Include="include\keyboard.h" />
+    <ClInclude Include="include\keys.h" />
     <ClInclude Include="include\sprite_renderer.h" />
     <ClInclude Include="include\texture.h" />
     <ClInclude Include="src\shader.h" />
