@@ -68,12 +68,14 @@ void GraphicsDevice::Clear(unsigned short red, unsigned short green, unsigned sh
 
 
 
-void GraphicsDevice::SwapBuffer()
-{
+void GraphicsDevice::SwapBuffer() {
 	SDL_GL_SwapWindow(window);
 }
 
-void GraphicsDevice::FullScreen(bool state) 
-{
+void GraphicsDevice::EnableFullScreen(bool state) {
 	SDL_SetWindowFullscreen(window, state);
+}
+
+void GraphicsDevice::EnableVSync(bool state) {
+	SDL_GL_SetSwapInterval(state);
 }

@@ -4,7 +4,7 @@
 #include <game.h>
 #include <texture.h>
 #include <sprite_renderer.h>
-#include <graphics_device.h>
+#include <keyboard.h>
 
 class GameSandbox : public Game
 {
@@ -17,7 +17,7 @@ public:
 private:
 	Texture* texture;
 	SpriteRenderer* renderer;
-
+	Keyboard* keyboard;
 };
 
 #endif

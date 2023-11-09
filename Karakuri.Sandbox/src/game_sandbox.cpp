@@ -1,24 +1,24 @@
 #include "game_sandbox.h"
-#include <graphics_device.h>
-
 #include <iostream>
-#include <texture.h>
 
 GameSandbox::GameSandbox(std::string title, int width, int height)
 	:Game(title, width, height)
 {
 	texture = new Texture("resources/sprites/luffy.jpg");
 	renderer = new SpriteRenderer(*graphicsDevice);
+	keyboard = new Keyboard();
 }
 
 void GameSandbox::Initialize()
 {
 	Game::Initialize();
+	graphicsDevice->EnableVSync(false);
 }
 
 void GameSandbox::Update()
 {
 	Game::Update();
+	keyboard->Update();
 }
 
 void GameSandbox::Draw()

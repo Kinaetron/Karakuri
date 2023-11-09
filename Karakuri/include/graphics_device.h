@@ -10,7 +10,8 @@ public:
 	GraphicsDevice(std::string title, int width, int height);
 	void Clear(unsigned short red, unsigned short green, unsigned short blue, unsigned short alpha);
 	void SwapBuffer();
-	void FullScreen(bool state);
+	void EnableFullScreen(bool state);
+	void EnableVSync(bool state);
 	const int WindowWidth() const { return width; }
 	const int WindowHeight() const { return height; }
 
