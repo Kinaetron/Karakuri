@@ -4,6 +4,8 @@
 #include <string>
 #include "API.h"
 
+struct SDL_Window;
+
 class KARAKURI_API GraphicsDevice
 {
 public:
@@ -19,6 +21,6 @@ private:
 	const float color_range;
 	const int width;
 	const int height;
-	class SDL_Window* window;
+	SDL_Window* window;
 };
 #endif

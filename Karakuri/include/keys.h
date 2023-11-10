@@ -107,12 +107,11 @@ enum class KARAKURI_API Keys : uint8_t
 	LeftControl = 224,
 	LeftShift = 225,
 	LeftAlt = 226,
-	LeftMeta = 227, // Windows, Command, Meta
+	LeftMeta = 227,
 	RightControl = 228,
 	RightShift = 229,
 	RightAlt = 230,
-	RightMeta = 231 // Windows, Command, Meta
-
+	RightMeta = 231
 };
 
 #endif

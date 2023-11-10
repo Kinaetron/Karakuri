@@ -164,7 +164,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\api.h" />
+    <ClInclude Include="include\buttons.h" />
     <ClInclude Include="include\game.h" />
+    <ClInclude Include="include\gamepad.h" />
     <ClInclude Include="include\glm\common.hpp" />
     <ClInclude Include="include\glm\detail\compute_common.hpp" />
     <ClInclude Include="include\glm\detail\compute_vector_relational.hpp" />
@@ -458,6 +460,7 @@
   <ItemGroup>
     <ClCompile Include="include\glm\detail\glm.cpp" />
     <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\gamepad.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\graphics_device.cpp" />
     <ClCompile Include="src\keyboard.cpp" />

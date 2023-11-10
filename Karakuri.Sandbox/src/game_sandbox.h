@@ -6,6 +6,8 @@
 #include <sprite_renderer.h>
 #include <keyboard.h>
 #include <glm/glm.hpp>
+#include <gamepad.h>
+
 
 class GameSandbox : public Game
 {
@@ -19,6 +21,7 @@ private:
 	Texture* texture;
 	SpriteRenderer* renderer;
 	Keyboard* keyboard;
+	Gamepad* gamepad;
 	glm::vec2 position;
 };
 

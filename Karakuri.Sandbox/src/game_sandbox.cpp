@@ -1,5 +1,6 @@
 #include "game_sandbox.h"
 #include <iostream>
+#include <buttons.h>
 #include <keys.h>
 
 GameSandbox::GameSandbox(std::string title, int width, int height)
@@ -9,6 +10,7 @@ GameSandbox::GameSandbox(std::string title, int width, int height)
 	texture = new Texture("resources/sprites/luffy.jpg");
 	renderer = new SpriteRenderer(*graphicsDevice);
 	keyboard = new Keyboard();
+	gamepad = new Gamepad(0);
 }
 
 void GameSandbox::Initialize()
@@ -20,16 +22,26 @@ void GameSandbox::Initialize()
 void GameSandbox::Update()
 {
 	Game::Update();
+	gamepad->Udpate();
 	keyboard->Update();
 
-	if (keyboard->IsKeyDown(Keys::Right))
+	if (gamepad->IsConnected()) 
 	{
+	}
+
+	if (gamepad->RightThumbStick(0.1).x >= 0.5) {
 		position.x += 0.002f;
 	}
 
+	if (gamepad->LeftTrigger() > 0.5) {
+		position.x -= 0.002f;
+	}
 
-	if (keyboard->IsKeyDown(Keys::Left))
-	{
+	if (keyboard->IsKeyDown(Keys::Right)) {
+		position.x += 0.002f;
+	}
+
+	if (keyboard->IsKeyDown(Keys::Left)) {
 		position.x -= 0.002f;
 	}
 }

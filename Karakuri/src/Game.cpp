@@ -1,5 +1,8 @@
 #include "../include/Game.h"
 #include <SDL2/SDL.h>
+#include <iostream>
+
+#include "../include/gamepad.h"
 
 Game::Game(std::string title, int width, int height)
 	:oldTime(0), 
@@ -9,6 +12,11 @@ Game::Game(std::string title, int width, int height)
 	 TARGET_FRAME_TIME(1.0 / TARGET_FRAME_RATE)
 {
 	graphicsDevice = new GraphicsDevice(title, width, height);
+
+	if (SDL_Init(SDL_INIT_GAMECONTROLLER) < 0) {
+		std::cerr << "SDL game pad initalization failed" << SDL_GetError() << std::endl;
+		return;
+	}
 }
 
 void Game::Initialize()
@@ -32,7 +40,7 @@ void Game::Run()
 	{
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
-		{
+		{		
 			if (event.type == SDL_QUIT) {
 				isRunning = false;
 			}

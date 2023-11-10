@@ -11,7 +11,7 @@ GraphicsDevice::GraphicsDevice(std::string title, int width, int height):
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) 
 	{
-		std::cerr << "SDL initalization failed" << SDL_GetError() << std::endl;
+		std::cerr << "SDL video initalization failed" << SDL_GetError() << std::endl;
 		return;
 	}
 

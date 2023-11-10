@@ -888,6 +888,12 @@
     <ClInclude Include="include\keys.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\gamepad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\buttons.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game.cpp">
@@ -915,6 +921,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\keyboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamepad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
