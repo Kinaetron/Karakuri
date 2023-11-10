@@ -23,11 +23,11 @@ void Gamepad::Udpate()
 	}
 }
 
-bool Gamepad::IsButtonDown(Buttons button) {
+bool Gamepad::IsButtonDown(GamePadButtons button) {
 	return SDL_GameControllerGetButton(controller, (SDL_GameControllerButton)button);
 }
 
-bool Gamepad::IsButtonUp(Buttons button) {
+bool Gamepad::IsButtonUp(GamePadButtons button) {
 	return !SDL_GameControllerGetButton(controller, (SDL_GameControllerButton)button);
 }
 

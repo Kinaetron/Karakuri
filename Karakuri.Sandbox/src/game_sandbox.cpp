@@ -11,6 +11,7 @@ GameSandbox::GameSandbox(std::string title, int width, int height)
 	renderer = new SpriteRenderer(*graphicsDevice);
 	keyboard = new Keyboard();
 	gamepad = new Gamepad(0);
+	mouse = new Mouse();
 }
 
 void GameSandbox::Initialize()
@@ -22,6 +23,7 @@ void GameSandbox::Initialize()
 void GameSandbox::Update()
 {
 	Game::Update();
+	mouse->Update();
 	gamepad->Udpate();
 	keyboard->Update();
 
@@ -43,6 +45,11 @@ void GameSandbox::Update()
 
 	if (keyboard->IsKeyDown(Keys::Left)) {
 		position.x -= 0.002f;
+	}
+
+	if (mouse->IsButtonDown(MouseButtons::MIDDLE))
+	{
+		std::cout << "Mouse X: " << mouse->Position().x << " Y: " << mouse->Position().y << std::endl;
 	}
 }
 

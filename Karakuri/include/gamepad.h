@@ -10,8 +10,8 @@ class KARAKURI_API Gamepad
 public:
 	Gamepad(int index);
 	void Udpate();
-	bool IsButtonDown(Buttons button);
-	bool IsButtonUp(Buttons button);
+	bool IsButtonDown(GamePadButtons button);
+	bool IsButtonUp(GamePadButtons button);
 	const double LeftTrigger();
 	const double RightTrigger();
 	const glm::vec2 LeftThumbStick(double deadzone);

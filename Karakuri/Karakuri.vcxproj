@@ -452,6 +452,7 @@
     <ClInclude Include="include\graphics_device.h" />
     <ClInclude Include="include\keyboard.h" />
     <ClInclude Include="include\keys.h" />
+    <ClInclude Include="include\mouse.h" />
     <ClInclude Include="include\sprite_renderer.h" />
     <ClInclude Include="include\texture.h" />
     <ClInclude Include="src\shader.h" />
@@ -464,6 +465,7 @@
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\graphics_device.cpp" />
     <ClCompile Include="src\keyboard.cpp" />
+    <ClCompile Include="src\mouse.cpp" />
     <ClCompile Include="src\shader.cpp" />
     <ClCompile Include="src\sprite_renderer.cpp" />
     <ClCompile Include="src\stb_image.cpp" />
