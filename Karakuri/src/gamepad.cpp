@@ -17,10 +17,6 @@ void Gamepad::Udpate()
 {
 	controller = SDL_GameControllerOpen(index);
 	isConnected = !controller == NULL;
-
-	if (!isConnected) {
-		return;
-	}
 }
 
 bool Gamepad::IsButtonDown(GamePadButtons button) {
