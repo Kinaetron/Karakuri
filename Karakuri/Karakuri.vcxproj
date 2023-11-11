@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClInclude Include="include\api.h" />
     <ClInclude Include="include\buttons.h" />
+    <ClInclude Include="include\circle.h" />
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\gamepad.h" />
     <ClInclude Include="include\glm\common.hpp" />
@@ -453,19 +454,24 @@
     <ClInclude Include="include\keyboard.h" />
     <ClInclude Include="include\keys.h" />
     <ClInclude Include="include\mouse.h" />
+    <ClInclude Include="include\rectangle.h" />
     <ClInclude Include="include\sprite_renderer.h" />
     <ClInclude Include="include\texture.h" />
+    <ClInclude Include="src\collision.h" />
     <ClInclude Include="src\shader.h" />
     <ClInclude Include="src\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\glm\detail\glm.cpp" />
+    <ClCompile Include="src\circle.cpp" />
+    <ClCompile Include="src\collision.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\gamepad.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\graphics_device.cpp" />
     <ClCompile Include="src\keyboard.cpp" />
     <ClCompile Include="src\mouse.cpp" />
+    <ClCompile Include="src\rectangle.cpp" />
     <ClCompile Include="src\shader.cpp" />
     <ClCompile Include="src\sprite_renderer.cpp" />
     <ClCompile Include="src\stb_image.cpp" />

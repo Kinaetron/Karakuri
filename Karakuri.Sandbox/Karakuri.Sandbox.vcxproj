@@ -162,6 +162,7 @@
     <ClInclude Include="src\game_sandbox.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resources\sprites\circle.png" />
     <Image Include="resources\sprites\luffy.jpg" />
     <Image Include="sprites\luffy.png">
       <DeploymentContent>true</DeploymentContent>

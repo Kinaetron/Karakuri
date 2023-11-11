@@ -897,6 +897,15 @@
     <ClInclude Include="include\mouse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\rectangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\circle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game.cpp">
@@ -930,6 +939,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\mouse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\circle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rectangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

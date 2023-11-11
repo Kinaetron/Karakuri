@@ -8,6 +8,8 @@
 #include <glm/glm.hpp>
 #include <gamepad.h>
 #include <mouse.h>
+#include <rectangle.h>
+#include <circle.h>
 
 
 class GameSandbox : public Game
@@ -19,12 +21,17 @@ public:
 	void Draw() override;
 
 private:
-	Texture* texture;
+	Texture* circleTexture;
+	Texture* rectangleTexture;
 	SpriteRenderer* renderer;
 	Keyboard* keyboard;
-	Gamepad* gamepad;
-	Mouse* mouse;
 	glm::vec2 position;
+	glm::vec2 position2;
+
+	Circle* circle;
+	Rectangle* rectangle;
+
+	glm::vec3 circleColor;
 };
 
 #endif

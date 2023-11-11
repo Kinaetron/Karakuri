@@ -14,6 +14,7 @@ public:
 	virtual void Update();
 	virtual void Draw();
 	void Run();
+	void Quit();
 
 	GraphicsDevice* graphicsDevice;
 

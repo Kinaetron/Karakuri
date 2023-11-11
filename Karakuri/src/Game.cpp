@@ -58,3 +58,7 @@ void Game::Run()
 		this->Draw();
 	}
 }
+
+void Game::Quit() {
+	SDL_Quit();
+}
