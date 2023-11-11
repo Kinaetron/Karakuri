@@ -10,7 +10,7 @@ Rectangle::Rectangle(float width, float height, glm::vec2 position) :
 {
 }
 
-glm::vec2 Rectangle::IntersectsRectangle(Rectangle& rectangle)
+const glm::vec2 Rectangle::IntersectsRectangle(Rectangle& rectangle)
 {
 	float halfWidthA = this->Width() / 2.0f;
 	float halfHeightA = this->Height() / 2.0f;
@@ -37,6 +37,6 @@ glm::vec2 Rectangle::IntersectsRectangle(Rectangle& rectangle)
 	return glm::vec2(depthX, depthY);
 }
 
-glm::vec2 Rectangle::IntersectsCircle(Circle& circle) {
+const glm::vec2 Rectangle::IntersectsCircle(Circle& circle) { 
 	return collision->RectangleIntersectsCircle(*this, circle);
 }
