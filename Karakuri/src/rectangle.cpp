@@ -1,4 +1,5 @@
 #include "collision.h"
+#include "../include/circle.h"
 #include "../include/rectangle.h"
 
 Rectangle::Rectangle(float width, float height, glm::vec2 position) :
@@ -34,4 +35,8 @@ glm::vec2 Rectangle::IntersectsRectangle(Rectangle& rectangle)
 	float depthY = distanceY > 0.0 ? minDistanceY - distanceY : -minDistanceY - distanceY;
 
 	return glm::vec2(depthX, depthY);
+}
+
+glm::vec2 Rectangle::IntersectsCircle(Circle& circle) {
+	return collision->RectangleIntersectsCircle(*this, circle);
 }

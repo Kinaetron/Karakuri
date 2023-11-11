@@ -4,6 +4,8 @@
 #include "api.h"
 #include "glm/glm.hpp"
 
+class Circle;
+
 class KARAKURI_API Rectangle
 {
 public:
@@ -18,7 +20,7 @@ public:
 	const glm::vec2 Centre() const { return glm::vec2(position.x + (width / 2.0), position.y + (height / 2.0)); }
 	void SetPostion(glm::vec2 position) { this->position = position; }
 	glm::vec2 IntersectsRectangle(Rectangle& rectangle);
-	//glm::vec2 IntersectsCircle(Circle& circle);
+	glm::vec2 IntersectsCircle(Circle& circle);
 
 private:
 	float width;

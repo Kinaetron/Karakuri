@@ -1,5 +1,6 @@
 #include "collision.h"
 #include "../include/circle.h"
+#include "../include/rectangle.h"
 #include "../include/glm/gtc/matrix_transform.hpp"
 
 Circle::Circle(float radius, glm::vec2 position)

@@ -3,7 +3,8 @@
 
 #include "api.h"
 #include "glm/glm.hpp"
-#include "rectangle.h"
+
+class Rectangle;
 
 class KARAKURI_API Circle
 {
