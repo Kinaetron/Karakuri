@@ -2,30 +2,30 @@
 #define RECTANGLE_H
 
 #include "api.h"
-#include "glm/glm.hpp"
+#include "../include/vector2.h"
 
 class Circle;
 
 class KARAKURI_API Rectangle
 {
 public:
-	Rectangle(float width, float height, glm::vec2 position);
+	Rectangle(float width, float height, Vector2<float> position);
 	const float Width() const { return width; }
 	const float Height() const { return height; }
-	const glm::vec2 Position() const { return position; }
-	const float Left() const { return position.x; }
-	const float Right() const { return position.x + width; }
-	const float Top() const { return position.y; }
-	const float Bottom() const { return position.y + height; }
-	const glm::vec2 Centre() const { return glm::vec2(position.x + (width / 2.0), position.y + (height / 2.0)); }
-	void SetPostion(glm::vec2 position) { this->position = position; }
-	const glm::vec2 IntersectsRectangle(Rectangle& rectangle);
-	const glm::vec2 IntersectsCircle(Circle& circle);
+	const Vector2<float> Position() const { return position; }
+	const float Left() const { return position.X; }
+	const float Right() const { return position.X + width; }
+	const float Top() const { return position.Y; }
+	const float Bottom() const { return position.Y + height; }
+	const Vector2<float> Centre() const { return Vector2<float>(position.X + (width / 2.0), position.Y + (height / 2.0)); }
+	void SetPostion(Vector2<float> position) { this->position = position; }
+	const Vector2<float> IntersectsRectangle(Rectangle& rectangle);
+	const Vector2<float> IntersectsCircle(Circle& circle);
 
 private:
 	float width;
 	float height;
-	glm::vec2 position;
+	Vector2<float> position;
 	class Collision* collision;
 };
 #endif

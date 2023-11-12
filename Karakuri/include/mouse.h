@@ -2,8 +2,8 @@
 #define MOUSE_H
 
 #include "api.h"
-#include "glm/glm.hpp"
 #include "buttons.h"
+#include "../include/vector2.h"
 
 #include <cstdint>
 
@@ -14,10 +14,10 @@ public:
 	void Update();
 	const bool IsButtonUp(MouseButtons button);
 	const bool IsButtonDown(MouseButtons button);
-	const glm::ivec2 Position() { return position; };
+	const Vector2<int> Position() { return position; };
 
 private:
-	glm::ivec2 position;
+	Vector2<int> position;
 	uint32_t mouseState;
 };
 #endif

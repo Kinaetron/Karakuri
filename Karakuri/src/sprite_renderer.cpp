@@ -1,8 +1,8 @@
 #include <iostream>
 #include <glad/glad.h>
 #include "../include/sprite_renderer.h"
-#include "../include/glm/ext/matrix_clip_space.hpp"
-#include "../include/glm/gtc/matrix_transform.hpp"
+#include "../include/vector2.h"
+#include "../include/vector3.h"
 #include "shader.h"
 
 SpriteRenderer::SpriteRenderer(GraphicsDevice& device)
@@ -36,8 +36,8 @@ void SpriteRenderer::InitalizeRenderData(GraphicsDevice& device)
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
-
-	glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(device.WindowWidth()),
+	
+	Matrix<float> projection =  Matrix<float>::OrthographicProjection(0, static_cast<float>(device.WindowWidth()),
 		static_cast<float>(device.WindowHeight()), 0.0f, -1.0f, 1.0f);
 
 	shader = new Shader("shaders/sprite.vert", "shaders/sprite.frag");
@@ -47,18 +47,19 @@ void SpriteRenderer::InitalizeRenderData(GraphicsDevice& device)
 	shader->SetMatrix4("projection", projection);
 }
 
-void SpriteRenderer::Draw(Texture& texture, glm::vec2 position, glm::vec2 size, float rotate, glm::vec3 color)
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Vector2<float> size, float rotate, Vector3<float> color)
 {
 	this->shader->Use();
 
-	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(position, 0.0f));
+	Matrix<float> model = Matrix<float>::Identity();
 
-	model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
-	model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
-	model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
+	model.Translate(Vector3<float>(position.X, position.Y, 0.0f));
 
-	model = glm::scale(model, glm::vec3(size, 1.0f));
+	model.Translate((Vector3<float>(size.X, size.Y, 0.0f) * 0.5f));
+	model.Rotate(rotate);
+	model.Translate((Vector3<float>(size.X, size.Y, 0.0f) * -0.5f));
+
+	model.Scale(Vector3<float>(size.X, size.Y, 1.0f));
 
 	this->shader->SetMatrix4("model", model);
 

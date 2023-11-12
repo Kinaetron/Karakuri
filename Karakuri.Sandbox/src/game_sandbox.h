@@ -5,12 +5,12 @@
 #include <texture.h>
 #include <sprite_renderer.h>
 #include <keyboard.h>
-#include <glm/glm.hpp>
 #include <gamepad.h>
 #include <mouse.h>
 #include <rectangle.h>
 #include <circle.h>
-
+#include <vector2.h>
+#include <vector3.h>
 
 class GameSandbox : public Game
 {
@@ -25,13 +25,13 @@ private:
 	Texture* rectangleTexture;
 	SpriteRenderer* renderer;
 	Keyboard* keyboard;
-	glm::vec2 position;
-	glm::vec2 position2;
+	Vector2<float> position;
+	Vector2<float> position2;
 
 	Circle* circle;
 	Rectangle* rectangle;
 
-	glm::vec3 circleColor;
+	Vector3<float> circleColor;
 };
 
 #endif

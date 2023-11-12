@@ -3,12 +3,12 @@
 
 Mouse::Mouse()
 	: mouseState(0),
-	  position(glm::ivec2(0, 0))
+	  position(Vector2<int>(0, 0))
 {
 }
 
 void Mouse::Update() {
-	mouseState = SDL_GetMouseState(&position.x, &position.y);
+	mouseState = SDL_GetMouseState(&position.X, &position.Y);
 }
 
 const bool Mouse::IsButtonUp(MouseButtons button) {

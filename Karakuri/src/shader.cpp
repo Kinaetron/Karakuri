@@ -4,7 +4,6 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include "../include/glm/gtc/type_ptr.hpp"
 
 Shader::Shader(const std::string& vertexFilePath, const std::string& fragmentFilePath)
 {
@@ -104,26 +103,32 @@ void Shader::SetVector2f(const std::string& name, float x, float y) {
     glUniform2f(glGetUniformLocation(this->ID, name.c_str()), x, y);
 }
 
-void Shader::SetVector2f(const std::string& name, const glm::vec2& value) {
-    glUniform2f(glGetUniformLocation(this->ID, name.c_str()), value.x, value.y);
+void Shader::SetVector2f(const std::string& name, const Vector2<float>& value) {
+    glUniform2f(glGetUniformLocation(this->ID, name.c_str()), value.X, value.Y);
 }
 
 void Shader::SetVector3f(const std::string& name, float x, float y, float z) {
     glUniform3f(glGetUniformLocation(this->ID, name.c_str()), x, y, z);
 }
 
-void Shader::SetVector3f(const std::string& name, const glm::vec3& value) {
-    glUniform3f(glGetUniformLocation(this->ID, name.c_str()), value.x, value.y, value.z);
+void Shader::SetVector3f(const std::string& name, const Vector3<float>& value) {
+    glUniform3f(glGetUniformLocation(this->ID, name.c_str()), value.X, value.Y, value.Z);
 }
 
-void Shader::SetVector4f(const std::string& name, float x, float y, float z, float w) {
-    glUniform4f(glGetUniformLocation(this->ID, name.c_str()), x, y, z, w);
+void Shader::SetMatrix4(const std::string& name, const Matrix<float>& matrix) {
+    glUniformMatrix4fv(glGetUniformLocation(this->ID, name.c_str()), 1, false, TranslateMatrix(matrix));
 }
 
-void Shader::SetVector4f(const std::string& name, const glm::vec4& value) {
-    glUniform4f(glGetUniformLocation(this->ID, name.c_str()), value.x, value.y, value.z, value.w);
-}
+GLfloat* Shader::TranslateMatrix(Matrix<float> matrix)
+{
+    GLfloat MArray[16];
 
-void Shader::SetMatrix4(const std::string& name, const glm::mat4& matrix) {
-    glUniformMatrix4fv(glGetUniformLocation(this->ID, name.c_str()), 1, false, glm::value_ptr(matrix));
+    int index = 0;
+    for (int col = 0; col < 4; col++) {
+        for (int row = 0; row < 4; row++) {
+            MArray[index++] = matrix.M[row][col];
+        }
+    }
+
+    return MArray;
 }

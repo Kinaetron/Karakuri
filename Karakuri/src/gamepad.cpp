@@ -1,6 +1,8 @@
 #include "../include/gamepad.h"
 #include <SDL2/SDL.h>
 #include <iostream>
+#include "../include/vector2.h"
+
 
 SDL_GameController* controller;
 
@@ -34,7 +36,7 @@ const double Gamepad::RightTrigger() {
 	return (double)SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT) / axisLimit;
 }
 
-const glm::vec2 Gamepad::LeftThumbStick(double deadzone)
+const Vector2<float> Gamepad::LeftThumbStick(double deadzone)
 {
 	double x_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX);
 	double y_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY);
@@ -42,16 +44,16 @@ const glm::vec2 Gamepad::LeftThumbStick(double deadzone)
 	x_axis = x_axis > 0 ? x_axis / axisLimit : x_axis / negativeAxisLimit;
 	y_axis = y_axis > 0 ? y_axis / axisLimit : y_axis / negativeAxisLimit;
 
-	glm::vec2 stickInput = glm::vec2(x_axis, y_axis);
+	Vector2<float> stickInput = Vector2<float>(x_axis, y_axis);
 
-	if (stickInput.length() < deadzone) {
-		stickInput = glm::vec2(0, 0);
+	if (stickInput.Length() < deadzone) {
+		stickInput = Vector2<float>::Zero();
 	}
 
 	return stickInput;
 }
 
-const glm::vec2 Gamepad::RightThumbStick(double deadzone)
+const Vector2<float> Gamepad::RightThumbStick(double deadzone)
 {
 	double x_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTX);
 	double y_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTY);
@@ -59,10 +61,10 @@ const glm::vec2 Gamepad::RightThumbStick(double deadzone)
 	x_axis = x_axis > 0 ? x_axis / axisLimit : x_axis / negativeAxisLimit;
 	y_axis = y_axis > 0 ? y_axis / axisLimit : y_axis / negativeAxisLimit;
 
-	glm::vec2 stickInput = glm::vec2(x_axis, y_axis);
+	Vector2<float> stickInput = Vector2<float>(x_axis, y_axis);
 
-	if (stickInput.length() < deadzone) {
-		stickInput = glm::vec2(0, 0);
+	if (stickInput.Length() < deadzone) {
+		stickInput = Vector2<float>::Zero();
 	}
 
 	return stickInput;

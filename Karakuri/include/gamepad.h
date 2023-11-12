@@ -3,7 +3,7 @@
 
 #include "api.h"
 #include "buttons.h"
-#include "glm/glm.hpp"
+#include "vector2.h"
 
 class KARAKURI_API Gamepad
 {
@@ -14,8 +14,8 @@ public:
 	bool IsButtonUp(GamePadButtons button);
 	const double LeftTrigger();
 	const double RightTrigger();
-	const glm::vec2 LeftThumbStick(double deadzone);
-	const glm::vec2 RightThumbStick(double deadzone);
+	const Vector2<float> LeftThumbStick(double deadzone);
+	const Vector2<float> RightThumbStick(double deadzone);
 	const bool IsConnected() { return isConnected; };
 
 	friend class Game;

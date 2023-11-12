@@ -1,32 +1,31 @@
 #include "collision.h"
 #include "../include/circle.h"
 #include "../include/rectangle.h"
-#include "../include/glm/gtc/matrix_transform.hpp"
 
-Circle::Circle(float radius, glm::vec2 position)
+Circle::Circle(float radius, Vector2<float> position)
 	:radius(radius),
 	 position(position),
 	collision(new Collision())
 {
 }
 
-const glm::vec2 Circle::IntersectsCircle(Circle& circle)
+const Vector2<float> Circle::IntersectsCircle(Circle& circle)
 {
 	float radisSum = this->Radius() + circle.Radius();
-	glm::vec2 distanceVector = this->Position() - circle.Position();
+	Vector2<float> distanceVector = this->Position() - circle.Position();
 
-	 float distance = glm::length(distanceVector);
+	 float distance = distanceVector.Length();
 
 	 if (distance > radisSum) {
-		 return glm::vec2(0, 0);
+		 return Vector2<float>::Zero();
 	 }
 
 	 float depth = radisSum - distance;
-	 glm::vec2 direction = glm::normalize((this->Position() - circle.Position()));
+	 Vector2<float> direction = (this->Position() - circle.Position()).Normalize();
 
 	 return direction * depth;
 }
 
-const glm::vec2 Circle::IntersectRectangle(Rectangle& rectangle) {
+const Vector2<float> Circle::IntersectRectangle(Rectangle& rectangle) {
 	return collision->RectangleIntersectsCircle(rectangle, *this);
 }

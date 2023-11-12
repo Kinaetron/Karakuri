@@ -1,21 +1,20 @@
 #include "collision.h"
 #include <limits>
-#include "../include/glm/gtx/norm.hpp"
 
 
-glm::vec2 Collision::RectangleIntersectsCircle(Rectangle& rectangle, Circle& ciricle)
+Vector2<float> Collision::RectangleIntersectsCircle(Rectangle& rectangle, Circle& ciricle)
 {
-	glm::vec2 vertices[4] =
+	Vector2<float> vertices[4] =
 	{
-		glm::vec2(rectangle.Left(), rectangle.Top()),
-		glm::vec2(rectangle.Right(), rectangle.Top()),
-		glm::vec2(rectangle.Right(), rectangle.Bottom()),
-		glm::vec2(rectangle.Left(), rectangle.Bottom())
+		Vector2<float>(rectangle.Left(), rectangle.Top()),
+		Vector2<float>(rectangle.Right(), rectangle.Top()),
+		Vector2<float>(rectangle.Right(), rectangle.Bottom()),
+		Vector2<float>(rectangle.Left(), rectangle.Bottom())
 	};
 
 	bool isOutside = false;
-	glm::vec2 minCurrentVertex = glm::vec2(0, 0);
-	glm::vec2 minNextVertex = glm::vec2(0, 0);
+	Vector2<float> minCurrentVertex = Vector2<float>::Zero();
+	Vector2<float> minNextVertex = Vector2<float>::Zero();
 	float distanceCircleEdge = std::numeric_limits<float>::lowest();
 	float maxProjection = std::numeric_limits<float>::lowest();
 
@@ -24,11 +23,11 @@ glm::vec2 Collision::RectangleIntersectsCircle(Rectangle& rectangle, Circle& cir
 		int currentVertex = i;
 		int nextVertex = (i + 1) % 4;
 
-		glm::vec2 edge = vertices[nextVertex] - vertices[currentVertex];
-		glm::vec2 normal = this->normal(edge);
+		Vector2<float> edge = vertices[nextVertex] - vertices[currentVertex];
+		Vector2<float> normal = edge.Normal();
 
-		glm::vec2 vertexToCircleCentre = ciricle.Position() - vertices[currentVertex];
-		float projection = glm::dot(vertexToCircleCentre, normal);
+		Vector2<float> vertexToCircleCentre = ciricle.Position() - vertices[currentVertex];
+		float projection = vertexToCircleCentre.Dot(normal);
 
 		if (projection > 0.0f && projection > maxProjection)
 		{
@@ -50,16 +49,16 @@ glm::vec2 Collision::RectangleIntersectsCircle(Rectangle& rectangle, Circle& cir
 
 	if (isOutside)
 	{
-		glm::vec2 v1 = ciricle.Position() - minCurrentVertex;
-		glm::vec2 v2 = minNextVertex - minCurrentVertex;
+		Vector2<float> v1 = ciricle.Position() - minCurrentVertex;
+		Vector2<float> v2 = minNextVertex - minCurrentVertex;
 
-		if (glm::dot(v1, v2) < 0.0f)
+		if (v1.Dot(v2) < 0.0f)
 		{
-			if (glm::length(v1) > ciricle.Radius()) {
-				return glm::vec2(0, 0);
+			if (v1.Length() > ciricle.Radius()) {
+				return Vector2<float>::Zero();
 			}
 			else {
-				return glm::normalize(v1) * (ciricle.Radius() - glm::length(v1));
+				return v1.Normalize() * (ciricle.Radius() - v1.Length());
 			}
 		}
 		else
@@ -67,33 +66,29 @@ glm::vec2 Collision::RectangleIntersectsCircle(Rectangle& rectangle, Circle& cir
 			v1 = ciricle.Position() - minNextVertex;
 			v2 = minCurrentVertex - minNextVertex;
 
-			if (glm::dot(v1, v2) < 0)
+			if (v1.Dot(v2) < 0)
 			{
-				if (glm::length(v1) > ciricle.Radius()) {
-					return glm::vec2(0, 0);
+				if (v1.Length() > ciricle.Radius()) {
+					return Vector2<float>::Zero();
 				}
 				else {
-					return glm::normalize(v1) * (ciricle.Radius() - glm::length(v1));
+					return v1.Normalize() * (ciricle.Radius() - v1.Length());
 				}
 			}
 			else
 			{
 				if (distanceCircleEdge > ciricle.Radius()) {
-					return glm::vec2(0, 0);
+					return Vector2<float>::Zero();
 				}
 				else
 				{
-					glm::vec2 normal = this->normal((minNextVertex - minCurrentVertex));
+					Vector2<float> normal = (minNextVertex - minCurrentVertex).Normal();
 					return normal * (ciricle.Radius() - distanceCircleEdge);
 				}
 			}
 		}
 	}
 
-	glm::vec2 normal = this->normal(minNextVertex - minCurrentVertex);
+	Vector2<float> normal = minNextVertex - minCurrentVertex.Normal();
 	return normal * (ciricle.Radius() - distanceCircleEdge);
-}
-
-glm::vec2 Collision::normal(glm::vec2 vector) {
-	return glm::normalize(glm::vec2(vector.y, -vector.x));
 }
