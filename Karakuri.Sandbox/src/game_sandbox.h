@@ -12,6 +12,7 @@
 #include <vector2.h>
 #include <vector3.h>
 #include <gamepad.h>
+#include <colour.h>
 
 class GameSandbox : public Game
 {
@@ -34,7 +35,7 @@ private:
 	Circle* circle;
 	Rectangle* rectangle;
 
-	Vector3<float> circleColor;
+	Colour circleColor;
 };
 
 #endif

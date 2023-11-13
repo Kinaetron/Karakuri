@@ -47,7 +47,7 @@ void SpriteRenderer::InitalizeRenderData(GraphicsDevice& device)
 	shader->SetMatrix4("projection", projection);
 }
 
-void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Vector2<float> size, float rotate, Vector3<float> color)
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Vector2<float> size, float rotate, Colour colour)
 {
 	this->shader->Use();
 
@@ -63,7 +63,7 @@ void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Vector2<flo
 
 	this->shader->SetMatrix4("model", model);
 
-	this->shader->SetVector3f("spriteColor", color);
+	this->shader->SetVector3f("spriteColor", colour.ToVector3());
 
 	glActiveTexture(GL_TEXTURE0);
 	texture.Bind();

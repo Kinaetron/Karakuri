@@ -166,6 +166,7 @@
     <ClInclude Include="include\api.h" />
     <ClInclude Include="include\buttons.h" />
     <ClInclude Include="include\circle.h" />
+    <ClInclude Include="include\colour.h" />
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\gamepad.h" />
     <ClInclude Include="include\graphics_device.h" />
@@ -185,6 +186,7 @@
   <ItemGroup>
     <ClCompile Include="src\circle.cpp" />
     <ClCompile Include="src\collision.cpp" />
+    <ClCompile Include="src\colour.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\gamepad.cpp" />
     <ClCompile Include="src\glad.c" />

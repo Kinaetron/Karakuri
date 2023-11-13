@@ -1,4 +1,5 @@
 #include "../include/graphics_device.h"
+#include "../include/vector3.h"
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <glad/glad.h>
@@ -55,14 +56,11 @@ GraphicsDevice::GraphicsDevice(std::string title, int width, int height):
 	}
 }
 
-void GraphicsDevice::Clear(unsigned short red, unsigned short green, unsigned short blue, unsigned short alpha)
+void GraphicsDevice::Clear(Colour colour)
 {
-	float r = (float)red / color_range;
-	float g = (float)green/ color_range;
-	float b = (float)blue / color_range;
-	float a = (float)alpha / color_range;
+	Vector3<float> colour_vector = colour.ToVector3();
 
-	glClearColor(r, g, b, a);
+	glClearColor(colour_vector.X, colour_vector.Y, colour_vector.Z, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 

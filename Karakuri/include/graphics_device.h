@@ -3,6 +3,7 @@
 
 #include <string>
 #include "API.h"
+#include "../include/colour.h"
 
 struct SDL_Window;
 
@@ -10,7 +11,7 @@ class KARAKURI_API GraphicsDevice
 {
 public:
 	GraphicsDevice(std::string title, int width, int height);
-	void Clear(unsigned short red, unsigned short green, unsigned short blue, unsigned short alpha);
+	void Clear(Colour colour);
 	void SwapBuffer();
 	void EnableFullScreen(bool state);
 	void EnableVSync(bool state);
