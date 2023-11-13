@@ -12,6 +12,7 @@ GameSandbox::GameSandbox(std::string title, int width, int height)
 	rectangleTexture = new Texture("resources/sprites/luffy.jpg");
 	renderer = new SpriteRenderer(*graphicsDevice);
 	keyboard = new Keyboard();
+	gamepad = new Gamepad(0);
 
 	circle = new Circle(50.0f, position);
 	rectangle = new Rectangle(540.0f, 405.0f, position2);
@@ -29,9 +30,10 @@ void GameSandbox::Update()
 	auto something = Vector2<float>::Zero();
 
 	Game::Update();
+	gamepad->Udpate();
 	keyboard->Update();
 
-	if (keyboard->IsKeyDown(Keys::D)) {
+	/*if (keyboard->IsKeyDown(Keys::D)) {
 		position.X += 0.002f;
 	}
 
@@ -44,6 +46,22 @@ void GameSandbox::Update()
 	}
 
 	if (keyboard->IsKeyDown(Keys::S)) {
+		position.Y += 0.002f;
+	}*/
+
+	if (gamepad->LeftThumbStick(0.2).X > 0.5f) {
+		position.X += 0.002f;
+	}
+
+	if (gamepad->LeftThumbStick(0.2).X < -0.5f) {
+		position.X -= 0.002f;
+	}
+
+	if (gamepad->LeftThumbStick(0.2).Y < -0.5f) {
+		position.Y -= 0.002f;
+	}
+
+	if (gamepad->LeftThumbStick(0.2).Y > 0.5f) {
 		position.Y += 0.002f;
 	}
 

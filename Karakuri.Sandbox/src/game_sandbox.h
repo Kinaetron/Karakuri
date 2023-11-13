@@ -11,6 +11,7 @@
 #include <circle.h>
 #include <vector2.h>
 #include <vector3.h>
+#include <gamepad.h>
 
 class GameSandbox : public Game
 {
@@ -25,6 +26,8 @@ private:
 	Texture* rectangleTexture;
 	SpriteRenderer* renderer;
 	Keyboard* keyboard;
+	Gamepad* gamepad;
+
 	Vector2<float> position;
 	Vector2<float> position2;
 

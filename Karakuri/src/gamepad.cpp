@@ -38,8 +38,8 @@ const double Gamepad::RightTrigger() {
 
 const Vector2<float> Gamepad::LeftThumbStick(double deadzone)
 {
-	double x_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX);
-	double y_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY);
+	float x_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX);
+	float y_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY);
 
 	x_axis = x_axis > 0 ? x_axis / axisLimit : x_axis / negativeAxisLimit;
 	y_axis = y_axis > 0 ? y_axis / axisLimit : y_axis / negativeAxisLimit;
@@ -55,8 +55,8 @@ const Vector2<float> Gamepad::LeftThumbStick(double deadzone)
 
 const Vector2<float> Gamepad::RightThumbStick(double deadzone)
 {
-	double x_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTX);
-	double y_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTY);
+	float x_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTX);
+	float y_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTY);
 
 	x_axis = x_axis > 0 ? x_axis / axisLimit : x_axis / negativeAxisLimit;
 	y_axis = y_axis > 0 ? y_axis / axisLimit : y_axis / negativeAxisLimit;
