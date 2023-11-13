@@ -49,20 +49,24 @@ void GameSandbox::Update()
 		position.Y += 0.002f;
 	}*/
 
-	if (gamepad->LeftThumbStick(0.2).X > 0.5f) {
+	if (gamepad->LeftThumbStick(0.2f).X > 0.5f) {
 		position.X += 0.002f;
 	}
 
-	if (gamepad->LeftThumbStick(0.2).X < -0.5f) {
+	if (gamepad->LeftThumbStick(0.2f).X < -0.5f) {
 		position.X -= 0.002f;
 	}
 
-	if (gamepad->LeftThumbStick(0.2).Y < -0.5f) {
+	if (gamepad->LeftThumbStick(0.2f).Y < -0.5f) {
 		position.Y -= 0.002f;
 	}
 
-	if (gamepad->LeftThumbStick(0.2).Y > 0.5f) {
+	if (gamepad->LeftThumbStick(0.2f).Y > 0.5f) {
 		position.Y += 0.002f;
+	}
+
+	if (gamepad->IsButtonDown(GamePadButtons::DPAD_DOWN)) {
+		gamepad->Vibrate(0.1f, 0.1f, 20);
 	}
 
 	circle->SetPosition(position);
@@ -83,7 +87,7 @@ void GameSandbox::Update()
 void GameSandbox::Draw()
 {
 	Game::Draw();
-	graphicsDevice->Clear(Colour::CornflowerBlue());
+	graphicsDevice->Clear(Colour::Black());
 	renderer->Draw(*circleTexture, circle->Centre(), Vector2<float>(100.0f, 100.0f), 0, circleColor);
 	renderer->Draw(*rectangleTexture, position2, Vector2<float>(540.0f, 405.0f), 0, Colour::White());
 	graphicsDevice->SwapBuffer();

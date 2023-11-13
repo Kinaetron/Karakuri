@@ -12,11 +12,12 @@ public:
 	void Udpate();
 	bool IsButtonDown(GamePadButtons button);
 	bool IsButtonUp(GamePadButtons button);
-	const double LeftTrigger();
-	const double RightTrigger();
-	const Vector2<float> LeftThumbStick(double deadzone);
-	const Vector2<float> RightThumbStick(double deadzone);
+	const float LeftTrigger();
+	const float RightTrigger();
+	const Vector2<float> LeftThumbStick(float deadzone);
+	const Vector2<float> RightThumbStick(float deadzone);
 	const bool IsConnected() { return isConnected; };
+	const void Vibrate(float leftMotor, float rightMotor, int duration);
 
 	friend class Game;
 

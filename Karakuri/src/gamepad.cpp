@@ -29,14 +29,14 @@ bool Gamepad::IsButtonUp(GamePadButtons button) {
 	return !SDL_GameControllerGetButton(controller, (SDL_GameControllerButton)button);
 }
 
-const double Gamepad::LeftTrigger() {
-	return (double)SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT) / axisLimit;
+const float Gamepad::LeftTrigger() {
+	return (float)SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT) / axisLimit;
 }
-const double Gamepad::RightTrigger() {
-	return (double)SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT) / axisLimit;
+const float Gamepad::RightTrigger() {
+	return (float)SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT) / axisLimit;
 }
 
-const Vector2<float> Gamepad::LeftThumbStick(double deadzone)
+const Vector2<float> Gamepad::LeftThumbStick(float deadzone)
 {
 	float x_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX);
 	float y_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY);
@@ -53,7 +53,7 @@ const Vector2<float> Gamepad::LeftThumbStick(double deadzone)
 	return stickInput;
 }
 
-const Vector2<float> Gamepad::RightThumbStick(double deadzone)
+const Vector2<float> Gamepad::RightThumbStick(float deadzone)
 {
 	float x_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTX);
 	float y_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTY);
@@ -68,4 +68,18 @@ const Vector2<float> Gamepad::RightThumbStick(double deadzone)
 	}
 
 	return stickInput;
+}
+
+const void Gamepad::Vibrate(float leftMotor, float rightMotor, int duration)
+{
+	const int limit = 65535;
+
+	uint16_t leftIntensity = (uint16_t)(leftMotor * limit);
+	uint16_t rightIntensity = (uint16_t)(rightMotor * limit);
+
+	SDL_GameControllerRumble(
+		controller, 
+    leftIntensity, 
+   rightIntensity, 
+			duration);
 }
