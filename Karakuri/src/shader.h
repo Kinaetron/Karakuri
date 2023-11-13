@@ -6,6 +6,7 @@
 #include "../include/vector2.h"
 #include "../include/vector3.h"
 #include "../include/matrix.h"
+#include <array>
 
 class Shader
 {
@@ -24,7 +25,7 @@ public:
 
 private:
 	void checkCompilerErrors(GLuint shader, std::string type);
-	GLfloat* TranslateMatrix(Matrix<float> matrix);
+	std::array<GLfloat, 16> TranslateMatrix(Matrix<float> matrix);
 };
 
 #endif

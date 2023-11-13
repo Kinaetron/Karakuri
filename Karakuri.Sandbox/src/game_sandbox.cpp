@@ -9,19 +9,19 @@ GameSandbox::GameSandbox(std::string title, int width, int height)
 	position = Vector2<float>::Zero();
 	position2 = Vector2<float>(500.0f, 500.0f);
 	circleTexture = new Texture("resources/sprites/circle.png");
-	rectangleTexture = new Texture("resources/sprites/rectangle.png");
+	rectangleTexture = new Texture("resources/sprites/luffy.jpg");
 	renderer = new SpriteRenderer(*graphicsDevice);
 	keyboard = new Keyboard();
 
 	circle = new Circle(50.0f, position);
-	rectangle = new Rectangle(100.0f, 100.0f, position2);
+	rectangle = new Rectangle(540.0f, 405.0f, position2);
 	circleColor = Vector3<float>(1.0f, 1.0f, 1.0f);
 }
 
 void GameSandbox::Initialize()
 {
 	Game::Initialize();
-	graphicsDevice->EnableVSync(false);
+	graphicsDevice->EnableVSync(true);
 }
 
 void GameSandbox::Update()
@@ -66,7 +66,7 @@ void GameSandbox::Draw()
 {
 	Game::Draw();
 	graphicsDevice->Clear(0, 0, 0, 0);
-	//renderer->Draw(*circleTexture, circle->Centre(), Vector2<float>(100.0f, 100.0f), 0, circleColor);
-	renderer->Draw(*rectangleTexture, position2, Vector2<float>(100.0f, 100.0f), 0, Vector3<float>(1.0f, 1.0f, 1.0f));
+	renderer->Draw(*circleTexture, circle->Centre(), Vector2<float>(100.0f, 100.0f), 0, circleColor);
+	renderer->Draw(*rectangleTexture, position2, Vector2<float>(540.0f, 405.0f), 0, Vector3<float>(0.0f, 1.0f, 1.0f));
 	graphicsDevice->SwapBuffer();
 }

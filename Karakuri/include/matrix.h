@@ -22,17 +22,45 @@ public:
 		}
 	}
 
-    static Matrix OrthographicProjection(T left, T right, T bottom, T top, T near, T far)
+	Matrix& operator = (const Matrix& matrix)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 4; j++) {
+				M[i][j] = matrix.M[i][j];
+			}
+		}
+
+		return *this;
+	}
+
+	Matrix operator * (const Matrix matrix) const
 	{
 		Matrix result;
 
-		result.M[0][0] = 2.0f / (right - left);
-		result.M[1][1] = 2.0f / (top - bottom);
-		result.M[2][2] = -2.0f / (far - near);
-		result.M[3][0] = -(right + left) / (right - left);
-		result.M[3][1] = -(top + bottom) / (top - bottom);
-		result.M[3][2] = -(far + near) / (far - near);
-		result.M[3][3] = 1.0f;
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 4; j++)
+			{
+				result.M[i][j] = 
+					this->M[i][0] * matrix.M[0][j] +
+					this->M[i][1] * matrix.M[1][j] +
+					this->M[i][2] * matrix.M[2][j] +
+					this->M[i][3] * matrix.M[3][j];
+			}
+		}
+
+		return result;
+	}
+
+    static Matrix OrthographicProjection(T left, T right, T bottom, T top, T near, T far)
+	{
+		Matrix result = Identity();
+
+		result.M[0][0] = 2.0f / (right - left);   result.M[1][0] = 0.0f;                    result.M[2][0] = 0.0f;                    result.M[3][0] = 0.0f;
+		result.M[0][1] = 0.0f;                    result.M[1][1] = 2.0f / (top - bottom);   result.M[2][1] = 0.0f;                    result.M[3][1] = 0.0f;
+		result.M[0][2] = 0.0f;                    result.M[1][2] = 0.0f;                    result.M[2][2] = -2.0f / (far - near); result.M[3][2] = 0.0f;
+		result.M[0][3] = -(right + left) / (right - left); result.M[1][3] = -(top + bottom) / (top - bottom); result.M[2][3] = -(far + near) / (far - near); result.M[3][3] = 1.0f;
 
 		return result;
 	}
@@ -48,35 +76,41 @@ public:
 		return result;
 	}
 
-	Matrix& Translate(Vector3<T> vector)
+	Matrix Translate(Vector3<T> vector)
 	{
-		this->M[0][3] += vector.X;
-		this->M[1][3] += vector.Y;
-		this->M[2][3] += vector.Z;
+		Matrix result = Identity();
 
-		return *this;
+		result.M[0][3] = vector.X;
+		result.M[1][3] = vector.Y;
+		result.M[2][3] = vector.Z;
+
+		return  *this * result;
 	}
 
-	Matrix& Rotate(T angle)
+	Matrix Rotate(T angle)
 	{
+		Matrix result = Identity();
+
 		float c = cos(angle);
 		float s = sin(angle);
 
-		this->M[0][0] = c;
-		this->M[0][1] = -s;
-		this->M[1][0] = s;
-		this->M[1][1] = c;
+		result.M[0][0] = c;
+		result.M[0][1] = -s;
+		result.M[1][0] = s;
+		result.M[1][1] = c;
 
-		return *this;
+		return  *this * result;
 	}
 
-	Matrix& Scale(Vector3<T> vector)
+	Matrix Scale(Vector3<T> vector)
 	{
-		this->M[0][0] = vector.X;
-		this->M[1][1] = vector.Y;
-		this->M[2][2] = vector.Z;
+		Matrix result = Identity();
 
-		return *this;
+		result.M[0][0] = vector.X;
+		result.M[1][1] = vector.Y;
+		result.M[2][2] = vector.Z;
+
+		return  *this * result;
 	}
 };
 

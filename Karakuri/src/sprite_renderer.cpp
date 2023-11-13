@@ -53,13 +53,13 @@ void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Vector2<flo
 
 	Matrix<float> model = Matrix<float>::Identity();
 
-	model.Translate(Vector3<float>(position.X, position.Y, 0.0f));
+	model = model.Translate(Vector3<float>(position.X, position.Y, 0.0f));
 
-	model.Translate((Vector3<float>(size.X, size.Y, 0.0f) * 0.5f));
-	model.Rotate(rotate);
-	model.Translate((Vector3<float>(size.X, size.Y, 0.0f) * -0.5f));
+	model = model.Translate((Vector3<float>(size.X, size.Y, 0.0f) * 0.5f));
+	model = model.Rotate(rotate);
+	model = model.Translate((Vector3<float>(size.X, size.Y, 0.0f) * -0.5f));
 
-	model.Scale(Vector3<float>(size.X, size.Y, 1.0f));
+	model = model.Scale(Vector3<float>(size.X, size.Y, 1.0f));
 
 	this->shader->SetMatrix4("model", model);
 

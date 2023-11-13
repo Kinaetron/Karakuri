@@ -115,13 +115,14 @@ void Shader::SetVector3f(const std::string& name, const Vector3<float>& value) {
     glUniform3f(glGetUniformLocation(this->ID, name.c_str()), value.X, value.Y, value.Z);
 }
 
-void Shader::SetMatrix4(const std::string& name, const Matrix<float>& matrix) {
-    glUniformMatrix4fv(glGetUniformLocation(this->ID, name.c_str()), 1, false, TranslateMatrix(matrix));
+void Shader::SetMatrix4(const std::string& name, const Matrix<float>& matrix) 
+{
+    glUniformMatrix4fv(glGetUniformLocation(this->ID, name.c_str()), 1, false, TranslateMatrix(matrix).data());
 }
 
-GLfloat* Shader::TranslateMatrix(Matrix<float> matrix)
+std::array<GLfloat, 16> Shader::TranslateMatrix(Matrix<float> matrix)
 {
-    GLfloat MArray[16];
+    std::array<GLfloat, 16> MArray;
 
     int index = 0;
     for (int col = 0; col < 4; col++) {
