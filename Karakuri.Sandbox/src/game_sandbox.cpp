@@ -2,6 +2,7 @@
 #include <iostream>
 #include <buttons.h>
 #include <keys.h>
+#include <matrix.h>
 
 GameSandbox::GameSandbox(std::string title, int width, int height)
 	:Game(title, width, height)
@@ -22,7 +23,7 @@ GameSandbox::GameSandbox(std::string title, int width, int height)
 void GameSandbox::Initialize()
 {
 	Game::Initialize();
-	graphicsDevice->EnableVSync(true);
+	graphicsDevice->EnableVSync(false);
 }
 
 void GameSandbox::Update()
@@ -66,7 +67,7 @@ void GameSandbox::Update()
 	}
 
 	if (gamepad->IsButtonDown(GamePadButtons::DPAD_DOWN)) {
-		gamepad->Vibrate(0.1f, 0.1f, 20);
+		gamepad->Vibrate(0.1f, 0.1f, 5000);
 	}
 
 	circle->SetPosition(position);
@@ -88,7 +89,7 @@ void GameSandbox::Draw()
 {
 	Game::Draw();
 	graphicsDevice->Clear(Colour::Black());
-	renderer->Draw(*circleTexture, circle->Centre(), Vector2<float>(100.0f, 100.0f), 0, circleColor);
-	renderer->Draw(*rectangleTexture, position2, Vector2<float>(540.0f, 405.0f), 0, Colour::White());
+    renderer->Draw(*circleTexture, circle->Centre(), Rectangle(100.0f, 100.0f, Vector2<float>::Zero()), Vector2<float>(100.0f, 100.0f), 0, circleColor, Matrix<float>::Identity());
+	renderer->Draw(*rectangleTexture, position2, Rectangle(540.0f, 405.0f, Vector2<float>::Zero()), Vector2<float>(540.0f, 405.0f), 0, Colour::White(), Matrix<float>::Identity());
 	graphicsDevice->SwapBuffer();
 }
