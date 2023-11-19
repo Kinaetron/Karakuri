@@ -71,20 +71,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\..\SDL2\include;..\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\SDL2\lib\$(PlatformShortName);$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\SDL2_mixer\include;..\..\SDL2\include;..\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\SDL2_mixer\lib\$(PlatformShortName);..\..\SDL2\lib\$(PlatformShortName);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>..\..\SDL2\include;..\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\SDL2\lib\$(PlatformShortName);$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\SDL2_mixer\include;..\..\SDL2\include;..\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\SDL2_mixer\lib\$(PlatformShortName);..\..\SDL2\lib\$(PlatformShortName);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\..\SDL2\include;..\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\SDL2\lib\$(PlatformShortName);$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\SDL2_mixer\include;..\..\SDL2\include;..\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\SDL2_mixer\lib\$(PlatformShortName);..\..\SDL2\lib\$(PlatformShortName);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>..\..\SDL2\include;..\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\SDL2\lib\$(PlatformShortName);$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\SDL2_mixer\include;..\..\SDL2\include;..\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\SDL2_mixer\lib\$(PlatformShortName);..\..\SDL2\lib\$(PlatformShortName);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -97,7 +97,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)..\shaders\*" "$(TargetDir)shaders\" /S /Y</Command>
@@ -118,7 +118,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)..\shaders\*" "$(TargetDir)shaders\" /S /Y</Command>
@@ -135,7 +135,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)..\shaders\*" "$(TargetDir)shaders\" /S /Y</Command>
@@ -156,13 +156,14 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)..\shaders\*" "$(TargetDir)shaders\" /S /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\include\song.cpp" />
     <ClCompile Include="..\src\circle.cpp" />
     <ClCompile Include="..\src\collision.cpp" />
     <ClCompile Include="..\src\colour.cpp" />
@@ -174,6 +175,7 @@
     <ClCompile Include="..\src\mouse.cpp" />
     <ClCompile Include="..\src\rectangle.cpp" />
     <ClCompile Include="..\src\shader.cpp" />
+    <ClCompile Include="..\src\sound_effect.cpp" />
     <ClCompile Include="..\src\sprite_renderer.cpp" />
     <ClCompile Include="..\src\stb_image.cpp" />
     <ClCompile Include="..\src\texture.cpp" />
@@ -191,6 +193,8 @@
     <ClInclude Include="..\include\matrix.h" />
     <ClInclude Include="..\include\mouse.h" />
     <ClInclude Include="..\include\rectangle.h" />
+    <ClInclude Include="..\include\song.h" />
+    <ClInclude Include="..\include\sound_effect.h" />
     <ClInclude Include="..\include\sprite_renderer.h" />
     <ClInclude Include="..\include\texture.h" />
     <ClInclude Include="..\include\vector2.h" />

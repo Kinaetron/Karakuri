@@ -1,6 +1,7 @@
 #include <game.h>
 #include <SDL.h>
 #include <iostream>
+#include <SDL_mixer.h>
 
 #include "../include/gamepad.h"
 
@@ -12,6 +13,18 @@ Game::Game(std::string title, int width, int height)
 	 TARGET_FRAME_TIME(1.0 / TARGET_FRAME_RATE)
 {
 	graphicsDevice = new GraphicsDevice(title, width, height);
+
+	if (SDL_Init(SDL_INIT_AUDIO) < 0)
+	{
+		std::cerr << "SDL sound initialization failed" << SDL_GetError() << std::endl;
+		return;
+	}
+
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+	{
+		std::cerr << "SDL open audio initalization failed" << SDL_GetError() << std::endl;
+		return;
+	}
 
 	if (SDL_Init(SDL_INIT_GAMECONTROLLER) < 0) {
 		std::cerr << "SDL game pad initalization failed" << SDL_GetError() << std::endl;

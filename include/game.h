@@ -25,5 +25,4 @@ private:
 	const std::int64_t TARGET_FRAME_RATE;
 	const double TARGET_FRAME_TIME;
 };
-
 #endif
