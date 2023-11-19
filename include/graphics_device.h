@@ -10,7 +10,7 @@ struct SDL_Window;
 class KARAKURI_API GraphicsDevice
 {
 public:
-	GraphicsDevice(std::string title, int width, int height);
+	GraphicsDevice(std::string title, int width, int height, int scale);
 	void Clear(Colour colour);
 	void SwapBuffer();
 	void EnableFullScreen(bool state);
@@ -20,6 +20,7 @@ public:
 
 private:
 	const float color_range;
+	const int scale;
 	const int width;
 	const int height;
 	SDL_Window* window;

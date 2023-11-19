@@ -5,10 +5,11 @@
 #include <SDL.h>
 #include "glad.h"
 
-GraphicsDevice::GraphicsDevice(std::string title, int width, int height):
+GraphicsDevice::GraphicsDevice(std::string title, int width, int height, int scale):
 	color_range(255.0f),
 	width(width),
 	height(height),
+	scale(scale),
 	window(NULL)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) 
@@ -25,8 +26,8 @@ GraphicsDevice::GraphicsDevice(std::string title, int width, int height):
 		title.c_str(),
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		width,
-		height,
+		width * scale,
+		height * scale,
 		SDL_WINDOW_OPENGL
 	);
 
@@ -55,6 +56,31 @@ GraphicsDevice::GraphicsDevice(std::string title, int width, int height):
 		std::cerr << "OpenGL 4.0 is not supported on this system" << std::endl;
 		return;
 	}
+
+	GLuint framebuffer;
+	glGenFramebuffers(1, &framebuffer);
+	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+
+	GLuint texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) 
+	{
+		std::cerr << "Framebuffer creation failed!" << std::endl;
+		return;
+	}
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	glViewport(0, 0, width * scale, height * scale);
 }
 
 void GraphicsDevice::Clear(Colour colour)

@@ -5,14 +5,14 @@
 
 #include "../include/gamepad.h"
 
-Game::Game(std::string title, int width, int height)
+Game::Game(std::string title, int width, int height, int scale)
 	:oldTime(0), 
 	 deltaTime(0), 
 	 accumlator(0),
 	 TARGET_FRAME_RATE(60),
 	 TARGET_FRAME_TIME(1.0 / TARGET_FRAME_RATE)
 {
-	graphicsDevice = new GraphicsDevice(title, width, height);
+	graphicsDevice = new GraphicsDevice(title, width, height, scale);
 
 	if (SDL_Init(SDL_INIT_AUDIO) < 0)
 	{

@@ -9,7 +9,7 @@
 class KARAKURI_API Game
 {
 public:
-	Game(std::string title, int width, int height);
+	Game(std::string title, int width, int height, int scale);
 	virtual void Initialize();
 	virtual void Update();
 	virtual void Draw();
