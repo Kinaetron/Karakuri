@@ -163,7 +163,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\include\song.cpp" />
     <ClCompile Include="..\src\circle.cpp" />
     <ClCompile Include="..\src\collision.cpp" />
     <ClCompile Include="..\src\colour.cpp" />
@@ -175,6 +174,7 @@
     <ClCompile Include="..\src\mouse.cpp" />
     <ClCompile Include="..\src\rectangle.cpp" />
     <ClCompile Include="..\src\shader.cpp" />
+    <ClCompile Include="..\src\song.cpp" />
     <ClCompile Include="..\src\sound_effect.cpp" />
     <ClCompile Include="..\src\sprite_renderer.cpp" />
     <ClCompile Include="..\src\stb_image.cpp" />
@@ -188,6 +188,7 @@
     <ClInclude Include="..\include\game.h" />
     <ClInclude Include="..\include\gamepad.h" />
     <ClInclude Include="..\include\graphics_device.h" />
+    <ClInclude Include="..\include\karakuri.h" />
     <ClInclude Include="..\include\keyboard.h" />
     <ClInclude Include="..\include\keys.h" />
     <ClInclude Include="..\include\matrix.h" />
