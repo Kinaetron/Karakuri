@@ -13,7 +13,7 @@ class Shader
 public:
 	unsigned int ID;
 
-	Shader(const std::string& vertexFilePath, const std::string& fragmentFilePath);
+	Shader(const std::string& vertexCode, const std::string& fragmentCode);
 	void Use();
 	void SetFloat(const std::string& name, float value);
 	void SetInteger(const std::string& name, int value);

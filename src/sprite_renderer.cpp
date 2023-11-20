@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "glad.h"
 
 #include <sprite_renderer.h>
@@ -13,10 +14,42 @@ SpriteRenderer::SpriteRenderer(GraphicsDevice& device)
 
 void SpriteRenderer::InitalizeRenderData(GraphicsDevice& device)
 {
+	std::string vertexShader = R"(
+		#version 400 core
+		layout (location = 0) in vec4 vertex;
+
+		out vec2 TexCoords;
+
+		uniform mat4 model;
+		uniform mat4 camera;
+		uniform mat4 projection;
+
+		void main()
+		{
+			TexCoords = vertex.zw;
+			gl_Position = projection * camera * model * vec4(vertex.xy, 0.0, 1.0);
+		}
+	)";
+
+	std::string fragmentShader = R"(
+		#version 400 core
+		in vec2 TexCoords;
+		out vec4 color;
+
+		uniform sampler2D image;
+		uniform vec3 spriteColor;
+
+		void main()
+		{
+			color = vec4(spriteColor, 1.0) * texture(image, TexCoords);
+			if (color.a < 0.5) discard;
+		}
+	)";
+
 	Matrix<float> projection =  Matrix<float>::OrthographicProjection(0, static_cast<float>(device.WindowWidth()),
 		static_cast<float>(device.WindowHeight()), 0.0f, -1.0f, 1.0f);
 
-	shader = new Shader("shaders/sprite.vert", "shaders/sprite.frag");
+	shader = new Shader(vertexShader, fragmentShader);
 
 	shader->Use();
 	shader->SetInteger("image", 0);
