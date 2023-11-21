@@ -83,7 +83,7 @@ GraphicsDevice::GraphicsDevice(const std::string& title, int width, int height, 
 	glViewport(0, 0, width * scale, height * scale);
 }
 
-void GraphicsDevice::Clear(const Colour colour)
+void GraphicsDevice::Clear(const Colour& colour)
 {
 	Vector3<float> colour_vector = colour.ToVector3();
 

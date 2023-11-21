@@ -14,8 +14,8 @@ public:
 	bool IsButtonUp(GamePadButtons button);
 	const float LeftTrigger();
 	const float RightTrigger();
-	const Vector2<float> LeftThumbStick(const float deadzone);
-	const Vector2<float> RightThumbStick(const float deadzone);
+	const Vector2<float> LeftThumbStick(float deadzone);
+	const Vector2<float> RightThumbStick(float deadzone);
 	const bool IsConnected() { return isConnected; };
 	const void Vibrate(float leftMotor, float rightMotor, int duration);
 
