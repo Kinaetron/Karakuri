@@ -19,5 +19,6 @@
 #include "texture.h"
 #include "vector2.h"
 #include "vector3.h"
+#include "collision.h"
 
 #endif // !KARAKURI_H

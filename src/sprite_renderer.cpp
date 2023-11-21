@@ -7,12 +7,12 @@
 #include <vector2.h>
 #include "shader.h"
 
-SpriteRenderer::SpriteRenderer(GraphicsDevice& device)
+SpriteRenderer::SpriteRenderer(const GraphicsDevice& device)
 {
 	InitalizeRenderData(device);
 }
 
-void SpriteRenderer::InitalizeRenderData(GraphicsDevice& device)
+void SpriteRenderer::InitalizeRenderData(const GraphicsDevice& device)
 {
 	std::string vertexShader = R"(
 		#version 400 core

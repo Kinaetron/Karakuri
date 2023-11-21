@@ -4,8 +4,6 @@
 #include "api.h"
 #include<vector2.h>
 
-class Circle;
-
 class KARAKURI_API Rectangle
 {
 public:
@@ -19,13 +17,10 @@ public:
 	const float Bottom() const { return position.Y + height; }
 	const Vector2<float> Centre() const { return Vector2<float>(position.X + (width / 2.0), position.Y + (height / 2.0)); }
 	void SetPostion(Vector2<float> position) { this->position = position; }
-	const Vector2<float> IntersectsRectangle(Rectangle& rectangle);
-	const Vector2<float> IntersectsCircle(Circle& circle);
 
 private:
 	float width;
 	float height;
 	Vector2<float> position;
-	class Collision* collision;
 };
 #endif

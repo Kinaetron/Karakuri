@@ -3,7 +3,7 @@
 #include <SDL.h>
 
 Keyboard::Keyboard():
-	keyboardState(NULL)
+	keyboardState(nullptr)
 {
 }
 
@@ -17,4 +17,8 @@ const bool Keyboard::IsKeyDown(Keys key) const {
 
 const bool Keyboard::IsKeyUp(Keys key) const {
 	return !keyboardState[(uint8_t)key];
+}
+
+Keyboard::~Keyboard() {
+	delete[] keyboardState;
 }

@@ -76,7 +76,7 @@ void Shader::SetVector2f(const std::string& name, float x, float y) {
     glUniform2f(glGetUniformLocation(this->ID, name.c_str()), x, y);
 }
 
-void Shader::SetVector2f(const std::string& name, const Vector2<float>& value) {
+void Shader::SetVector2f(const std::string& name, Vector2<float> value) {
     glUniform2f(glGetUniformLocation(this->ID, name.c_str()), value.X, value.Y);
 }
 
@@ -84,11 +84,11 @@ void Shader::SetVector3f(const std::string& name, float x, float y, float z) {
     glUniform3f(glGetUniformLocation(this->ID, name.c_str()), x, y, z);
 }
 
-void Shader::SetVector3f(const std::string& name, const Vector3<float>& value) {
+void Shader::SetVector3f(const std::string& name, Vector3<float> value) {
     glUniform3f(glGetUniformLocation(this->ID, name.c_str()), value.X, value.Y, value.Z);
 }
 
-void Shader::SetMatrix4(const std::string& name, const Matrix<float>& matrix) 
+void Shader::SetMatrix4(const std::string& name, Matrix<float> matrix) 
 {
     glUniformMatrix4fv(glGetUniformLocation(this->ID, name.c_str()), 1, false, TranslateMatrix(matrix).data());
 }
@@ -105,4 +105,8 @@ std::array<GLfloat, 16> Shader::TranslateMatrix(Matrix<float> matrix)
     }
 
     return MArray;
+}
+
+Shader::~Shader()
+{
 }

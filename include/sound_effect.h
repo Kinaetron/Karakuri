@@ -7,7 +7,7 @@
 class KARAKURI_API SoundEffect
 {
 public:
-	SoundEffect(std::string filePath);
+	SoundEffect(const std::string& filePath);
 	void Play();
 	void Loop(bool loop);
 	void Volume(float volume);

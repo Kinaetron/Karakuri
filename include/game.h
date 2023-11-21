@@ -5,18 +5,19 @@
 #include <cstdint>
 #include "graphics_device.h"
 #include "api.h"
+#include <memory>
 
 class KARAKURI_API Game
 {
 public:
-	Game(std::string title, int width, int height, int scale);
+	Game(const std::string& title, int width, int height, int scale);
 	virtual void Initialize();
 	virtual void Update();
 	virtual void Draw();
 	void Run();
 	void Quit();
 
-	GraphicsDevice* graphicsDevice;
+	std::unique_ptr<GraphicsDevice> graphicsDevice;
 
 private:
 	std::int64_t oldTime;

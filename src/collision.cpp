@@ -1,8 +1,51 @@
 #include "collision.h"
 #include <limits>
 
+Vector2<float> Collision::CirlcleIntersectsCircle(const Circle& circle1, const Circle& circle2)
+{
+	float radisSum = circle1.Radius() + circle2.Radius();
+	Vector2<float> distanceVector = circle1.Position() - circle2.Position();
 
-Vector2<float> Collision::RectangleIntersectsCircle(Rectangle& rectangle, Circle& ciricle)
+	float distance = distanceVector.Length();
+
+	if (distance > radisSum) {
+		return Vector2<float>::Zero();
+	}
+
+	float depth = radisSum - distance;
+	Vector2<float> direction = (circle1.Position() - circle2.Position()).Normalize();
+
+	return direction * depth;
+}
+
+Vector2<float> Collision::RectangleIntersectRectangle(const Rectangle& rectangle1, const Rectangle& rectangle2)
+{
+	float halfWidthA = rectangle1.Width() / 2.0f;
+	float halfHeightA = rectangle2.Height() / 2.0f;
+
+	float halfWidthB = rectangle2.Width() / 2.0f;
+	float halfHeightB = rectangle2.Height() / 2.0f;
+
+	Vector2<float> centreA = Vector2<float>(rectangle1.Left() + halfWidthA, rectangle1.Top() + halfHeightA);
+	Vector2<float> centreB = Vector2<float>(rectangle2.Left() + halfWidthB, rectangle2.Top() + halfHeightB);
+
+	float distanceX = centreA.X - centreB.X;
+	float distanceY = centreA.Y - centreB.Y;
+
+	float minDistanceX = halfWidthA + halfWidthB;
+	float minDistanceY = halfHeightA + halfHeightB;
+
+	if (std::abs(distanceX) >= minDistanceX || std::abs(distanceY) >= minDistanceY) {
+		return Vector2<float>::Zero();
+	}
+
+	float depthX = distanceX > 0.0 ? minDistanceX - distanceX : -minDistanceX - distanceX;
+	float depthY = distanceY > 0.0 ? minDistanceY - distanceY : -minDistanceY - distanceY;
+
+	return Vector2<float>(depthX, depthY);
+}
+
+Vector2<float> Collision::RectangleIntersectsCircle(const Circle& ciricle, const Rectangle& rectangle)
 {
 	Vector2<float> vertices[4] =
 	{

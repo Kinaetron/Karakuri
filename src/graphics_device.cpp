@@ -5,12 +5,12 @@
 #include <SDL.h>
 #include "glad.h"
 
-GraphicsDevice::GraphicsDevice(std::string title, int width, int height, int scale):
+GraphicsDevice::GraphicsDevice(const std::string& title, int width, int height, int scale):
 	color_range(255.0f),
 	width(width),
 	height(height),
 	scale(scale),
-	window(NULL)
+	window(nullptr)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) 
 	{
@@ -83,7 +83,7 @@ GraphicsDevice::GraphicsDevice(std::string title, int width, int height, int sca
 	glViewport(0, 0, width * scale, height * scale);
 }
 
-void GraphicsDevice::Clear(Colour colour)
+void GraphicsDevice::Clear(const Colour colour)
 {
 	Vector3<float> colour_vector = colour.ToVector3();
 
@@ -103,4 +103,8 @@ void GraphicsDevice::EnableFullScreen(bool state) {
 
 void GraphicsDevice::EnableVSync(bool state) {
 	SDL_GL_SetSwapInterval(state);
+}
+
+GraphicsDevice::~GraphicsDevice() {
+	SDL_DestroyWindow(window);
 }

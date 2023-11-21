@@ -9,16 +9,18 @@
 #include <matrix.h>
 #include <rectangle.h>
 
+class Shader;
+
 class KARAKURI_API SpriteRenderer
 {
 public:
-	SpriteRenderer(GraphicsDevice& device);
-	void Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Vector2<float> size, float rotate, Colour color, Matrix<float> camera);
+	SpriteRenderer(const GraphicsDevice& device);
+	void Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Vector2<float> size, float rotate, Colour colour, Matrix<float> camera);
 
 private:
-	void InitalizeRenderData(GraphicsDevice& device);
+	void InitalizeRenderData(const GraphicsDevice& device);
 
-	class Shader* shader;
+	Shader* shader;
 	unsigned int quadVAO;
 };
 

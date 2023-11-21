@@ -9,6 +9,7 @@ class KARAKURI_API Keyboard
 {
 public:
 	Keyboard();
+	~Keyboard();
 	void Update();
 	const bool IsKeyDown(Keys key) const;
 	const bool IsKeyUp(Keys key) const;

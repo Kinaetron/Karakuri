@@ -4,7 +4,7 @@
 
 Mix_Chunk* soundEffect;
 
-SoundEffect::SoundEffect(std::string filePath):
+SoundEffect::SoundEffect(const std::string& filePath):
 	isLooping(false),
 	volume(1.0f),
 	channel(-1)

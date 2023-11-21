@@ -188,6 +188,7 @@
     <ClInclude Include="..\include\api.h" />
     <ClInclude Include="..\include\buttons.h" />
     <ClInclude Include="..\include\circle.h" />
+    <ClInclude Include="..\include\collision.h" />
     <ClInclude Include="..\include\colour.h" />
     <ClInclude Include="..\include\game.h" />
     <ClInclude Include="..\include\gamepad.h" />
@@ -204,7 +205,6 @@
     <ClInclude Include="..\include\texture.h" />
     <ClInclude Include="..\include\vector2.h" />
     <ClInclude Include="..\include\vector3.h" />
-    <ClInclude Include="..\src\collision.h" />
     <ClInclude Include="..\src\glad.h" />
     <ClInclude Include="..\src\khrplatform.h" />
     <ClInclude Include="..\src\shader.h" />
