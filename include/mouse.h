@@ -14,10 +14,12 @@ public:
 	void Update();
 	const bool IsButtonUp(MouseButtons button);
 	const bool IsButtonDown(MouseButtons button);
+	const bool IsButtonPressed(MouseButtons button);
 	const Vector2<int> Position() { return position; };
 
 private:
 	Vector2<int> position;
 	uint32_t mouseState;
+	uint32_t oldMouseState;
 };
 #endif

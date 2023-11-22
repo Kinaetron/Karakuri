@@ -56,6 +56,23 @@ void SpriteRenderer::InitalizeRenderData(const GraphicsDevice& device)
 	shader->SetMatrix4("projection", projection);
 }
 
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position) {
+	this->Draw(texture, position, Colour::White());
+}
+
+
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Colour colour) {
+	this->Draw(texture, position, 0, colour);
+}
+
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, float rotate, Colour colour)
+{
+	Vector2<float> size = Vector2(static_cast<float>(texture.Width()), static_cast<float>(texture.Height()));
+	Rectangle draw_area = Rectangle(texture.Width(), texture.Height(), Vector2<float>::Zero());
+
+	this->Draw(texture, position, draw_area, size, rotate, colour, Matrix<float>::Identity());
+}
+
 void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Vector2<float> size, float rotate, Colour colour, Matrix<float> camera)
 {
 	float left_texture_coordinate = draw_area.Left() / (float)texture.Width();

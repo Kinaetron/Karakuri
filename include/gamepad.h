@@ -4,14 +4,16 @@
 #include "api.h"
 #include "buttons.h"
 #include "vector2.h"
+#include <array>
 
 class KARAKURI_API Gamepad
 {
 public:
 	Gamepad(int index);
 	void Udpate();
-	bool IsButtonDown(GamePadButtons button);
-	bool IsButtonUp(GamePadButtons button);
+	const bool IsButtonDown(GamePadButtons button);
+	const bool IsButtonUp(GamePadButtons button);
+	const bool IsButtonPressed(GamePadButtons button);
 	const float LeftTrigger();
 	const float RightTrigger();
 	const Vector2<float> LeftThumbStick(float deadzone);
@@ -23,6 +25,8 @@ public:
 
 private:
 	int index;
+	std::array<uint8_t, 21> gamePadState;
+	std::array<uint8_t, 21> oldGamePadState;
 	bool isConnected;
 	const int axisLimit;
 	const int negativeAxisLimit;

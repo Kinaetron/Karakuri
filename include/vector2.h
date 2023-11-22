@@ -2,7 +2,7 @@
 #define VECTOR2_H
 
 #include "api.h"
-#include <math.h>
+#include <cmath>
 #include <type_traits>
 
 template <typename T, typename = std::enable_if_t<std::is_arithmetic_v<T>>>
@@ -114,7 +114,7 @@ public:
 	}
 
 	T Length() const {
-		return sqrt(X * X + Y * Y);
+		return static_cast<T>(std::sqrt(X * X + Y * Y));
 	}
 
 	Vector2& Normalize()

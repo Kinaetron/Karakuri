@@ -11,29 +11,47 @@ Gamepad::Gamepad(int index):
 	isConnected(false),
 	axisLimit(32767),
 	negativeAxisLimit(32768)
-
 {
+	std::fill(gamePadState.begin(), gamePadState.end(), 0);
+	std::fill(oldGamePadState.begin(), oldGamePadState.begin(), 0);
 }
 
 void Gamepad::Udpate()
 {
 	controller = SDL_GameControllerOpen(index);
 	isConnected = !controller == NULL;
+
+	if (isConnected)
+	{
+		oldGamePadState = gamePadState;
+
+		for (uint8_t button = 0; button < SDL_CONTROLLER_BUTTON_MAX; ++button) 
+		{
+			uint8_t buttonState = SDL_GameControllerGetButton(controller, (SDL_GameControllerButton)button);
+			gamePadState[button] = buttonState;
+		}
+	}
 }
 
-bool Gamepad::IsButtonDown(GamePadButtons button) {
-	return SDL_GameControllerGetButton(controller, (SDL_GameControllerButton)button);
+const bool Gamepad::IsButtonDown(GamePadButtons button)  {
+	return gamePadState[(uint8_t)button] != 0;
 }
 
-bool Gamepad::IsButtonUp(GamePadButtons button) {
-	return !SDL_GameControllerGetButton(controller, (SDL_GameControllerButton)button);
+const bool Gamepad::IsButtonUp(GamePadButtons button)  {
+	return gamePadState[(uint8_t)button] == 0;
+}
+
+const bool Gamepad::IsButtonPressed(GamePadButtons button)
+{
+	return	gamePadState[(uint8_t)button] == 1 && 
+		    oldGamePadState[(uint8_t)button] == 0;
 }
 
 const float Gamepad::LeftTrigger() {
-	return (float)SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT) / axisLimit;
+	return static_cast<float>(SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT) / axisLimit);
 }
 const float Gamepad::RightTrigger() {
-	return (float)SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT) / axisLimit;
+	return static_cast<float>(SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT) / axisLimit);
 }
 
 const Vector2<float> Gamepad::LeftThumbStick(float deadzone)
@@ -74,8 +92,8 @@ const void Gamepad::Vibrate(float leftMotor, float rightMotor, int duration)
 {
 	const int limit = 65535;
 
-	uint16_t leftIntensity = (uint16_t)(leftMotor * limit);
-	uint16_t rightIntensity = (uint16_t)(rightMotor * limit);
+	uint16_t leftIntensity = static_cast<uint16_t>(leftMotor * limit);
+	uint16_t rightIntensity = static_cast<uint16_t>(rightMotor * limit);
 
 	SDL_GameControllerRumble(
 		controller, 
