@@ -28,7 +28,7 @@ public:
 private:
 	void InitalizeRenderData(const GraphicsDevice& device);
 
-	Shader* shader;
+	Shader* shader = nullptr;
 	unsigned int quadVAO = 0;
 };
 

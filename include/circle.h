@@ -3,7 +3,6 @@
 
 #include "api.h"
 #include "vector2.h"
-#include <memory>
 
 class KARAKURI_API Circle
 {
