@@ -13,8 +13,12 @@ class Shader
 public:
 	unsigned int ID;
 
+	Shader() = default;
+	Shader(const Shader& that) = default;
+	Shader(Shader&& that) = default;
+	Shader& operator=(const Shader& rhs) = default;
+	Shader& operator=(Shader&& rhs) = default;
 	Shader(const std::string& vertexCode, const std::string& fragmentCode);
-	~Shader();
 	void Use();
 	void SetFloat(const std::string& name, float value);
 	void SetInteger(const std::string& name, int value);

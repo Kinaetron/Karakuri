@@ -10,20 +10,25 @@ struct SDL_Window;
 class KARAKURI_API GraphicsDevice
 {
 public:
+	GraphicsDevice() = default;
+	GraphicsDevice(const GraphicsDevice& that) = default;
+	GraphicsDevice(GraphicsDevice&& that) = default;
+	GraphicsDevice& operator=(const GraphicsDevice& rhs) = default;
+	GraphicsDevice& operator=(GraphicsDevice&& rhs) = default;
 	GraphicsDevice(const std::string& title, int width, int height, int scale);
-	~GraphicsDevice();
 	void Clear(const Colour& colour);
 	void SwapBuffer();
 	void EnableFullScreen(bool state);
 	void EnableVSync(bool state);
 	const int WindowWidth() const { return width; }
 	const int WindowHeight() const { return height; }
+	void Destroy();
 
 private:
-	const float color_range;
-	const int scale;
-	const int width;
-	const int height;
-	SDL_Window* window;
+	float color_range = 0;
+	int scale = 0;
+	int width = 0;
+	int height = 0;
+	SDL_Window* window = NULL;
 };
 #endif

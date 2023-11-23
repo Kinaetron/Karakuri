@@ -2,12 +2,6 @@
 #include <iostream>
 #include <SDL.h>
 
-Keyboard::Keyboard()
-{
-	std::fill(keyboardState.begin(), keyboardState.end(), 0);
-	std::fill(oldKeyboardState.begin(), oldKeyboardState.begin(), 0);
-}
-
 void Keyboard::Update() 
 {
 	oldKeyboardState = keyboardState;

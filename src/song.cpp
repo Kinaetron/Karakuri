@@ -28,7 +28,7 @@ void Song::Loop(bool loop) {
 void Song::Volume(float volume) 
 {
 	this->volume = volume;
-	Mix_VolumeMusic(this->volume * 128);
+	Mix_VolumeMusic(static_cast<int>(this->volume * 128.0f));
 }
 
 void Song::Pause() {

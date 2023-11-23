@@ -10,6 +10,10 @@
 class KARAKURI_API Game
 {
 public:
+	Game() = default;
+	Game(const Game& that) = default;
+	Game(Game&& that) = default;
+	Game& operator=(const Game& rhs) = default;
 	Game(const std::string& title, int width, int height, int scale);
 	virtual void Initialize();
 	virtual void Update();
@@ -17,13 +21,13 @@ public:
 	void Run();
 	void Quit();
 
-	std::unique_ptr<GraphicsDevice> graphicsDevice;
+	GraphicsDevice graphicsDevice;
 
 private:
-	std::int64_t oldTime;
-	std::int64_t deltaTime;
-	double accumlator;
-	const std::int64_t TARGET_FRAME_RATE;
-	const double TARGET_FRAME_TIME;
+	std::int64_t oldTime = 0;
+	std::int64_t deltaTime = 0;
+	double accumlator = 0.0;
+	const std::int64_t TARGET_FRAME_RATE = 0;
+	const double TARGET_FRAME_TIME = 0.0;
 };
 #endif

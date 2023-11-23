@@ -9,6 +9,10 @@
 class KARAKURI_API Gamepad
 {
 public:
+	Gamepad() = default;
+	Gamepad(const Gamepad& that) = default;
+	Gamepad(Gamepad&& that) = default;
+	Gamepad& operator=(const Gamepad& rhs) = default;
 	Gamepad(int index);
 	void Udpate();
 	const bool IsButtonDown(GamePadButtons button);
@@ -24,12 +28,12 @@ public:
 	friend class Game;
 
 private:
-	int index;
-	std::array<uint8_t, 21> gamePadState;
-	std::array<uint8_t, 21> oldGamePadState;
-	bool isConnected;
-	const int axisLimit;
-	const int negativeAxisLimit;
+	int index = 0;
+	std::array<uint8_t, 21> gamePadState {};
+	std::array<uint8_t, 21> oldGamePadState {};
+	bool isConnected = false;
+	const int axisLimit = 0;
+	const int negativeAxisLimit = 0;
 };
 
 #endif

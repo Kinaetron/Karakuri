@@ -105,6 +105,6 @@ void GraphicsDevice::EnableVSync(bool state) {
 	SDL_GL_SetSwapInterval(state);
 }
 
-GraphicsDevice::~GraphicsDevice() {
+void GraphicsDevice::Destroy() {
 	SDL_DestroyWindow(window);
 }

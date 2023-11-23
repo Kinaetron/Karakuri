@@ -68,7 +68,7 @@ void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Colour colo
 void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, float rotate, Colour colour)
 {
 	Vector2<float> size = Vector2(static_cast<float>(texture.Width()), static_cast<float>(texture.Height()));
-	Rectangle draw_area = Rectangle(texture.Width(), texture.Height(), Vector2<float>::Zero());
+	Rectangle draw_area = Rectangle(size.X, size.Y, Vector2<float>::Zero());
 
 	this->Draw(texture, position, draw_area, size, rotate, colour, Matrix<float>::Identity());
 }

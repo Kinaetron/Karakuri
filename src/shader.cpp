@@ -106,7 +106,3 @@ std::array<GLfloat, 16> Shader::TranslateMatrix(Matrix<float> matrix)
 
     return MArray;
 }
-
-Shader::~Shader()
-{
-}

@@ -10,10 +10,9 @@ Game::Game(const std::string& title, int width, int height, int scale)
 	 deltaTime(0), 
 	 accumlator(0),
 	 TARGET_FRAME_RATE(60),
-	 TARGET_FRAME_TIME(1.0 / TARGET_FRAME_RATE)
+	 TARGET_FRAME_TIME(1.0 / TARGET_FRAME_RATE),
+	 graphicsDevice(title, width, height, scale)
 {
-	graphicsDevice = std::make_unique<GraphicsDevice>(title, width, height, scale);
-
 	if (SDL_Init(SDL_INIT_AUDIO) < 0)
 	{
 		std::cerr << "SDL sound initialization failed" << SDL_GetError() << std::endl;
@@ -72,6 +71,8 @@ void Game::Run()
 	}
 }
 
-void Game::Quit() {
+void Game::Quit() 
+{
+	graphicsDevice.Destroy();
 	SDL_Quit();
 }

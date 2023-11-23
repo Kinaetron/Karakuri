@@ -29,7 +29,7 @@ void SoundEffect::Loop(bool loop) {
 }
 
 void SoundEffect::Volume(float volume) {
-	Mix_VolumeChunk(soundEffect, volume * 128);
+	Mix_VolumeChunk(soundEffect, static_cast<int>(volume * 128.0f));
 }
 
 void SoundEffect::Pause() {

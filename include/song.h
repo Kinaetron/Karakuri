@@ -7,6 +7,11 @@
 class KARAKURI_API Song
 {
 public:
+	Song() = default;
+	Song(const Song& that) = default;
+	Song(Song&& that) = default;
+	Song& operator=(const Song& rhs) = default;
+	Song& operator=(Song&& rhs) = default;
 	Song(std::string filePath);
 	void Play();
 	void Loop(bool loop);
@@ -17,8 +22,8 @@ public:
 
 
 private:
-	bool isLooping;
-	float volume;
+	bool isLooping = false;
+	float volume = 0;
 };
 
 #endif

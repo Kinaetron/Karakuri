@@ -14,6 +14,11 @@ class Shader;
 class KARAKURI_API SpriteRenderer
 {
 public:
+	SpriteRenderer() = default;
+	SpriteRenderer(const SpriteRenderer& that) = default;
+	SpriteRenderer(SpriteRenderer&& that) = default;
+	SpriteRenderer& operator=(const SpriteRenderer& rhs) = default;
+	SpriteRenderer& operator=(SpriteRenderer&& rhs) = default;
 	SpriteRenderer(const GraphicsDevice& device);
 	void Draw(Texture& texture, Vector2<float> position);
 	void Draw(Texture& texture, Vector2<float> position, Colour colour);
@@ -24,7 +29,7 @@ private:
 	void InitalizeRenderData(const GraphicsDevice& device);
 
 	Shader* shader;
-	unsigned int quadVAO;
+	unsigned int quadVAO = 0;
 };
 
 #endif

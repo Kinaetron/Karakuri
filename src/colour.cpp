@@ -1,12 +1,5 @@
 #include <colour.h>
 
-Colour::Colour():
-	red(0),
-	green(0),
-	blue(0)
-{
-}
-
 Colour::Colour(Vector3<unsigned short> colours)
 	:red(colours.X),
 	 green(colours.Y),

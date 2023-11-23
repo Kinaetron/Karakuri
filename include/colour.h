@@ -7,7 +7,10 @@
 class __declspec(dllexport) Colour
 {
 public:
-	Colour();
+	Colour() = default;
+	Colour(const Colour& that) = default;
+	Colour(Colour&& that) = default;
+	Colour& operator=(const Colour& rhs) = default;
 	Colour(Vector3<unsigned short> colours);
 	Colour(unsigned short red, unsigned short green, unsigned blue);
 	const Vector3<float> ToVector3() const;
@@ -24,9 +27,9 @@ public:
 	static const Colour CornflowerBlue() { return   Colour(100, 149, 237); }
 
 private:
-	unsigned short red;
-	unsigned short green;
-	unsigned short blue;
+	unsigned short red = 0;
+	unsigned short green = 0;
+	unsigned short blue = 0;
 };
 
 #endif
