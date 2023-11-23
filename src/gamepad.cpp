@@ -12,8 +12,6 @@ Gamepad::Gamepad(int index):
 	axisLimit(32767),
 	negativeAxisLimit(32768)
 {
-	std::fill(gamePadState.begin(), gamePadState.end(), 0);
-	std::fill(oldGamePadState.begin(), oldGamePadState.begin(), 0);
 }
 
 void Gamepad::Udpate()
