@@ -39,9 +39,14 @@ void SpriteRenderer::InitalizeRenderData(const GraphicsDevice& device)
 		uniform sampler2D image;
 		uniform vec3 spriteColor;
 
+		uniform vec2 sectionStart;
+		uniform vec2 sectionEnd;
+
 		void main()
 		{
-			color = vec4(spriteColor, 1.0) * texture(image, TexCoords);
+			vec2 clampedTexCoord = clamp(TexCoords, sectionStart, sectionEnd);
+
+			color = vec4(spriteColor, 1.0) * texture(image, clampedTexCoord);
 			if (color.a < 0.5) discard;
 		}
 	)";
@@ -54,39 +59,14 @@ void SpriteRenderer::InitalizeRenderData(const GraphicsDevice& device)
 	shader->Use();
 	shader->SetInteger("image", 0);
 	shader->SetMatrix4("projection", projection);
-}
-
-void SpriteRenderer::Draw(Texture& texture, Vector2<float> position) {
-	this->Draw(texture, position, Colour::White());
-}
-
-
-void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Colour colour) {
-	this->Draw(texture, position, 0, colour);
-}
-
-void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, float rotate, Colour colour)
-{
-	Vector2<float> size = Vector2(static_cast<float>(texture.Width()), static_cast<float>(texture.Height()));
-	Rectangle draw_area = Rectangle(size.X, size.Y, Vector2<float>::Zero());
-
-	this->Draw(texture, position, draw_area, size, rotate, colour, Matrix<float>::Identity());
-}
-
-void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Vector2<float> size, float rotate, Colour colour, Matrix<float> camera)
-{
-	float left_texture_coordinate = draw_area.Left() / (float)texture.Width();
-	float right_texture_coordinate = draw_area.Right() / (float)texture.Width();
-	float top_texture_coordinate = 1.0f - draw_area.Top() / (float)texture.Height();
-	float bottom_texture_coordinate = 1.0f - draw_area.Bottom() / (float)texture.Height();
 
 	float vertices[] =
 	{
 		// positions // texture coords
-		1.0f, 1.0f, right_texture_coordinate, top_texture_coordinate, // top right
-		1.0f, 0.0f, right_texture_coordinate, bottom_texture_coordinate, // bottom right
-		0.0f, 0.0f, left_texture_coordinate, bottom_texture_coordinate, // bottom left
-		0.0f, 1.0f, left_texture_coordinate, top_texture_coordinate  // top left 
+		1.0f, 1.0f, 1.0f, 1.0f, // top right
+		1.0f, 0.0f, 1.0f, 0.0f, // bottom right
+		0.0f, 0.0f, 0.0f, 0.0f, // bottom left
+		0.0f, 1.0f, 0.0f, 1.0f  // top left 
 	};
 
 	unsigned int indices[] =
@@ -116,22 +96,88 @@ void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle d
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindVertexArray(0);
+}
+
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position) {
+	this->Draw(texture, position, Colour::White());
+}
+
+
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Colour colour) {
+	this->Draw(texture, position, 0, colour);
+}
+
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle draw_area)
+{
+	Vector2<float> size = Vector2(static_cast<float>(texture.Width()), static_cast<float>(texture.Height()));
+	this->Draw(texture, position, draw_area, size, 0, Colour::White(), Matrix<float>::Identity());
+}
+
+
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, float rotate, Colour colour)
+{
+	Vector2<float> size = Vector2(static_cast<float>(texture.Width()), static_cast<float>(texture.Height()));
+	Rectangle draw_area = Rectangle(size.X, size.Y, Vector2<float>::Zero());
+
+	this->Draw(texture, position, draw_area, size, rotate, colour, Matrix<float>::Identity());
+}
+
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Colour colour)
+{
+	Vector2<float> size = Vector2(static_cast<float>(texture.Width()), static_cast<float>(texture.Height()));
+
+	this->Draw(texture, position, draw_area, size, 0, colour, Matrix<float>::Identity());
+}
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Vector2<float> size, Colour colour)
+{
+	this->Draw(texture, position, draw_area, size, 0, colour);
+}
+
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Vector2<float> size)
+{
+	this->Draw(texture, position, draw_area, size, Colour::White());
+}
+
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, float rotate, Colour colour)
+{
+	Vector2<float> size = Vector2(static_cast<float>(texture.Width()), static_cast<float>(texture.Height()));
+	this->Draw(texture, position, draw_area, size, rotate, colour, Matrix<float>::Identity());
+}
+
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Vector2<float> size, float rotate, Colour colour)
+{
+	this->Draw(texture, position, draw_area, size, rotate, colour, Matrix<float>::Identity());
+}
+
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Vector2<float> size, float rotate, Colour colour, Matrix<float> camera)
+{
+	float left_texture_coordinate = draw_area.Left() / (float)texture.Width();
+	float right_texture_coordinate = draw_area.Right() / (float)texture.Width();
+	float top_texture_coordinate = 1.0f - draw_area.Top() / (float)texture.Height();
+	float bottom_texture_coordinate = 1.0f - draw_area.Bottom() / (float)texture.Height();
+
+	Vector2<float> sectionStart = Vector2<float>(left_texture_coordinate, bottom_texture_coordinate);
+	Vector2<float> sectionEnd = Vector2<float>(right_texture_coordinate,  top_texture_coordinate);
 
 	this->shader->Use();
 
 	Matrix<float> model = Matrix<float>::Identity();
 
-	model = model.Translate(Vector3<float>(position.X, position.Y, 0.0f));
+	model = model.Translate(Vector3<float>(position.X - size.X, position.Y - size.Y, 0.0f));
 
 	model = model.Translate((Vector3<float>(size.X, size.Y, 0.0f) * 0.5f));
 	model = model.Rotate(rotate);
 	model = model.Translate((Vector3<float>(size.X, size.Y, 0.0f) * -0.5f));
 
-	model = model.Scale(Vector3<float>(size.X, size.Y, 1.0f));
+	model = model.Scale(Vector3<float>(static_cast<float>(texture.Width()), static_cast<float>(texture.Height()), 1.0f));
 
 	this->shader->SetMatrix4("model", model);
 
 	this->shader->SetMatrix4("camera", camera);
+
+	this->shader->SetVector2f("sectionStart", sectionStart);
+
+	this->shader->SetVector2f("sectionEnd", sectionEnd);
 
 	this->shader->SetVector3f("spriteColor", colour.ToVector3());
 

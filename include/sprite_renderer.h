@@ -22,7 +22,13 @@ public:
 	SpriteRenderer(const GraphicsDevice& device);
 	void Draw(Texture& texture, Vector2<float> position);
 	void Draw(Texture& texture, Vector2<float> position, Colour colour);
+	void Draw(Texture& texture, Vector2<float> position, Rectangle draw_area);
+	void Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Colour colour);
+	void Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Vector2<float> size);
+	void Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Vector2<float> size, Colour colour);
 	void Draw(Texture& texture, Vector2<float> position, float rotate, Colour colour);
+	void Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, float rotate, Colour colour);
+	void Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Vector2<float> size, float rotate, Colour colour);
 	void Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Vector2<float> size, float rotate, Colour colour, Matrix<float> camera);
 
 private:

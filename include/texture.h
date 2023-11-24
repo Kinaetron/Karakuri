@@ -23,7 +23,6 @@ private:
 	int width = 0;
 	int height = 0;
 	int channelType = 0;
-	unsigned char* data = 0;
 	unsigned int textureID = 0;
 };
 
