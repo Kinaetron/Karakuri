@@ -20,16 +20,7 @@ public:
 	SpriteRenderer& operator=(const SpriteRenderer& rhs) = default;
 	SpriteRenderer& operator=(SpriteRenderer&& rhs) = default;
 	SpriteRenderer(const GraphicsDevice& device);
-	void Draw(Texture& texture, Vector2<float> position);
-	void Draw(Texture& texture, Vector2<float> position, Colour colour);
-	void Draw(Texture& texture, Vector2<float> position, Rectangle draw_area);
-	void Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Colour colour);
-	void Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Vector2<float> size);
-	void Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Vector2<float> size, Colour colour);
-	void Draw(Texture& texture, Vector2<float> position, float rotate, Colour colour);
-	void Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, float rotate, Colour colour);
-	void Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Vector2<float> size, float rotate, Colour colour);
-	void Draw(Texture& texture, Vector2<float> position, Rectangle draw_area, Vector2<float> size, float rotate, Colour colour, Matrix<float> camera);
+	void Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, float rotation, Vector2<float> origin, Vector2<float> scale);
 
 private:
 	void InitalizeRenderData(const GraphicsDevice& device);
