@@ -1,7 +1,11 @@
 #include <iostream>
 #include <string>
-#include "glad.h"
+#include <cmath>
+#include <limits>
+#include <algorithm>
 
+#include "glad.h"
+#include <math_utility.h>
 #include <sprite_renderer.h>
 #include <vector2.h>
 #include <vector2.h>
@@ -16,37 +20,39 @@ void SpriteRenderer::InitalizeRenderData(const GraphicsDevice& device)
 {
 	std::string vertexShader = R"(
 		#version 400 core
-		layout (location = 0) in vec4 vertex;
 
-		out vec2 TexCoords;
+		layout (location = 0) in vec2 vertex;
+		layout (location = 1) in vec2 texCoord;
+	    layout (location = 2) in vec3 colour;
 
-		uniform mat4 model;
-		uniform mat4 projection;
+		out vec2 TexCoord;
+		out vec3 TexColour;
+
+		uniform mat4 matrix;
 
 		void main()
 		{
-			TexCoords = vertex.zw;
-			gl_Position = projection * model * vec4(vertex.xy, 0.0, 1.0);
+			TexCoord = texCoord;
+			TexColour = colour;
+			
+			gl_Position = matrix * vec4(vertex, 0.0, 1.0);
 		}
 	)";
 
 	std::string fragmentShader = R"(
 		#version 400 core
-		in vec2 TexCoords;
-		out vec4 color;
+
+		in vec2 TexCoord;
+		in vec3 TexColour;
+
+		out vec4 colour;
 
 		uniform sampler2D image;
-		uniform vec3 spriteColor;
-
-		uniform vec2 sectionStart;
-		uniform vec2 sectionEnd;
 
 		void main()
 		{
-			vec2 clampedTexCoord = clamp(TexCoords, sectionStart, sectionEnd);
-
-			color = vec4(spriteColor, 1.0) * texture(image, clampedTexCoord);
-			if (color.a < 0.5) discard;
+			colour = texture(image, TexCoord) * vec4(TexColour, 1.0);
+			if (colour.a < 0.5) discard;
 		}
 	)";
 
@@ -57,15 +63,15 @@ void SpriteRenderer::InitalizeRenderData(const GraphicsDevice& device)
 
 	shader->Use();
 	shader->SetInteger("image", 0);
-	shader->SetMatrix4("projection", projection);
+	shader->SetMatrix4("matrix", projection);
 
 	float vertices[] =
 	{
-		// positions // texture coords
-		1.0f, 1.0f, 1.0f, 1.0f, // top right
-		1.0f, 0.0f, 1.0f, 0.0f, // bottom right
-		0.0f, 0.0f, 0.0f, 0.0f, // bottom left
-		0.0f, 1.0f, 0.0f, 1.0f  // top left 
+		// positions // texture coords // colours 
+		1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, // top right
+		1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // bottom right
+		0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, // bottom left
+		0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,  // top left 
 	};
 
 	unsigned int indices[] =
@@ -74,7 +80,7 @@ void SpriteRenderer::InitalizeRenderData(const GraphicsDevice& device)
 		1, 2, 3  // second triangle
 	};
 
-	unsigned int VBO, EBO;
+	unsigned int EBO;
 
 	glGenVertexArrays(1, &this->quadVAO);
 
@@ -89,49 +95,129 @@ void SpriteRenderer::InitalizeRenderData(const GraphicsDevice& device)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-	glBindVertexArray(this->quadVAO);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	glBindVertexArray(0);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)(2 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)(4 * sizeof(float)));
+	glEnableVertexAttribArray(2);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, float rotation, Vector2<float> origin, Vector2<float> scale)
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, float rotation, Vector2<float> origin, float scale)
 {
-	float left_texture_coordinate = sourceRectangle.Left() / static_cast<float>(texture.Width());
-	float right_texture_coordinate = sourceRectangle.Right() / static_cast<float>(texture.Width());
-	float top_texture_coordinate = 1.0f - sourceRectangle.Top() / static_cast<float>(texture.Height());
-	float bottom_texture_coordinate = 1.0f - sourceRectangle.Bottom() / static_cast<float>(texture.Height());
+	float sourceX = 0;
+	float sourceY = 0;
+	float sourceWidth = 0;
+	float sourceHeight = 0;
 
-	Vector2<float> sectionStart = Vector2<float>(left_texture_coordinate, bottom_texture_coordinate);
-	Vector2<float> sectionEnd = Vector2<float>(right_texture_coordinate, top_texture_coordinate);
+	float destinationWidth = scale;
+	float destinationHeight = scale;
 
-	this->shader->Use();
+	sourceX = sourceRectangle.Position().X / static_cast<float>(texture.Width());
+	sourceY = sourceRectangle.Position().Y / static_cast<float>(texture.Height());
 
-	Matrix<float> model = Matrix<float>::Identity();
+	sourceWidth = MathUtility<float>::Sign(sourceRectangle.Width()) * 
+		std::max(std::abs(sourceRectangle.Width()), std::numeric_limits<float>::epsilon()) 
+		/ static_cast<float>(texture.Width());
 
-	float actualPositionX = position.X - sourceRectangle.Position().X;
-	float actualPositionY = position.Y - sourceRectangle.Position().Y;
+	sourceHeight = MathUtility<float>::Sign(sourceRectangle.Height()) *
+		std::max(std::abs(sourceRectangle.Height()), std::numeric_limits<float>::epsilon())
+		/ static_cast<float>(texture.Height());
 
-	model = model.Translate((Vector3<float>(actualPositionX, actualPositionY, 0.0f)));
-	model = model.Translate(Vector3<float>(-origin.X, -origin.Y, 0.0f));
-	model = model.Rotate(rotation);
-	model = model.Scale(Vector3<float>(static_cast<float>(texture.Width() * scale.X), static_cast<float>(texture.Height()) * scale.Y, 1.0f));
+	destinationWidth *= sourceRectangle.Width();
+	destinationHeight *= sourceRectangle.Height();
 
-	this->shader->SetMatrix4("model", model);
+	PushVertexInformation(
+		texture,
+		sourceX,
+		sourceY,
+		sourceWidth,
+		sourceHeight,
+		position.X,
+		position.Y,
+		destinationWidth,
+		destinationHeight,
+		colour,
+		origin.X / sourceWidth / static_cast<float>(texture.Width()),
+		origin.Y / sourceHeight / static_cast<float>(texture.Height()),
+		static_cast<float>(std::sin(rotation)),
+		static_cast<float>(std::cos(rotation))
+	);
+}
 
-	this->shader->SetVector2f("sectionStart", sectionStart);
+void SpriteRenderer::PushVertexInformation(
+	Texture& texture, 
+	float sourceX, 
+	float sourceY, 
+	float sourceWidth, 
+	float sourceHeight, 
+	float destinationX, 
+	float destinationY, 
+	float destinationWidth, 
+	float destinationHeight,
+	Colour colour,
+	float originX,
+	float originY,
+	float rotationSin, 
+	float rotationCos)
+{
+	Vector3<float> colourVector = colour.ToVector3();
 
-	this->shader->SetVector2f("sectionEnd", sectionEnd);
+	float cornerX = (1.0f - originX) * destinationWidth;
+	float cornerY = (1.0f - originY) * destinationHeight;
 
-	this->shader->SetVector3f("spriteColor", colour.ToVector3());
+	Vector2<float> position0 = Vector2<float>(
+		(-rotationSin * cornerY) + (rotationCos * cornerX) + destinationX,
+		(rotationCos * cornerY) + (rotationSin * cornerX) + destinationY);
+
+	cornerX = (1.0f - originX) * destinationWidth;
+	cornerY = -originY * destinationHeight;
+
+	Vector2<float> position1 = Vector2<float>(
+		(-rotationSin * cornerY) + (rotationCos * cornerX) + destinationX,
+		(rotationCos * cornerY) + (rotationSin * cornerX) + destinationY);
+
+	cornerX = -originX * destinationWidth;
+	cornerY = -originY * destinationHeight;
+
+	Vector2<float> position2 = Vector2<float>(
+		(-rotationSin * cornerY) + (rotationCos * cornerX) + destinationX,
+		(rotationCos * cornerY) + (rotationSin * cornerX) + destinationY);
+
+	cornerX = -originX * destinationWidth;
+	cornerY = (1.0f - originY) * destinationHeight;
+
+	Vector2<float> position3 = Vector2<float>(
+		(-rotationSin * cornerY) + (rotationCos * cornerX) + destinationX,
+		(rotationCos * cornerY) + (rotationSin * cornerX) + destinationY);
+
+	Vector2<float> texCoords0 = Vector2<float>((1.0f * sourceWidth) + sourceX, (1.0f * sourceHeight) + sourceY);
+	Vector2<float> texCoords1 = Vector2<float>((1.0f * sourceWidth) + sourceX, (0.0f * sourceHeight) + sourceY);
+	Vector2<float> texCoords2 = Vector2<float>((0.0f * sourceWidth) + sourceX, (0.0f * sourceHeight) + sourceY);
+	Vector2<float> texCoords3 = Vector2<float>((0.0f * sourceWidth) + sourceX, (1.0f * sourceHeight) + sourceY);
+
+	float vertices[] =
+	{
+		// positions			  // texture coords			  // colour 
+		position0.X, position0.Y, texCoords0.X, texCoords0.Y, colourVector.X,  colourVector.Y, colourVector.Z,	// top right
+		position1.X, position1.Y, texCoords1.X, texCoords1.Y, colourVector.X,  colourVector.Y, colourVector.Z,	// bottom right
+		position2.X, position2.Y, texCoords2.X, texCoords2.Y, colourVector.X,  colourVector.Y, colourVector.Z,	// bottom left
+		position3.X, position3.Y, texCoords3.X, texCoords3.Y, colourVector.X,  colourVector.Y, colourVector.Z,	// top left 
+	};
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	shader->Use();
 
 	glActiveTexture(GL_TEXTURE0);
 	texture.Bind();
 
-	glBindVertexArray(this->quadVAO);
+	glBindVertexArray(quadVAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-	glBindVertexArray(0);
 }

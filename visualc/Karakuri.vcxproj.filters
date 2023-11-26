@@ -137,5 +137,8 @@
     <ClInclude Include="..\include\collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\math_utility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

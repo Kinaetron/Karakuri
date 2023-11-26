@@ -196,6 +196,7 @@
     <ClInclude Include="..\include\karakuri.h" />
     <ClInclude Include="..\include\keyboard.h" />
     <ClInclude Include="..\include\keys.h" />
+    <ClInclude Include="..\include\math_utility.h" />
     <ClInclude Include="..\include\matrix.h" />
     <ClInclude Include="..\include\mouse.h" />
     <ClInclude Include="..\include\rectangle.h" />
