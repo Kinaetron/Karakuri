@@ -195,10 +195,10 @@ void SpriteRenderer::PushVertexInformation(
 		(-rotationSin * cornerY) + (rotationCos * cornerX) + destinationX,
 		(rotationCos * cornerY) + (rotationSin * cornerX) + destinationY);
 
-	Vector2<float> texCoords0 = Vector2<float>((1.0f * sourceWidth) + sourceX, (1.0f * sourceHeight) + sourceY);
-	Vector2<float> texCoords1 = Vector2<float>((1.0f * sourceWidth) + sourceX, (0.0f * sourceHeight) + sourceY);
-	Vector2<float> texCoords2 = Vector2<float>((0.0f * sourceWidth) + sourceX, (0.0f * sourceHeight) + sourceY);
-	Vector2<float> texCoords3 = Vector2<float>((0.0f * sourceWidth) + sourceX, (1.0f * sourceHeight) + sourceY);
+	Vector2<float> texCoords0 = Vector2<float>(sourceWidth + sourceX, sourceHeight + sourceY);
+	Vector2<float> texCoords1 = Vector2<float>(sourceWidth + sourceX, sourceY);
+	Vector2<float> texCoords2 = Vector2<float>(sourceX, sourceY);
+	Vector2<float> texCoords3 = Vector2<float>(sourceX, sourceHeight + sourceY);
 
 	float vertices[] =
 	{

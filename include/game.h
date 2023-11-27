@@ -22,12 +22,5 @@ public:
 	void Quit();
 
 	GraphicsDevice graphicsDevice;
-
-private:
-	std::int64_t oldTime = 0;
-	std::int64_t deltaTime = 0;
-	double accumlator = 0.0;
-	const std::int64_t TARGET_FRAME_RATE = 0;
-	const double TARGET_FRAME_TIME = 0.0;
 };
 #endif

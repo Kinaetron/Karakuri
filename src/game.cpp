@@ -5,12 +5,7 @@
 
 #include "../include/gamepad.h"
 
-Game::Game(const std::string& title, int width, int height, int scale)
-	:oldTime(0), 
-	 deltaTime(0), 
-	 accumlator(0),
-	 TARGET_FRAME_RATE(60),
-	 TARGET_FRAME_TIME(1.0 / TARGET_FRAME_RATE),
+Game::Game(const std::string& title, int width, int height, int scale):
 	 graphicsDevice(title, width, height, scale)
 {
 	if (SDL_Init(SDL_INIT_AUDIO) < 0)
@@ -47,6 +42,10 @@ void Game::Run()
 {
 	this->Initialize();
 
+	float target_milliseconds_per_update = 1000.0f / 60.0f;
+	std::int64_t previous = 0;
+	std::int64_t lag = 0;
+
 	bool isRunning = true;
 	while (isRunning)
 	{
@@ -58,15 +57,17 @@ void Game::Run()
 			}
 		}
 
-		deltaTime = SDL_GetTicks64() - oldTime;
-		oldTime = SDL_GetTicks64();
-		accumlator += deltaTime;
+		std::int64_t current = SDL_GetTicks64();
+		std::int64_t elapsed = current - previous;
+		previous = current;
+		lag += elapsed;
 
-		while (accumlator > TARGET_FRAME_TIME)
+		while (lag >= target_milliseconds_per_update)
 		{
 			this->Update();
-			accumlator -= TARGET_FRAME_TIME;
+			lag -= target_milliseconds_per_update;
 		}
+
 		this->Draw();
 	}
 }
