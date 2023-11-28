@@ -22,5 +22,9 @@ public:
 	void Quit();
 
 	GraphicsDevice graphicsDevice;
+
+private:
+	bool isRunning = true;
+	void ProcessEvents();
 };
 #endif

@@ -38,6 +38,17 @@ void Game::Draw()
 {
 }
 
+void Game::ProcessEvents()
+{
+	SDL_Event event;
+	while (SDL_PollEvent(&event))
+	{
+		if (event.type == SDL_QUIT) {
+			isRunning = false;
+		}
+	}
+}
+
 void Game::Run()
 {
 	this->Initialize();
@@ -46,16 +57,9 @@ void Game::Run()
 	std::int64_t previous = 0;
 	std::int64_t lag = 0;
 
-	bool isRunning = true;
 	while (isRunning)
 	{
-		SDL_Event event;
-		while (SDL_PollEvent(&event))
-		{		
-			if (event.type == SDL_QUIT) {
-				isRunning = false;
-			}
-		}
+		this->ProcessEvents();
 
 		std::int64_t current = SDL_GetTicks64();
 		std::int64_t elapsed = current - previous;
@@ -65,7 +69,7 @@ void Game::Run()
 		while (lag >= target_milliseconds_per_update)
 		{
 			this->Update();
-			lag -= target_milliseconds_per_update;
+			lag -= static_cast<int64_t>(target_milliseconds_per_update);
 		}
 
 		this->Draw();
