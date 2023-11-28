@@ -107,24 +107,65 @@ void SpriteRenderer::InitalizeRenderData(const GraphicsDevice& device)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Colour colour)
+{
+	PushVertexInformation( 
+		texture,
+		0.0f,
+		0.0f,
+		1.0f,
+		1.0f,
+		position.X,
+		position.Y,
+		static_cast<float>(texture.Width()),
+		static_cast<float>(texture.Height()),
+		colour,
+		0.0f,
+		0.0f,
+		0.0f,
+		1.0f);
+}
+
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour)
+{
+	float sourceX = sourceRectangle.Position().X / static_cast<float>(texture.Width());
+	float sourceY = sourceRectangle.Position().Y / static_cast<float>(texture.Height());
+	float sourceWidth = sourceRectangle.Width() / static_cast<float>(texture.Width());
+	float sourceHeight = sourceRectangle.Height() / static_cast<float>(texture.Height());
+	float destinationWidth = sourceRectangle.Width();
+	float destinationHeight = sourceRectangle.Height();
+
+	PushVertexInformation(
+		texture,
+		sourceX,
+		sourceY,
+		sourceWidth,
+		sourceHeight,
+		position.X,
+		position.Y,
+		destinationWidth,
+		destinationHeight,
+		colour,
+		0.0f,
+		0.0f,
+		0.0f,
+		1.0f
+	);
+}
+
 void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, float rotation, Vector2<float> origin, float scale)
 {
-	float sourceX = 0;
-	float sourceY = 0;
-	float sourceWidth = 0;
-	float sourceHeight = 0;
-
 	float destinationWidth = scale;
 	float destinationHeight = scale;
 
-	sourceX = sourceRectangle.Position().X / static_cast<float>(texture.Width());
-	sourceY = sourceRectangle.Position().Y / static_cast<float>(texture.Height());
+	float sourceX = sourceRectangle.Position().X / static_cast<float>(texture.Width());
+	float sourceY = sourceRectangle.Position().Y / static_cast<float>(texture.Height());
 
-	sourceWidth = MathUtility<float>::Sign(sourceRectangle.Width()) * 
+	float sourceWidth = MathUtility<float>::Sign(sourceRectangle.Width()) * 
 		std::max(std::abs(sourceRectangle.Width()), std::numeric_limits<float>::epsilon()) 
 		/ static_cast<float>(texture.Width());
 
-	sourceHeight = MathUtility<float>::Sign(sourceRectangle.Height()) *
+	float sourceHeight = MathUtility<float>::Sign(sourceRectangle.Height()) *
 		std::max(std::abs(sourceRectangle.Height()), std::numeric_limits<float>::epsilon())
 		/ static_cast<float>(texture.Height());
 
@@ -146,6 +187,116 @@ void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle s
 		origin.Y / sourceHeight / static_cast<float>(texture.Height()),
 		static_cast<float>(std::sin(rotation)),
 		static_cast<float>(std::cos(rotation))
+	);
+}
+
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, float rotation, Vector2<float> origin, Vector2<float> scale)
+{
+	float sourceX = sourceRectangle.Position().X / static_cast<float>(texture.Width());
+	float sourceY = sourceRectangle.Position().Y / static_cast<float>(texture.Height());
+
+	float sourceWidth = MathUtility<float>::Sign(sourceRectangle.Width()) *
+		std::max(std::abs(sourceRectangle.Width()), std::numeric_limits<float>::epsilon())
+		/ static_cast<float>(texture.Width());
+
+	float sourceHeight = MathUtility<float>::Sign(sourceRectangle.Height()) *
+		std::max(std::abs(sourceRectangle.Height()), std::numeric_limits<float>::epsilon())
+		/ static_cast<float>(texture.Height());
+
+	scale.X *= sourceRectangle.Width();
+	scale.Y *= sourceRectangle.Height();
+
+	PushVertexInformation(
+		texture,
+		sourceX,
+		sourceY,
+		sourceWidth,
+		sourceHeight,
+		position.X,
+		position.Y,
+		scale.X,
+		scale.Y,
+		colour,
+		origin.X / sourceWidth / static_cast<float>(texture.Width()),
+		origin.Y / sourceHeight / static_cast<float>(texture.Height()),
+		std::sin(rotation),
+		std::cos(rotation)
+	);
+}
+
+void SpriteRenderer::Draw(Texture& texture, Rectangle destinationRectangle, Colour colour)
+{
+	PushVertexInformation
+	(texture,
+		0.0f,
+		0.0f,
+		1.0f,
+		1.0f,
+		destinationRectangle.Position().X,
+		destinationRectangle.Position().Y,
+		destinationRectangle.Width(),
+		destinationRectangle.Height(),
+		colour,
+		0.0f,
+		0.0f,
+		0.0f,
+		1.0f
+	);
+}
+
+void SpriteRenderer::Draw(Texture& texture, Rectangle destionationRectangle, Rectangle sourceRectangle, Colour colour)
+{
+	float sourceX = sourceRectangle.Position().X / static_cast<float>(texture.Width());
+	float sourceY = sourceRectangle.Position().Y / static_cast<float>(texture.Height());
+	float sourceWidth = sourceRectangle.Width() / static_cast<float>(texture.Width());
+	float sourceHeight = sourceRectangle.Height() / static_cast<float>(texture.Height());
+
+	PushVertexInformation
+	(texture,
+		sourceX,
+		sourceY,
+		sourceWidth,
+		sourceHeight,
+		destionationRectangle.Position().X,
+		destionationRectangle.Position().Y,
+		destionationRectangle.Width(),
+		destionationRectangle.Height(),
+		colour,
+		0.0f,
+		0.0f,
+		0.0f,
+		1.0f
+	);
+}
+
+void SpriteRenderer::Draw(Texture& texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Colour colour, float rotation, Vector2<float> origin)
+{
+	float sourceX = sourceRectangle.Position().X / static_cast<float>(texture.Width());
+	float sourceY = sourceRectangle.Position().Y / static_cast<float>(texture.Height());
+
+	float sourceWidth = MathUtility<float>::Sign(sourceRectangle.Width()) *
+		std::max(std::abs(sourceRectangle.Width()), std::numeric_limits<float>::epsilon())
+		/ static_cast<float>(texture.Width());
+
+	float sourceHeight = MathUtility<float>::Sign(sourceRectangle.Height()) *
+		std::max(std::abs(sourceRectangle.Height()), std::numeric_limits<float>::epsilon())
+		/ static_cast<float>(texture.Height());
+
+	PushVertexInformation(
+		texture,
+		sourceX,
+		sourceY,
+		sourceWidth,
+		sourceHeight,
+		destinationRectangle.Position().X,
+		destinationRectangle.Position().Y,
+		destinationRectangle.Width(),
+		destinationRectangle.Height(),
+		colour,
+		origin.X / sourceWidth / static_cast<float>(texture.Width()),
+		origin.Y / sourceHeight / static_cast<float>(texture.Height()),
+		std::sin(rotation),
+		std::cos(rotation)
 	);
 }
 
