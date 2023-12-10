@@ -1,7 +1,6 @@
 #ifndef KARAKURI_H
 #define KARAKURI_H
 
-#include "api.h"
 #include "buttons.h"
 #include "circle.h"
 #include "colour.h"

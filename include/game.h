@@ -4,10 +4,9 @@
 #include <string>
 #include <cstdint>
 #include "graphics_device.h"
-#include "api.h"
 #include <memory>
 
-class KARAKURI_API Game
+class Game
 {
 public:
 	Game() = default;

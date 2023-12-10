@@ -1,13 +1,12 @@
 #ifndef COLLISION_H
 #define COLLISION_H
 
-#include <api.h>
 #include <circle.h>
 #include <circle.h>
 #include <vector2.h>
 #include <rectangle.h>
 
-class KARAKURI_API Collision
+class Collision
 {
 public:
 	Collision() = default;

@@ -1,7 +1,6 @@
 #ifndef SPRITE_RENDERER
 #define SPRITE_RENDERER
 
-#include "api.h"
 #include <texture.h>
 #include <graphics_device.h>
 #include <vector2.h>
@@ -11,7 +10,7 @@
 
 class Shader;
 
-class KARAKURI_API SpriteRenderer
+class SpriteRenderer
 {
 public:
 	SpriteRenderer() = default;

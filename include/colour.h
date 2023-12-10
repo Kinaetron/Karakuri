@@ -4,7 +4,7 @@
 #include "api.h"
 #include <vector3.h>
 
-class __declspec(dllexport) Colour
+class Colour
 {
 public:
 	Colour() = default;

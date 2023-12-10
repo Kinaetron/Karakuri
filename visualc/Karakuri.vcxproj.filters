@@ -77,9 +77,6 @@
     <ClInclude Include="..\src\khrplatform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\api.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\buttons.h">
       <Filter>Header Files</Filter>
     </ClInclude>

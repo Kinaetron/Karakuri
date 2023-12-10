@@ -1,10 +1,9 @@
 #ifndef SONG_H
 #define SONG_H
 
-#include "api.h"
 #include <string>
 
-class KARAKURI_API Song
+class Song
 {
 public:
 	Song() = default;

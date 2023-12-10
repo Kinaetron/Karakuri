@@ -1,12 +1,11 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
-#include "api.h"
 #include "keys.h"
 #include <array>
 #include <cstdint>
 
-class KARAKURI_API Keyboard
+class Keyboard
 {
 public:
 	Keyboard() = default;

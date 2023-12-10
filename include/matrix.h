@@ -1,13 +1,12 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-#include "api.h"
 #include <math.h>
 #include <type_traits>
 #include <vector3.h>
 
 template <typename T, typename = std::enable_if_t<std::is_arithmetic_v<T>>>
-class KARAKURI_API Matrix
+class Matrix
 {
 public:
 	T M[4][4];

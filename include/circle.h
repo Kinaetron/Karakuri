@@ -1,10 +1,9 @@
 #ifndef CIRCLE_H
 #define CIRCLE_H
 
-#include "api.h"
 #include "vector2.h"
 
-class KARAKURI_API Circle
+class Circle
 {
 public:
 	Circle() = default;

@@ -1,10 +1,9 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
 
-#include "api.h"
 #include<vector2.h>
 
-class KARAKURI_API Rectangle
+class Rectangle
 {
 public:
 	Rectangle() = default;

@@ -1,10 +1,9 @@
 #ifndef SOUND_EFFECT_H
 #define SOUND_EFFECT_H
 
-#include "api.h"
 #include <string>
 
-class KARAKURI_API SoundEffect
+class SoundEffect
 {
 public:
 	SoundEffect() = default;

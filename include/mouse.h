@@ -1,13 +1,12 @@
 #ifndef MOUSE_H
 #define MOUSE_H
 
-#include "api.h"
 #include "buttons.h"
 #include <vector2.h>
 
 #include <cstdint>
 
-class KARAKURI_API Mouse
+class Mouse
 {
 public:
 	Mouse() = default;

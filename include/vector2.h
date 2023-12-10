@@ -1,12 +1,11 @@
 #ifndef VECTOR2_H
 #define VECTOR2_H
 
-#include "api.h"
 #include <cmath>
 #include <type_traits>
 
 template <typename T, typename = std::enable_if_t<std::is_arithmetic_v<T>>>
-class KARAKURI_API Vector2
+class Vector2
 {
 public:
 	T X;

@@ -1,11 +1,10 @@
 #ifndef MATH_UTILITY_H
 #define MATH_UTILITY_H
 
-#include <api.h>
 #include <type_traits>
 
 template <typename T, typename = std::enable_if_t<std::is_arithmetic_v<T>>>
-class KARAKURI_API MathUtility
+class MathUtility
 {
 public:
 	static T Sign(T x)

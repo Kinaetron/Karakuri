@@ -1,12 +1,11 @@
 #ifndef GAMEPAD_H
 #define GAMEPAD_H
 
-#include "api.h"
 #include "buttons.h"
 #include "vector2.h"
 #include <array>
 
-class KARAKURI_API Gamepad
+class Gamepad
 {
 public:
 	Gamepad() = default;

@@ -189,7 +189,6 @@
     <ClCompile Include="..\src\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\api.h" />
     <ClInclude Include="..\include\buttons.h" />
     <ClInclude Include="..\include\circle.h" />
     <ClInclude Include="..\include\collision.h" />

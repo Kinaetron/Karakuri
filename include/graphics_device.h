@@ -2,12 +2,11 @@
 #define GRAPHICS_DEVICE_H
 
 #include <string>
-#include "api.h"
 #include <colour.h>
 
 struct SDL_Window;
 
-class KARAKURI_API GraphicsDevice
+class GraphicsDevice
 {
 public:
 	GraphicsDevice() = default;

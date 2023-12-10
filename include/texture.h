@@ -1,10 +1,9 @@
 #ifndef TEXTURE_H
 #define	TEXTURE_H
 
-#include "api.h"
 #include <string>
 
-class KARAKURI_API Texture
+class Texture
 {
 public:
 	Texture() = default;
