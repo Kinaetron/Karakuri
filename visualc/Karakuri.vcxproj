@@ -171,6 +171,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\aseprite.cpp" />
     <ClCompile Include="..\src\circle.cpp" />
     <ClCompile Include="..\src\collision.cpp" />
     <ClCompile Include="..\src\colour.cpp" />
@@ -189,6 +190,7 @@
     <ClCompile Include="..\src\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\aseprite.h" />
     <ClInclude Include="..\include\buttons.h" />
     <ClInclude Include="..\include\circle.h" />
     <ClInclude Include="..\include\collision.h" />

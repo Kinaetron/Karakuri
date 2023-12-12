@@ -1,10 +1,9 @@
 #ifndef BUTTONS_H
 #define BUTTONS_H
 
-#include "api.h"
 #include <cstdint>
 
-enum class KARAKURI_API GamePadButtons : uint8_t
+enum class GamePadButtons : uint8_t
 {
 	FACE_DOWN = 0,
 	FACE_RIGHT = 1,
@@ -25,7 +24,7 @@ enum class KARAKURI_API GamePadButtons : uint8_t
 };
 
 
-enum class KARAKURI_API MouseButtons : uint32_t
+enum class MouseButtons : uint32_t
 {
 	LEFT = 1,
 	MIDDLE = 2,

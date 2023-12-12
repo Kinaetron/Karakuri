@@ -1,7 +1,6 @@
 #ifndef COLOUR_H
 #define COLOUR_H
 
-#include "api.h"
 #include <vector3.h>
 
 class Colour

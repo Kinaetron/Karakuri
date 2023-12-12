@@ -1,10 +1,9 @@
 #ifndef KEYS_H
 #define KEYS_H
 
-#include "api.h"
 #include <cstdint>
 
-enum class KARAKURI_API Keys : uint8_t
+enum class Keys : uint8_t
 {
 	Unknown = 0,
 	A = 4,

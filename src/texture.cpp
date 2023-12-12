@@ -13,6 +13,13 @@ Texture::Texture(const std::string& filepath)
 		std::cerr << "Texture failed to load at path: " << filepath << std::endl;
 	}
 
+	LoadData(data);
+
+	stbi_image_free(data);
+}
+
+void Texture::LoadData(unsigned char* pixels)
+{
 	glGenTextures(1, &textureID);
 
 	GLenum format;
@@ -37,7 +44,7 @@ Texture::Texture(const std::string& filepath)
 	}
 
 	glBindTexture(GL_TEXTURE_2D, textureID);
-	glTexImage2D(GL_TEXTURE_2D, 0, format, this->Width(), this->Height(), 0, format, GL_UNSIGNED_BYTE, data);
+	glTexImage2D(GL_TEXTURE_2D, 0, format, this->Width(), this->Height(), 0, format, GL_UNSIGNED_BYTE, pixels);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -45,8 +52,12 @@ Texture::Texture(const std::string& filepath)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
+}
 
-	stbi_image_free(data);
+Texture::Texture(int width, int height, int channel, unsigned char* pixels)
+	:width(width), height(height), channelType(channel), textureID(0)
+{
+	LoadData(pixels);
 }
 
 void Texture::Bind() {

@@ -19,5 +19,6 @@
 #include "vector2.h"
 #include "vector3.h"
 #include "collision.h"
+#include "aseprite.h"
 
 #endif // !KARAKURI_H
