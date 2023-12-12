@@ -6,7 +6,6 @@
 class Rectangle
 {
 public:
-	Rectangle() = default;
 	Rectangle(const Rectangle& that) = default;
 	Rectangle(Rectangle&& that) = default;
 	Rectangle& operator=(const Rectangle& rhs) = default;
@@ -23,8 +22,8 @@ public:
 	void SetPostion(Vector2<float> position) { this->position = position; }
 
 private:
-	float width = 0;
-	float height = 0;
-	Vector2<float> position = Vector2<float>::Zero();
+	float width;
+	float height;
+	Vector2<float> position;
 };
 #endif

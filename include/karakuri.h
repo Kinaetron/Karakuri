@@ -21,4 +21,4 @@
 #include "collision.h"
 #include "aseprite.h"
 
-#endif // !KARAKURI_H
+#endif

@@ -13,7 +13,6 @@ class Shader
 public:
 	unsigned int ID;
 
-	Shader() = default;
 	Shader(const Shader& that) = default;
 	Shader(Shader&& that) = default;
 	Shader& operator=(const Shader& rhs) = default;

@@ -9,7 +9,6 @@
 class Game
 {
 public:
-	Game() = default;
 	Game(const Game& that) = default;
 	Game(Game&& that) = default;
 	Game& operator=(const Game& rhs) = default;

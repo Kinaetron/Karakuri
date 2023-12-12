@@ -9,7 +9,6 @@ struct SDL_Window;
 class GraphicsDevice
 {
 public:
-	GraphicsDevice() = default;
 	GraphicsDevice(const GraphicsDevice& that) = default;
 	GraphicsDevice(GraphicsDevice&& that) = default;
 	GraphicsDevice& operator=(const GraphicsDevice& rhs) = default;
@@ -24,10 +23,10 @@ public:
 	void Destroy();
 
 private:
-	float color_range = 0;
-	int scale = 0;
-	int width = 0;
-	int height = 0;
-	SDL_Window* window = NULL;
+	float color_range;
+	int scale;
+	int width;
+	int height;
+	SDL_Window* window;
 };
 #endif

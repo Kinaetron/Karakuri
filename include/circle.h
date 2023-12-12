@@ -6,7 +6,6 @@
 class Circle
 {
 public:
-	Circle() = default;
 	Circle(const Circle& that) = default;
 	Circle(Circle&& that) = default;
 	Circle& operator=(const Circle& rhs) = default;
@@ -17,8 +16,8 @@ public:
 	const Vector2<float> Position() const { return position; }
 
 private:
-	float radius = 0;
-	Vector2<float> position = Vector2<float>::Zero();
+	float radius;
+	Vector2<float> position;
 };
 
 #endif

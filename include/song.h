@@ -6,7 +6,6 @@
 class Song
 {
 public:
-	Song() = default;
 	Song(const Song& that) = default;
 	Song(Song&& that) = default;
 	Song& operator=(const Song& rhs) = default;
@@ -21,8 +20,8 @@ public:
 
 
 private:
-	bool isLooping = false;
-	float volume = 0;
+	bool isLooping;
+	float volume;
 };
 
 #endif

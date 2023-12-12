@@ -21,4 +21,4 @@ public:
 	}
 };
 
-#endif // !MATH_UTILITY_H
+#endif

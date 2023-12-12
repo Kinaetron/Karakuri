@@ -6,7 +6,6 @@
 class SoundEffect
 {
 public:
-	SoundEffect() = default;
 	SoundEffect(const SoundEffect& that) = default;
 	SoundEffect(SoundEffect&& that) = default;
 	SoundEffect& operator=(const SoundEffect& rhs) = default;
@@ -20,8 +19,8 @@ public:
 	void Destroy();
 
 private:
-	int channel = 0;
-	float volume = 0;
-	bool isLooping = 0;
+	int channel;
+	float volume;
+	bool isLooping;
 };
 #endif

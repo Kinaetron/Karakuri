@@ -45,14 +45,14 @@ const bool Gamepad::IsButtonPressed(GamePadButtons button)
 		    oldGamePadState[(uint8_t)button] == 0;
 }
 
-const float Gamepad::LeftTrigger() {
+const float Gamepad::LeftTrigger() const {
 	return static_cast<float>(SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT) / axisLimit);
 }
-const float Gamepad::RightTrigger() {
+const float Gamepad::RightTrigger() const {
 	return static_cast<float>(SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT) / axisLimit);
 }
 
-const Vector2<float> Gamepad::LeftThumbStick(float deadzone)
+const Vector2<float> Gamepad::LeftThumbStick(float deadzone) const
 {
 	float x_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX);
 	float y_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY);
@@ -69,7 +69,7 @@ const Vector2<float> Gamepad::LeftThumbStick(float deadzone)
 	return stickInput;
 }
 
-const Vector2<float> Gamepad::RightThumbStick(float deadzone)
+const Vector2<float> Gamepad::RightThumbStick(float deadzone) const
 {
 	float x_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTX);
 	float y_axis = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTY);

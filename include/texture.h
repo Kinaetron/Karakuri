@@ -7,7 +7,6 @@
 class Texture
 {
 public:
-	Texture() = default;
 	Texture(const Texture& that) = default;
 	Texture(Texture&& that) = default;
 	Texture& operator=(const Texture& rhs) = default;
@@ -20,10 +19,10 @@ public:
 
 
 private:
-	int width = 0;
-	int height = 0;
-	int channelType = 0;
-	unsigned int textureID = 0;
+	int width;
+	int height;
+	int channelType;
+	unsigned int textureID;
 	void LoadData(unsigned char* pixels);
 };
 

@@ -13,7 +13,6 @@ class Shader;
 class SpriteRenderer
 {
 public:
-	SpriteRenderer() = default;
 	SpriteRenderer(const SpriteRenderer& that) = default;
 	SpriteRenderer(SpriteRenderer&& that) = default;
 	SpriteRenderer& operator=(const SpriteRenderer& rhs) = default;
@@ -46,9 +45,9 @@ private:
 		float rotationSin,
 		float rotationCos);
 
-	Shader* shader = nullptr;
-	unsigned int quadVAO = 0;
-	unsigned int VBO = 0;
+	Shader* shader;
+	unsigned int quadVAO;
+	unsigned int VBO;
 };
 
 #endif
