@@ -6,7 +6,8 @@
 #include "../include/gamepad.h"
 
 Game::Game(const std::string& title, int width, int height, int scale):
-	 graphicsDevice(title, width, height, scale)
+	 graphicsDevice(title, width, height, scale),
+	 target_milliseconds_per_update(1000.0f / 60.0f)
 {
 	if (SDL_Init(SDL_INIT_AUDIO) < 0)
 	{
@@ -53,7 +54,6 @@ void Game::Run()
 {
 	this->Initialize();
 
-	float target_milliseconds_per_update = 1000.0f / 60.0f;
 	std::int64_t previous = 0;
 	std::int64_t lag = 0;
 

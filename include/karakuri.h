@@ -20,5 +20,6 @@
 #include "vector3.h"
 #include "collision.h"
 #include "aseprite.h"
+#include "animation_player.h"
 
 #endif

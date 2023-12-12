@@ -18,11 +18,13 @@ public:
 	virtual void Draw();
 	void Run();
 	void Quit();
+	const float MilliSecondsPerUpdate() const { return target_milliseconds_per_update; }
 
 	GraphicsDevice graphicsDevice;
 
 private:
 	bool isRunning = true;
 	void ProcessEvents();
+	const float target_milliseconds_per_update;
 };
 #endif
