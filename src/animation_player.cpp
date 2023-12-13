@@ -18,7 +18,7 @@ AnimationPlayer::AnimationPlayer(const std::string& filepath, SpriteRenderer& re
 		return;
 	}
 
-	frameCount = animation->frame_count - 2;
+	frameCount = animation->frame_count;
 	frameWidth = animation->w;
 	frameHeight = animation->h;
 
@@ -58,9 +58,29 @@ void AnimationPlayer::Update(float millisecondsPerUpdate)
 	}
 }
 
-void AnimationPlayer::Draw()
+void AnimationPlayer::Draw(Vector2<float> position, Colour colour)
 {
-	renderer.Draw(cells[currentFrame].CellTexture(), Vector2<float>(150, 150), Colour::White());
+	renderer.Draw(cells[currentFrame].CellTexture(), position, colour);
+}
+
+void AnimationPlayer::Draw(Vector2<float> position, Colour colour, float rotation, Vector2<float> origin, float scale)
+{
+	Rectangle sourceRectangle = Rectangle(
+		static_cast<float>(cells[currentFrame].CellTexture().Width()),
+		static_cast<float>(cells[currentFrame].CellTexture().Height()),
+		Vector2<float>::Zero());
+
+	renderer.Draw(cells[currentFrame].CellTexture(), position, sourceRectangle,  colour, rotation, origin, scale);
+}
+
+void AnimationPlayer::Draw(Vector2<float> position, Colour colour, float rotation, Vector2<float> origin, Vector2<float> scale)
+{
+	Rectangle sourceRectangle = Rectangle(
+		static_cast<float>(cells[currentFrame].CellTexture().Width()),
+		static_cast<float>(cells[currentFrame].CellTexture().Height()),
+		Vector2<float>::Zero());
+
+	renderer.Draw(cells[currentFrame].CellTexture(), position, sourceRectangle, colour, rotation, origin, scale);
 }
 
 AnimationPlayer::CellData::CellData(Texture&& texture, int duration)

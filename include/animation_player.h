@@ -14,7 +14,9 @@ public:
 	AnimationPlayer& operator=(AnimationPlayer&& rhs) = default;
 	AnimationPlayer(const std::string& filepath, SpriteRenderer& renderer);
 	void Update(float millisecondsPerUpdate);
-	void Draw();
+	void Draw(Vector2<float> position, Colour colour);
+	void Draw(Vector2<float> position, Colour colour, float rotation, Vector2<float> origin, float scale);
+	void Draw(Vector2<float> position, Colour colour, float rotation, Vector2<float> origin, Vector2<float> scale);
 
 private:
 	class CellData
