@@ -8,7 +8,8 @@ AnimationPlayer::AnimationPlayer(const std::string& filepath, SpriteRenderer& re
 	frameWidth(0),
 	frameHeight(0),
 	currentFrame(0),
-	currentFrameTime(0.0f)
+	currentFrameTime(0.0f),
+	isLooping(true)
 {
 	ase_t* animation = cute_aseprite_load_from_file(filepath.c_str(), NULL);
 
@@ -47,14 +48,19 @@ void AnimationPlayer::Update(float millisecondsPerUpdate)
 	}
 	else
 	{
-		if (currentFrame >= frameCount - 1) {
+		if (currentFrame >= frameCount - 1 && isLooping) 
+		{
 			currentFrame = 0;
 		}
-		else {
-			currentFrame++;
+		else if (currentFrame >= frameCount - 1)
+		{
+			currentFrame = frameCount - 1;
 		}
-
-		currentFrameTime = static_cast<float>(cells[currentFrame].Duration());
+		else 
+		{
+			currentFrame++;
+			currentFrameTime = static_cast<float>(cells[currentFrame].Duration());
+		}
 	}
 }
 

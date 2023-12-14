@@ -17,6 +17,7 @@ public:
 	void Draw(Vector2<float> position, Colour colour);
 	void Draw(Vector2<float> position, Colour colour, float rotation, Vector2<float> origin, float scale);
 	void Draw(Vector2<float> position, Colour colour, float rotation, Vector2<float> origin, Vector2<float> scale);
+	void Loop(bool loop) { isLooping = loop; }
 
 private:
 	class CellData
@@ -35,6 +36,7 @@ private:
 		Texture texture;
 	};
 
+	bool isLooping;
 	int frameCount;
 	int frameWidth;
 	int frameHeight;
