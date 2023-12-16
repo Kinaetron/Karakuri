@@ -23,7 +23,7 @@ AnimationPlayer::AnimationPlayer(const std::string& filepath, SpriteRenderer& re
 	frameWidth = animation->w;
 	frameHeight = animation->h;
 
-	for (int i = 0; i < animation->frame_count; ++i)
+	for (int i = 0; i < frameCount; ++i)
 	{
 		ase_frame_t* frame = animation->frames + i;
 
