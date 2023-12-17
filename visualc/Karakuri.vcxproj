@@ -218,17 +218,6 @@
     <ClInclude Include="..\src\shader.h" />
     <ClInclude Include="..\src\stb_image.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\SDL\VisualC\SDLmain\SDLmain.vcxproj">
-      <Project>{da956fd3-e142-46f2-9dd5-c78bebb56b7a}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SDL\VisualC\SDL\SDL.vcxproj">
-      <Project>{81ce8daf-ebb2-4761-8e45-b71abcca8c68}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SDL_mixer\VisualC\SDL_mixer.vcxproj">
-      <Project>{f7e944b3-0815-40cd-b3e4-90b2a15b0e33}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

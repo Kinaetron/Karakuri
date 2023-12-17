@@ -2,7 +2,6 @@
 #define COLLISION_H
 
 #include <circle.h>
-#include <circle.h>
 #include <vector2.h>
 #include <rectangle.h>
 
