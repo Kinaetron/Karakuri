@@ -1,7 +1,12 @@
 #ifndef SONG_H
 #define SONG_H
 
+#include <memory>
 #include <string>
+
+namespace spdlog {
+	class logger;
+}
 
 class Song
 {
@@ -20,8 +25,10 @@ public:
 
 
 private:
+
 	bool isLooping;
 	float volume;
+	std::shared_ptr<spdlog::logger> logger;
 };
 
 #endif

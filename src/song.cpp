@@ -1,18 +1,22 @@
 #include <song.h>
 #include <iostream>
 #include <SDL_mixer.h>
+#include <spdlog/spdlog.h>
 
 Mix_Music* song;
 
 Song::Song(std::string filePath):
 	volume(1.0f),
-	isLooping(false)
+	isLooping(false),
+	logger(nullptr)
 {
+	logger = spdlog::get("karakuri_logger");
+
 	song = Mix_LoadMUS(filePath.c_str());
 
 	if (!song)
 	{
-		std::cerr << "Song didn't load " << SDL_GetError() << std::endl;
+		logger->error("Song didn't load {}", SDL_GetError());
 		return;
 	}
 }
@@ -39,6 +43,8 @@ void Song::Stop() {
 	Mix_HaltMusic();
 }
 
-void Song::Destroy() {
+void Song::Destroy() 
+{
+	logger.reset();
 	Mix_FreeMusic(song);
 }

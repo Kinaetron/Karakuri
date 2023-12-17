@@ -1,28 +1,40 @@
 #include <game.h>
 #include <SDL.h>
-#include <iostream>
 #include <SDL_mixer.h>
 
-#include "../include/gamepad.h"
+#include <spdlog/spdlog.h>
+#include "spdlog/sinks/stdout_color_sinks.h"
+#include <spdlog/sinks/basic_file_sink.h>
 
 Game::Game(const std::string& title, int width, int height, int scale):
 	 graphicsDevice(title, width, height, scale),
-	 target_milliseconds_per_update(1000.0f / 60.0f)
+	 target_milliseconds_per_update(1000.0f / 60.0f),
+	 logger(nullptr)
 {
+	auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("logs/karakuri.txt", true);
+
+	logger = std::make_shared<spdlog::logger>("karakuri_logger", spdlog::sinks_init_list{ console_sink, file_sink });
+	spdlog::register_logger(logger);
+
+	file_sink.reset();
+	console_sink.reset();
+
 	if (SDL_Init(SDL_INIT_AUDIO) < 0)
 	{
-		std::cerr << "SDL sound initialization failed" << SDL_GetError() << std::endl;
+		logger->error("SDL sound initialization failed: {}", SDL_GetError());
 		return;
 	}
 
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 	{
-		std::cerr << "SDL open audio initalization failed" << SDL_GetError() << std::endl;
+		logger->error("SDL open audio initalization failed: {}", SDL_GetError());
 		return;
 	}
 
-	if (SDL_Init(SDL_INIT_GAMECONTROLLER) < 0) {
-		std::cerr << "SDL game pad initalization failed" << SDL_GetError() << std::endl;
+	if (SDL_Init(SDL_INIT_GAMECONTROLLER) < 0) 
+	{
+		logger->error("SDL game pad initalization failed: {}", SDL_GetError());
 		return;
 	}
 }
@@ -78,6 +90,7 @@ void Game::Run()
 
 void Game::Quit() 
 {
+	logger.reset();;
 	graphicsDevice.Destroy();
 	SDL_Quit();
 }

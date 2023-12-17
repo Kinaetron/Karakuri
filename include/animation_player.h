@@ -4,6 +4,11 @@
 #include <vector>
 #include <string>
 #include "sprite_renderer.h"
+#include <memory>
+
+namespace spdlog {
+	class logger;
+}
 
 class AnimationPlayer
 {
@@ -18,6 +23,7 @@ public:
 	void Draw(Vector2<float> position, Colour colour, float rotation, Vector2<float> origin, float scale);
 	void Draw(Vector2<float> position, Colour colour, float rotation, Vector2<float> origin, Vector2<float> scale);
 	void Loop(bool loop) { isLooping = loop; }
+	void Destroy();
 
 private:
 	class CellData
@@ -45,6 +51,7 @@ private:
 
 	std::vector<CellData> cells;
 	SpriteRenderer& renderer;
+	std::shared_ptr<spdlog::logger> logger;
 };
 
 #endif

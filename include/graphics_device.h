@@ -1,8 +1,13 @@
 #ifndef GRAPHICS_DEVICE_H
 #define GRAPHICS_DEVICE_H
 
+#include <memory>
 #include <string>
 #include <colour.h>
+
+namespace spdlog {
+	class logger;
+}
 
 struct SDL_Window;
 
@@ -28,5 +33,6 @@ private:
 	int width;
 	int height;
 	SDL_Window* window;
+	std::shared_ptr<spdlog::logger> logger;
 };
 #endif

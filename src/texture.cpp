@@ -2,15 +2,21 @@
 #include "glad.h"
 #include <texture.h>
 
-#include <iostream>
+#include <spdlog/spdlog.h>
 
 Texture::Texture(const std::string& filepath)
-	:width(0), height(0), channelType(0), textureID(0)
+	:width(0),
+	 height(0),
+	 channelType(0), 
+	 textureID(0),
+	 logger(nullptr)
 {
+	logger = spdlog::get("karakuri_logger");
+
 	unsigned char* data = stbi_load(filepath.c_str(), &width, &height, &channelType, 0);
 
 	if (!data) {
-		std::cerr << "Texture failed to load at path: " << filepath << std::endl;
+		logger->error("Texture failed to load at path: {}", filepath);
 	}
 
 	LoadData(data);
@@ -39,7 +45,7 @@ void Texture::LoadData(unsigned char* pixels)
 		break;
 
 	default:
-		std::cerr << "Channel type isn't supported" << std::endl;
+		logger->error("Channel type isn't supported: format number {}", format);
 		return;
 	}
 
@@ -62,4 +68,9 @@ Texture::Texture(int width, int height, int channel, unsigned char* pixels)
 
 void Texture::Bind() {
 	glBindTexture(GL_TEXTURE_2D, this->textureID);
+}
+
+void Texture::Destroy()
+{
+	logger.reset();
 }

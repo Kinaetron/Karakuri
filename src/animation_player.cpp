@@ -1,6 +1,7 @@
 #include "animation_player.h"
 #include "aseprite.h"
 #include <iostream>
+#include <spdlog/spdlog.h>
 
 AnimationPlayer::AnimationPlayer(const std::string& filepath, SpriteRenderer& renderer):
 	renderer(renderer),
@@ -9,13 +10,16 @@ AnimationPlayer::AnimationPlayer(const std::string& filepath, SpriteRenderer& re
 	frameHeight(0),
 	currentFrame(0),
 	currentFrameTime(0.0f),
-	isLooping(true)
+	isLooping(true),
+	logger(nullptr)
 {
+	logger = spdlog::get("karakuri_logger");
+
 	ase_t* animation = cute_aseprite_load_from_file(filepath.c_str(), NULL);
 
 	if (animation == nullptr)
 	{
-		std::cerr << "Animation data didn't load " << filepath << std::endl;
+		logger->error("Animation data didn't load from {}", filepath);
 		return;
 	}
 
@@ -92,3 +96,8 @@ void AnimationPlayer::Draw(Vector2<float> position, Colour colour, float rotatio
 AnimationPlayer::CellData::CellData(Texture&& texture, int duration)
 	:texture(texture),
 	duration(duration) { }
+
+void AnimationPlayer::Destroy()
+{
+	logger.reset();
+}

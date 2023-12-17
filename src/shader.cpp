@@ -4,9 +4,12 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <spdlog/spdlog.h>
 
-Shader::Shader(const std::string& vertexCode, const std::string& fragmentCode)
+Shader::Shader(const std::string& vertexCode, const std::string& fragmentCode):
+    logger(nullptr)
 {
+    logger = spdlog::get("karakuri_logger");
 
     const char* vShaderCode = vertexCode.c_str();
     const char* fShaderCode = fragmentCode.c_str();
@@ -16,18 +19,18 @@ Shader::Shader(const std::string& vertexCode, const std::string& fragmentCode)
     vertex = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertex, 1, &vShaderCode, NULL);
     glCompileShader(vertex);
-    checkCompilerErrors(vertex, "VERTEX");
+    checkCompilerErrors(vertex, "Vertex");
 
     fragment = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragment, 1, &fShaderCode, NULL);
     glCompileShader(fragment);
-    checkCompilerErrors(fragment, "FRAGMENT");
+    checkCompilerErrors(fragment, "Fragment");
 
     ID = glCreateProgram();
     glAttachShader(ID, vertex);
     glAttachShader(ID, fragment);
     glLinkProgram(ID);
-    checkCompilerErrors(ID, "PROGRAM");
+    checkCompilerErrors(ID, "Program");
 
     glDeleteShader(vertex);
     glDeleteShader(fragment);
@@ -43,14 +46,14 @@ void Shader::checkCompilerErrors(GLuint shader, std::string type)
     GLint success;
     GLchar infoLog[1024];
 
-    if (type != "PROGRAM")
+    if (type != "Program")
     {
         glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 
         if (!success)
         {
             glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-            std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n-- --------------------------------------------------- -- " << std::endl;
+            logger->error("Compliation error type of {} with info {}", type, infoLog);
         }
     }
     else
@@ -59,7 +62,7 @@ void Shader::checkCompilerErrors(GLuint shader, std::string type)
         if (!success)
         {
             glGetProgramInfoLog(shader, 1024, NULL, infoLog);
-            std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+            logger->error("Program linking error type of {} with info {}", type, infoLog);
         }
     }
 }
@@ -105,4 +108,9 @@ std::array<GLfloat, 16> Shader::TranslateMatrix(Matrix<float> matrix)
     }
 
     return MArray;
+}
+
+void Shader::Destroy()
+{
+    logger.reset();
 }

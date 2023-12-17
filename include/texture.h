@@ -3,6 +3,11 @@
 
 #include <array>
 #include <string>
+#include <memory>
+
+namespace spdlog {
+	class logger;
+}
 
 class Texture
 {
@@ -16,6 +21,7 @@ public:
 	const int Height() const { return height; }
 	const int ChannelType() const { return channelType; }
 	void Bind();
+	void Destroy();
 
 
 private:
@@ -24,6 +30,7 @@ private:
 	int channelType;
 	unsigned int textureID;
 	void LoadData(unsigned char* pixels);
+	std::shared_ptr<spdlog::logger> logger;
 };
 
 #endif

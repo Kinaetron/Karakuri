@@ -1,6 +1,7 @@
 #include <graphics_device.h>
 #include <vector3.h>
 
+#include <spdlog/spdlog.h>
 #include <iostream>
 #include <SDL.h>
 #include "glad.h"
@@ -10,11 +11,14 @@ GraphicsDevice::GraphicsDevice(const std::string& title, int width, int height, 
 	width(width),
 	height(height),
 	scale(scale),
-	window(nullptr)
+	window(nullptr),
+	logger(nullptr)
 {
+	logger = spdlog::get("karakuri_logger");
+
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) 
 	{
-		std::cerr << "SDL video initalization failed" << SDL_GetError() << std::endl;
+		logger->error("SDL video initalization failed {}", SDL_GetError());
 		return;
 	}
 
@@ -33,7 +37,7 @@ GraphicsDevice::GraphicsDevice(const std::string& title, int width, int height, 
 
 	if (!window)
 	{
-		std::cerr << "Failed to create SDL window: " << SDL_GetError() << std::endl;
+		logger->error("Failed to create SDL window: {}", SDL_GetError());
 		return;
 	}
 
@@ -41,19 +45,19 @@ GraphicsDevice::GraphicsDevice(const std::string& title, int width, int height, 
 
 	if (!context)
 	{
-		std::cerr << "Failed to create SDL OpenGL context: " << SDL_GetError() << std::endl;
+		logger->error("Failed to create SDL OpenGL context: {}", SDL_GetError());
 		return;
 	}
 
 	if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
 	{
-		std::cerr << "Failed to initialize Glad" << std::endl;
+		logger->error("Failed to initialize Glad {}", SDL_GetError());
 		return;
 	}
 
 	if (!GLAD_GL_VERSION_4_0) 
 	{
-		std::cerr << "OpenGL 4.0 is not supported on this system" << std::endl;
+		logger->error("OpenGL 4.0 is not supported on this system", SDL_GetError());
 		return;
 	}
 
@@ -74,7 +78,7 @@ GraphicsDevice::GraphicsDevice(const std::string& title, int width, int height, 
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) 
 	{
-		std::cerr << "Framebuffer creation failed!" << std::endl;
+		logger->error("Framebuffer creation failed!", SDL_GetError());
 		return;
 	}
 
@@ -105,6 +109,8 @@ void GraphicsDevice::EnableVSync(bool state) {
 	SDL_GL_SetSwapInterval(state);
 }
 
-void GraphicsDevice::Destroy() {
+void GraphicsDevice::Destroy() 
+{
+	logger.reset();
 	SDL_DestroyWindow(window);
 }

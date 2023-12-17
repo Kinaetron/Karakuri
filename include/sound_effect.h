@@ -1,7 +1,12 @@
 #ifndef SOUND_EFFECT_H
 #define SOUND_EFFECT_H
 
+#include <memory>
 #include <string>
+
+namespace spdlog {
+	class logger;
+}
 
 class SoundEffect
 {
@@ -22,5 +27,6 @@ private:
 	int channel;
 	float volume;
 	bool isLooping;
+	std::shared_ptr<spdlog::logger> logger;
 };
 #endif

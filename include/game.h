@@ -6,6 +6,10 @@
 #include "graphics_device.h"
 #include <memory>
 
+namespace spdlog {
+    class logger;
+}
+
 class Game
 {
 public:
@@ -26,5 +30,6 @@ private:
 	bool isRunning = true;
 	void ProcessEvents();
 	const float target_milliseconds_per_update;
+	std::shared_ptr<spdlog::logger> logger;
 };
 #endif
