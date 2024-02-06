@@ -31,7 +31,7 @@ public:
 
 	/*
 	* Clears the colour buffer.
-	* /param colour, sets the colour the colour buffer will be cleared to.
+	* \param colour, sets the colour the colour buffer will be cleared to.
 	*/
 	void Clear(const Colour& colour);
 

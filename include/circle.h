@@ -9,6 +9,7 @@ public:
 	Circle(const Circle& that) = default;
 	Circle(Circle&& that) = default;
 	Circle& operator=(const Circle& rhs) = default;
+
 	/*
 	* A 2D representation of a circle.
 	* 
@@ -19,18 +20,20 @@ public:
 
 	/*
 	* Set the position.
-	*
 	* /param position. Sets the position of the circle.
 	*/
 	void SetPosition(Vector2<float> position) { this->position = position; }
+
 	/*
 	* Gets the radius.
 	*/
 	const float Radius() const { return radius; }
+
 	/*
 	* Gets the centre position.
 	*/
 	const Vector2<float> Centre() const { return Vector2<float>(position.X - radius, position.Y - radius); }
+
 	/*
 	* Gets the position.
 	*/

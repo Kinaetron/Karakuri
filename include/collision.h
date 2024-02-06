@@ -15,6 +15,7 @@ public:
 	Collision(const Collision& that) = default;
 	Collision(Collision&& that) = default;
 	Collision& operator=(const Collision& rhs) = default;
+
 	/*
 	* Checks to see if circle and a circle intersects.
 	* \param circle1 is the first circle to check against.
@@ -23,6 +24,7 @@ public:
 	* \return a float vector2 with the depth of the intersection.
 	*/
 	Vector2<float> CirlcleIntersectsCircle(const Circle& circle1, const Circle& circle2);
+
 	/*
 	* Checks to see if rectangle and a rectangle intersects.
 	* \param rectangle1 is the first rectangle to check against.
@@ -31,6 +33,7 @@ public:
 	* \return a float vector2 with the depth of the intersection.
 	*/
 	Vector2<float> RectangleIntersectRectangle(const Rectangle& rectangle1, const Rectangle& rectangle2);
+
 	/*
 	* Checks to see if circle and a rectangle intersects.
 	* \param circle is the circle to check against.

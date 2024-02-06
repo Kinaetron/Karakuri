@@ -9,11 +9,13 @@ public:
 	Colour(const Colour& that) = default;
 	Colour(Colour&& that) = default;
 	Colour& operator=(const Colour& rhs) = default;
+
 	/*
 	* Colour object that represents red, green, blue and each value goes from 0 to 255.
 	* /param colours is a vector3 stores the colours
 	*/
 	Colour(Vector3<unsigned short> colours);
+
 	/*
 	* Colour object that represents red, green, blue and each value goes from 0 to 255.
 	* /param red.
@@ -21,10 +23,12 @@ public:
 	* /param blue.
 	*/
 	Colour(unsigned short red, unsigned short green, unsigned blue);
+
 	/*
 	* Returns a vector3 with a each colour represented as a value that goes from 0.0f to 1.0f.
 	*/
 	const Vector3<float> ToVector3() const;
+
 	static const Colour White() { return Colour(255, 255, 255); }
 	static const Colour Black() { return Colour(0, 0, 0); }
 	static const Colour Red() { return Colour(255, 0, 0); }
