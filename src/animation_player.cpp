@@ -1,101 +1,99 @@
 #include "animation_player.h"
-#include "aseprite.h"
-#include <iostream>
 #include <spdlog/spdlog.h>
 
-AnimationPlayer::AnimationPlayer(const std::string& filepath, SpriteRenderer& renderer):
-	renderer(renderer),
-	frameCount(0),
-	frameWidth(0),
-	frameHeight(0),
+AnimationPlayer::AnimationPlayer(SpriteRenderer& renderer):
 	currentFrame(0),
 	currentFrameTime(0.0f),
-	isLooping(true),
+	animationData(nullptr),
+	renderer(renderer),
 	logger(nullptr)
 {
-	logger = spdlog::get("karakuri_logger");
-
-	ase_t* animation = cute_aseprite_load_from_file(filepath.c_str(), NULL);
-
-	if (animation == nullptr)
-	{
-		logger->error("Animation data didn't load from {}", filepath);
-		return;
-	}
-
-	frameCount = animation->frame_count;
-	frameWidth = animation->w;
-	frameHeight = animation->h;
-
-	for (int i = 0; i < frameCount; ++i)
-	{
-		ase_frame_t* frame = animation->frames + i;
-
-		unsigned char* pixels = reinterpret_cast<unsigned char*>(frame->pixels);
-		Texture cellTexture = Texture(frameWidth, frameHeight, 4, pixels);
-
-		cells.push_back(CellData(std::move(cellTexture),
-			frame->duration_milliseconds));
-
-		if (i == 0) {
-			currentFrameTime =  static_cast<float>(frame->duration_milliseconds);
-		}
-	}
-
-	cute_aseprite_free(animation);
 }
 
 void AnimationPlayer::Update(float millisecondsPerUpdate)
 {
+	if (animationData == nullptr) {
+		return;
+	}
+
 	if (currentFrameTime > 0) {
 		currentFrameTime -= millisecondsPerUpdate;
 	}
 	else
 	{
-		if (currentFrame >= frameCount - 1 && isLooping) 
+		if (currentFrame >= animationData->FrameCount() - 1 && animationData->IsLooping())
 		{
 			currentFrame = 0;
 		}
-		else if (currentFrame >= frameCount - 1)
+		else if (currentFrame >= animationData->FrameCount() - 1)
 		{
-			currentFrame = frameCount - 1;
+			currentFrame = animationData->FrameCount() - 1;
 		}
 		else 
 		{
 			currentFrame++;
-			currentFrameTime = static_cast<float>(cells[currentFrame].Duration());
+			currentFrameTime = static_cast<float>(animationData->Cell(currentFrame).Duration());
 		}
 	}
 }
 
+FrameData* AnimationPlayer::GetFrameData()
+{
+	if (animationData == nullptr) {
+		return nullptr;
+	}
+
+	return &animationData->Frame(currentFrame);
+}
+
+void AnimationPlayer::Play(AnimationData* data)
+{
+	if (data == animationData) {
+		return;
+	}
+
+	currentFrame = 0;
+	currentFrameTime = 0.0f;
+
+	animationData = data;
+}
+
 void AnimationPlayer::Draw(Vector2<float> position, Colour colour)
 {
-	renderer.Draw(cells[currentFrame].CellTexture(), position, colour);
+	if (animationData == nullptr) {
+		return;
+	}
+
+	renderer.Draw(animationData->Cell(currentFrame).CellTexture(), position, colour);
 }
 
 void AnimationPlayer::Draw(Vector2<float> position, Colour colour, float rotation, Vector2<float> origin, float scale)
 {
+	if (animationData == nullptr) {
+		return;
+	}
+
 	Rectangle sourceRectangle = Rectangle(
-		static_cast<float>(cells[currentFrame].CellTexture().Width()),
-		static_cast<float>(cells[currentFrame].CellTexture().Height()),
+		static_cast<float>(animationData->Cell(currentFrame).CellTexture().Width()),
+		static_cast<float>(animationData->Cell(currentFrame).CellTexture().Height()),
 		Vector2<float>::Zero());
 
-	renderer.Draw(cells[currentFrame].CellTexture(), position, sourceRectangle,  colour, rotation, origin, scale);
+	renderer.Draw(animationData->Cell(currentFrame).CellTexture(), position, sourceRectangle,  colour, rotation, origin, scale);
 }
 
 void AnimationPlayer::Draw(Vector2<float> position, Colour colour, float rotation, Vector2<float> origin, Vector2<float> scale)
 {
+	if (animationData == nullptr) {
+		return;
+	}
+
 	Rectangle sourceRectangle = Rectangle(
-		static_cast<float>(cells[currentFrame].CellTexture().Width()),
-		static_cast<float>(cells[currentFrame].CellTexture().Height()),
+		static_cast<float>(animationData->Cell(currentFrame).CellTexture().Width()),
+		static_cast<float>(animationData->Cell(currentFrame).CellTexture().Height()),
 		Vector2<float>::Zero());
 
-	renderer.Draw(cells[currentFrame].CellTexture(), position, sourceRectangle, colour, rotation, origin, scale);
+	renderer.Draw(animationData->Cell(currentFrame).CellTexture(), position, sourceRectangle, colour, rotation, origin, scale);
 }
-
-AnimationPlayer::CellData::CellData(Texture&& texture, int duration)
-	:texture(texture),
-	duration(duration) { }
 
 void AnimationPlayer::Destroy()
 {

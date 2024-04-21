@@ -80,7 +80,7 @@ public:
 		return result;
 	}
 
-	Vector2& operator += (const Vector2& value) const
+	Vector2& operator += (const Vector2& value)
 	{
 		X += value.X;
 		Y += value.Y;
@@ -88,7 +88,7 @@ public:
 		return *this;
 	}
 
-	Vector2& operator -= (const Vector2& value) const
+	Vector2& operator -= (const Vector2& value)
 	{
 		X -= value.X;
 		Y -= value.Y;
@@ -96,7 +96,7 @@ public:
 		return *this;
 	}
 
-	Vector2& operator *= (const Vector2& value) const
+	Vector2& operator *= (const Vector2& value)
 	{
 		X *= value.X;
 		Y *= value.Y;
@@ -104,7 +104,7 @@ public:
 		return *this;
 	}
 
-	Vector2& operator /= (const Vector2& value) const
+	Vector2& operator /= (const Vector2& value)
 	{
 		X /= value.X;
 		Y /= value.Y; 

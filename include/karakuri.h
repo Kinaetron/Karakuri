@@ -20,6 +20,9 @@
 #include "vector3.h"
 #include "collision.h"
 #include "aseprite.h"
+#include "animation_data.h"
 #include "animation_player.h"
+#include "math_helper.h"
+#include "sprite_mirror.h"
 
 #endif
