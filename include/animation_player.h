@@ -5,6 +5,7 @@
 #include <string>
 #include <memory>
 #include "frame_data.h"
+#include "sprite_mirror.h"
 #include "animation_data.h"
 #include "sprite_renderer.h"
 
@@ -48,7 +49,7 @@ public:
 	* \param position is sets the position of the animation cell being drawn.
 	* \param colour sets the colour of the animation cell.
 	*/
-	void Draw(Vector2<float> position, Colour colour);
+	void Draw(Vector2<float> position, Colour colour, SpriteMirror mirror);
 
 	/*
 	* Draws the cell of the of a animation
@@ -59,7 +60,7 @@ public:
 	* \param origin sets the point on the animation cell where it will be rotated around and where cell be start position.
 	* \param scale increases or decreases the size of the cell based off of value.
 	*/
-	void Draw(Vector2<float> position, Colour colour, float rotation, Vector2<float> origin, float scale);
+	void Draw(Vector2<float> position, Colour colour, SpriteMirror mirror, float rotation, Vector2<float> origin, float scale);
 
 	/*
 	* Draws the cell of the of a animation
@@ -70,7 +71,7 @@ public:
 	* \param origin sets the point on the animation cell where it will be rotated around and where cell be start position.
 	* \param scale increases or decreases the size of the cell based off of value.
 	*/
-	void Draw(Vector2<float> position, Colour colour, float rotation, Vector2<float> origin, Vector2<float> scale);
+	void Draw(Vector2<float> position, Colour colour, SpriteMirror mirror, float rotation, Vector2<float> origin, Vector2<float> scale);
 
 	/*
 	* This method destroys all the objects used by the animation system. Call it when you're closing the animation system.

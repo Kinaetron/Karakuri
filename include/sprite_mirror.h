@@ -6,7 +6,7 @@ enum SpriteMirror
 	None = 0,
 	Horizontally = 1,
 	Vertically = 2,
-	Both = Horizontally | Vertically
+	Both = 3
 };
 
 #endif

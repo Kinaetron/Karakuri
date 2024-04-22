@@ -107,7 +107,7 @@ void SpriteRenderer::InitalizeRenderData(const GraphicsDevice& device)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Colour colour)
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Colour colour, SpriteMirror mirror)
 {
 	PushVertexInformation( 
 		texture,
@@ -123,10 +123,11 @@ void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Colour colo
 		0.0f,
 		0.0f,
 		0.0f,
-		1.0f);
+		1.0f,
+		mirror);
 }
 
-void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour)
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, SpriteMirror mirror)
 {
 	float sourceX = sourceRectangle.Position().X / static_cast<float>(texture.Width());
 	float sourceY = sourceRectangle.Position().Y / static_cast<float>(texture.Height());
@@ -149,11 +150,12 @@ void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle s
 		0.0f,
 		0.0f,
 		0.0f,
-		1.0f
+		1.0f,
+		mirror
 	);
 }
 
-void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, float rotation, Vector2<float> origin, float scale)
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, SpriteMirror mirror, float rotation, Vector2<float> origin, float scale)
 {
 	float destinationWidth = scale;
 	float destinationHeight = scale;
@@ -186,11 +188,12 @@ void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle s
 		origin.X / sourceWidth / static_cast<float>(texture.Width()),
 		origin.Y / sourceHeight / static_cast<float>(texture.Height()),
 		static_cast<float>(std::sin(rotation)),
-		static_cast<float>(std::cos(rotation))
+		static_cast<float>(std::cos(rotation)),
+		mirror
 	);
 }
 
-void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, float rotation, Vector2<float> origin, Vector2<float> scale)
+void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, SpriteMirror mirror, float rotation, Vector2<float> origin, Vector2<float> scale)
 {
 	float sourceX = sourceRectangle.Position().X / static_cast<float>(texture.Width());
 	float sourceY = sourceRectangle.Position().Y / static_cast<float>(texture.Height());
@@ -220,11 +223,12 @@ void SpriteRenderer::Draw(Texture& texture, Vector2<float> position, Rectangle s
 		origin.X / sourceWidth / static_cast<float>(texture.Width()),
 		origin.Y / sourceHeight / static_cast<float>(texture.Height()),
 		std::sin(rotation),
-		std::cos(rotation)
+		std::cos(rotation),
+		mirror
 	);
 }
 
-void SpriteRenderer::Draw(Texture& texture, Rectangle destinationRectangle, Colour colour)
+void SpriteRenderer::Draw(Texture& texture, Rectangle destinationRectangle, Colour colour, SpriteMirror mirror)
 {
 	PushVertexInformation
 	(texture,
@@ -240,11 +244,12 @@ void SpriteRenderer::Draw(Texture& texture, Rectangle destinationRectangle, Colo
 		0.0f,
 		0.0f,
 		0.0f,
-		1.0f
+		1.0f,
+		mirror
 	);
 }
 
-void SpriteRenderer::Draw(Texture& texture, Rectangle destionationRectangle, Rectangle sourceRectangle, Colour colour)
+void SpriteRenderer::Draw(Texture& texture, Rectangle destionationRectangle, Rectangle sourceRectangle, Colour colour, SpriteMirror mirror)
 {
 	float sourceX = sourceRectangle.Position().X / static_cast<float>(texture.Width());
 	float sourceY = sourceRectangle.Position().Y / static_cast<float>(texture.Height());
@@ -265,11 +270,11 @@ void SpriteRenderer::Draw(Texture& texture, Rectangle destionationRectangle, Rec
 		0.0f,
 		0.0f,
 		0.0f,
-		1.0f
-	);
+		1.0f,
+		mirror);
 }
 
-void SpriteRenderer::Draw(Texture& texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Colour colour, float rotation, Vector2<float> origin)
+void SpriteRenderer::Draw(Texture& texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Colour colour, SpriteMirror mirror, float rotation, Vector2<float> origin)
 {
 	float sourceX = sourceRectangle.Position().X / static_cast<float>(texture.Width());
 	float sourceY = sourceRectangle.Position().Y / static_cast<float>(texture.Height());
@@ -296,7 +301,8 @@ void SpriteRenderer::Draw(Texture& texture, Rectangle destinationRectangle, Rect
 		origin.X / sourceWidth / static_cast<float>(texture.Width()),
 		origin.Y / sourceHeight / static_cast<float>(texture.Height()),
 		std::sin(rotation),
-		std::cos(rotation)
+		std::cos(rotation),
+		mirror
 	);
 }
 
@@ -314,7 +320,8 @@ void SpriteRenderer::PushVertexInformation(
 	float originX,
 	float originY,
 	float rotationSin, 
-	float rotationCos)
+	float rotationCos,
+	SpriteMirror spriteMirror)
 {
 	Vector3<float> colourVector = colour.ToVector3();
 
@@ -346,10 +353,58 @@ void SpriteRenderer::PushVertexInformation(
 		(-rotationSin * cornerY) + (rotationCos * cornerX) + destinationX,
 		(rotationCos * cornerY) + (rotationSin * cornerX) + destinationY);
 
-	Vector2<float> texCoords0 = Vector2<float>(sourceWidth + sourceX, sourceHeight + sourceY);
-	Vector2<float> texCoords1 = Vector2<float>(sourceWidth + sourceX, sourceY);
-	Vector2<float> texCoords2 = Vector2<float>(sourceX, sourceY);
-	Vector2<float> texCoords3 = Vector2<float>(sourceX, sourceHeight + sourceY);
+
+	uint32_t cornerX0 = 0;
+	uint32_t cornerX1 = 0;
+	uint32_t cornerX2 = 0;
+	uint32_t cornerX3 = 0;
+
+	uint32_t cornerY0 = 0;
+	uint32_t cornerY1 = 0;
+	uint32_t cornerY2 = 0;
+	uint32_t cornerY3 = 0;
+
+	if (spriteMirror == SpriteMirror::None)
+	{
+		cornerX0 = 1;
+		cornerY0 = 1;
+		cornerX1 = 1;
+		cornerY3 = 1;
+	}
+	else if (spriteMirror == SpriteMirror::Horizontally)
+	{
+		cornerY0 = 1;
+		cornerX2 = 1;
+		cornerX3 = 1;
+		cornerY3 = 1;
+	}
+	else if (spriteMirror == SpriteMirror::Vertically)
+	{
+		cornerX0 = 1;
+		cornerX1 = 1;
+		cornerY1 = 1;
+		cornerY2 = 1;
+	}
+	else if (spriteMirror == SpriteMirror::Both)
+	{
+		cornerY1 = 1;
+		cornerX2 = 1;
+		cornerY2 = 1;
+		cornerX3 = 1;
+	}
+
+
+	Vector2<float> texCoords0 = Vector2<float>((cornerX0 * sourceWidth) + sourceX, 
+											   (cornerY0 * sourceHeight) + sourceY);
+
+	Vector2<float> texCoords1 = Vector2<float>((cornerX1 * sourceWidth) + sourceX,
+											   (cornerY1 * sourceHeight) + sourceY);
+
+	Vector2<float> texCoords2 = Vector2<float>((cornerX2 * sourceWidth) + sourceX, 
+											   (cornerY2 * sourceHeight) + sourceY);
+
+	Vector2<float> texCoords3 = Vector2<float>((cornerX3 * sourceWidth) + sourceX, 
+											   (cornerY3 * sourceHeight) + sourceY);
 
 	float vertices[] =
 	{

@@ -7,6 +7,8 @@
 #include <colour.h>
 #include <matrix.h>
 #include <rectangle.h>
+#include <sprite_mirror.h>
+#include <vector>
 
 class Shader;
 
@@ -18,13 +20,13 @@ public:
 	SpriteRenderer& operator=(const SpriteRenderer& rhs) = default;
 	SpriteRenderer& operator=(SpriteRenderer&& rhs) = default;
 	SpriteRenderer(const GraphicsDevice& device);
-	void Draw(Texture& texture, Vector2<float> position, Colour colour);
-	void Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour);
-	void Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, float rotation, Vector2<float> origin, float scale);
-	void Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, float rotation, Vector2<float> origin, Vector2<float> scale);
-	void Draw(Texture& texture, Rectangle destinationRectangle, Colour colour);
-	void Draw(Texture& texture, Rectangle destionationRectangle, Rectangle sourceRectangle, Colour colour);
-	void Draw(Texture& texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Colour colour, float rotation, Vector2<float> origin);
+	void Draw(Texture& texture, Vector2<float> position, Colour colour, SpriteMirror mirror);
+	void Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, SpriteMirror mirror);
+	void Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, SpriteMirror mirror, float rotation, Vector2<float> origin, float scale);
+	void Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, SpriteMirror mirror, float rotation, Vector2<float> origin, Vector2<float> scale);
+	void Draw(Texture& texture, Rectangle destinationRectangle, Colour colour, SpriteMirror mirror);
+	void Draw(Texture& texture, Rectangle destionationRectangle, Rectangle sourceRectangle, Colour colour, SpriteMirror mirror);
+	void Draw(Texture& texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Colour colour, SpriteMirror mirror, float rotation, Vector2<float> origin);
 
 private:
 	void InitalizeRenderData(const GraphicsDevice& device);
@@ -43,7 +45,8 @@ private:
 		float originX,
 		float originY,
 		float rotationSin,
-		float rotationCos);
+		float rotationCos,
+		SpriteMirror spriteMiror);
 
 	Shader* shader;
 	unsigned int quadVAO;
