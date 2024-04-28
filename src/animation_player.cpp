@@ -6,7 +6,8 @@ AnimationPlayer::AnimationPlayer(SpriteRenderer& renderer):
 	currentFrameTime(0.0f),
 	animationData(nullptr),
 	renderer(renderer),
-	logger(nullptr)
+	logger(nullptr),
+	animationFinished(false)
 {
 }
 
@@ -21,12 +22,14 @@ void AnimationPlayer::Update(float millisecondsPerUpdate)
 	}
 	else
 	{
-		if (currentFrame >= animationData->FrameCount() - 1 && animationData->IsLooping())
-		{
+		animationFinished = false;
+
+		if (currentFrame >= animationData->FrameCount() - 1 && animationData->IsLooping()) {
 			currentFrame = 0;
 		}
-		else if (currentFrame >= animationData->FrameCount() - 1)
+		else if (currentFrame >= animationData->FrameCount() - 1) 
 		{
+			animationFinished = true;
 			currentFrame = animationData->FrameCount() - 1;
 		}
 		else 

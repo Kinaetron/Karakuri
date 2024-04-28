@@ -24,5 +24,7 @@
 #include "animation_player.h"
 #include "math_helper.h"
 #include "sprite_mirror.h"
+#include "controller_combo.h"
+#include "combo_listener.h"
 
 #endif

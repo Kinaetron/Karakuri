@@ -178,6 +178,8 @@
     <ClCompile Include="..\src\circle.cpp" />
     <ClCompile Include="..\src\collision.cpp" />
     <ClCompile Include="..\src\colour.cpp" />
+    <ClCompile Include="..\src\combo_listener.cpp" />
+    <ClCompile Include="..\src\controller_combo.cpp" />
     <ClCompile Include="..\src\frame_data.cpp" />
     <ClCompile Include="..\src\game.cpp" />
     <ClCompile Include="..\src\gamepad.cpp" />
@@ -202,6 +204,8 @@
     <ClInclude Include="..\include\circle.h" />
     <ClInclude Include="..\include\collision.h" />
     <ClInclude Include="..\include\colour.h" />
+    <ClInclude Include="..\include\combo_listener.h" />
+    <ClInclude Include="..\include\controller_combo.h" />
     <ClInclude Include="..\include\frame_data.h" />
     <ClInclude Include="..\include\game.h" />
     <ClInclude Include="..\include\gamepad.h" />

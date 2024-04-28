@@ -73,6 +73,9 @@ public:
 	*/
 	void Draw(Vector2<float> position, Colour colour, SpriteMirror mirror, float rotation, Vector2<float> origin, Vector2<float> scale);
 
+	const int CurrentFrame() const { return currentFrame; }
+
+	const bool AnimationFinished() const { return animationFinished; }
 	/*
 	* This method destroys all the objects used by the animation system. Call it when you're closing the animation system.
 	*/
@@ -81,6 +84,7 @@ public:
 private:
 	int currentFrame;
 	float currentFrameTime;
+	bool animationFinished;
 	SpriteRenderer& renderer;
 	AnimationData* animationData;
 	std::shared_ptr<spdlog::logger> logger;

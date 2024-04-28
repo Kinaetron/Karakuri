@@ -9,25 +9,25 @@ using namespace std;
 
 using json = nlohmann::json;
 
-AnimationData::AnimationData(const std::string& filepath):
+AnimationData::AnimationData(const std::string& filepath, bool looping):
 	frameCount(0),
 	frameWidth(0),
 	frameHeight(0),
 	currentFrame(0),
 	currentFrameTime(0.0f),
-	isLooping(true),
+	isLooping(looping),
 	logger(nullptr)
 {
 	InitializeAnimation(filepath);
 }
 
-AnimationData::AnimationData(const std::string& animationPath, const std::string& colliderPath):
+AnimationData::AnimationData(const std::string& animationPath, const std::string& colliderPath, bool looping):
 	frameCount(0),
 	frameWidth(0),
 	frameHeight(0),
 	currentFrame(0),
 	currentFrameTime(0.0f),
-	isLooping(true),
+	isLooping(looping),
 	logger(nullptr)
 {
 	InitializeAnimation(animationPath);

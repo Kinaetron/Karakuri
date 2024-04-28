@@ -24,7 +24,7 @@ public:
 	*
 	* \param filepath to the aseprite file you want to play.
 	*/
-	AnimationData(const std::string& filepath);
+	AnimationData(const std::string& filepath, bool looping);
 
 	/*
 	* 2D animation data.
@@ -32,7 +32,7 @@ public:
 	* \param filepath to the aseprite file you want to play.
 	* \param filepath to the json file with the collision data.
 	*/
-	AnimationData(const std::string& animationPath, const std::string& colliderPath);
+	AnimationData(const std::string& animationPath, const std::string& colliderPath, bool looping);
 
 	/*
 	* Allows you to see if the animation needs to be looped.

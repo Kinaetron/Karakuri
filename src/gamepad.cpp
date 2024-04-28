@@ -3,14 +3,12 @@
 #include <iostream>
 #include <vector2.h>
 
-
-SDL_GameController* controller;
-
 Gamepad::Gamepad(int index):
 	index(index),
 	isConnected(false),
 	axisLimit(32767),
-	negativeAxisLimit(32768)
+	negativeAxisLimit(32768),
+	controller(nullptr)
 {
 }
 

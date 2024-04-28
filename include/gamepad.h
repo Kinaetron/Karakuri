@@ -5,6 +5,9 @@
 #include "vector2.h"
 #include <array>
 
+struct _SDL_GameController;
+typedef struct _SDL_GameController SDL_GameController;
+
 class Gamepad
 {
 public:
@@ -89,6 +92,7 @@ private:
 	int index = 0;
 	std::array<uint8_t, 21> gamePadState {};
 	std::array<uint8_t, 21> oldGamePadState {};
+	SDL_GameController* controller;
 	bool isConnected;
 	int axisLimit;
 	int negativeAxisLimit;
