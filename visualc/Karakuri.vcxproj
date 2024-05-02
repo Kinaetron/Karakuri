@@ -188,6 +188,7 @@
     <ClCompile Include="..\src\keyboard.cpp" />
     <ClCompile Include="..\src\mouse.cpp" />
     <ClCompile Include="..\src\rectangle.cpp" />
+    <ClCompile Include="..\src\rectangle_renderer.cpp" />
     <ClCompile Include="..\src\shader.cpp" />
     <ClCompile Include="..\src\song.cpp" />
     <ClCompile Include="..\src\sound_effect.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="..\include\matrix.h" />
     <ClInclude Include="..\include\mouse.h" />
     <ClInclude Include="..\include\rectangle.h" />
+    <ClInclude Include="..\include\rectangle_renderer.h" />
     <ClInclude Include="..\include\song.h" />
     <ClInclude Include="..\include\sound_effect.h" />
     <ClInclude Include="..\include\sprite_mirror.h" />

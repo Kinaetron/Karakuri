@@ -8,7 +8,6 @@
 #include <math_utility.h>
 #include <sprite_renderer.h>
 #include <vector2.h>
-#include <vector2.h>
 #include "shader.h"
 
 SpriteRenderer::SpriteRenderer(const GraphicsDevice& device)
