@@ -1,8 +1,13 @@
 #include "frame_data.h"
 
-FrameData::FrameData(Rectangle collisionBox,
+FrameData::FrameData(
+	int frameWidth,
+	int frameHeight,
+	Rectangle collisionBox,
 	const std::vector<Rectangle> hitBoxes,
 	const std::vector<Rectangle> hurtBoxes):
+	frameWidth(frameWidth),
+	frameHeight(frameHeight),
 	collisionBox(collisionBox),
 	hitBoxes(hitBoxes),
 	hurtBoxes(hurtBoxes)
@@ -44,7 +49,7 @@ std::vector<Rectangle> FrameData::Hitboxes(const Vector2<float> position, Sprite
 				hitBoxes[i].Width(),
 				hitBoxes[i].Height(),
 				Vector2<float>(
-				position.X - (hitBoxes[i].Position().X + hitBoxes[i].Width()),
+				(position.X + frameWidth) - (hitBoxes[i].Position().X + hitBoxes[i].Width()),
 				hitBoxes[i].Position().Y + position.Y));
 
 			modifiedHitboxes.push_back(modifiedHitbox);
@@ -81,7 +86,7 @@ std::vector<Rectangle> FrameData::Hurtboxes(const Vector2<float> position, Sprit
 				hurtBoxes[i].Width(),
 				hurtBoxes[i].Height(),
 				Vector2<float>(
-				position.X - (hurtBoxes[i].Width() + hurtBoxes[i].Position().X),
+				(position.X + frameWidth) - (hurtBoxes[i].Position().X + hurtBoxes[i].Width()),
 				hurtBoxes[i].Position().Y + position.Y));
 
 			modifiedHurtboxes.push_back(modifiedHurtbox);

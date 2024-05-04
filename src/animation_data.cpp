@@ -86,7 +86,7 @@ AnimationData::AnimationData(const std::string& animationPath, const std::string
 			}
 		}
 
-		FrameData frameData = FrameData(colliderbox, hitboxes, hurtboxes);
+		FrameData frameData = FrameData(frameWidth, frameHeight, colliderbox, hitboxes, hurtboxes);
 		frameDataList.push_back(frameData);
 	}
 }

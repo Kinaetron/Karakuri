@@ -12,7 +12,10 @@ public:
 	FrameData(FrameData&& that) = default;
 	FrameData& operator=(const FrameData& rhs) = default;
 	FrameData& operator=(FrameData&& rhs) = default;
-	FrameData(Rectangle collisionBox,
+	FrameData(
+		int frameWidth,
+		int frameHeight,
+		Rectangle collisionBox,
 		const std::vector<Rectangle> hitBoxes,
 		const std::vector<Rectangle> hurtBoxes);
 
@@ -22,6 +25,8 @@ public:
 	std::vector<Rectangle> Hurtboxes(const Vector2<float> position, SpriteMirror mirror) const;
 
 private:
+	int frameWidth;
+	int frameHeight;
 	Rectangle collisionBox;
 	const std::vector<Rectangle> hitBoxes;
 	const std::vector<Rectangle> hurtBoxes;

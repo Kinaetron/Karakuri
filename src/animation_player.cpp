@@ -17,7 +17,7 @@ void AnimationPlayer::Update(float millisecondsPerUpdate)
 		return;
 	}
 
-	if (currentFrameTime > 0) {
+	if (currentFrameTime > 0.01) {
 		currentFrameTime -= millisecondsPerUpdate;
 	}
 	else
