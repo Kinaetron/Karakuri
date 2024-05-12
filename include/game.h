@@ -57,6 +57,11 @@ public:
 	*/
 	const float MilliSecondsPerUpdate() const { return target_milliseconds_per_update; }
 
+	/*
+	* This method pauses the game for the amount of milliseconds you specify with timeToStop.
+	*/
+	static void Pause(float timeToStop);
+
 	GraphicsDevice graphicsDevice;
 
 private:

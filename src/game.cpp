@@ -51,6 +51,10 @@ void Game::Draw()
 {
 }
 
+void Game::Pause(float timeToStop) {
+	SDL_Delay(timeToStop);
+}
+
 void Game::ProcessEvents()
 {
 	SDL_Event event;

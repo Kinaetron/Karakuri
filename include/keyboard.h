@@ -43,6 +43,8 @@ public:
 	*/
 	const bool IsKeyPressed(Keys key) const;
 
+	const int static NumKeys() { return 231; }
+
 private:
 	std::array<uint8_t, 512> keyboardState {};
 	std::array<uint8_t, 512> oldKeyboardState {};

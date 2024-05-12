@@ -27,5 +27,6 @@
 #include "controller_combo.h"
 #include "combo_listener.h"
 #include "rectangle_renderer.h"
+#include "timer.h"
 
 #endif

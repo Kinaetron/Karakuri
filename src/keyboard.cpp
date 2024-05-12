@@ -8,7 +8,7 @@ void Keyboard::Update()
 
 	const uint8_t* state = SDL_GetKeyboardState(NULL);
 
-	for (int i = 0; i < SDL_NUM_SCANCODES; ++i) {
+	for (int i = 0; i < Keyboard::NumKeys(); ++i) {
 		keyboardState[i] = state[i];
 	}
 }

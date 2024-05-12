@@ -76,6 +76,9 @@ public:
 	const int CurrentFrame() const { return currentFrame; }
 
 	const bool AnimationFinished() const { return animationFinished; }
+
+	void Reset();
+
 	/*
 	* This method destroys all the objects used by the animation system. Call it when you're closing the animation system.
 	*/

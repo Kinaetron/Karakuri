@@ -98,6 +98,14 @@ void AnimationPlayer::Draw(Vector2<float> position, Colour colour, SpriteMirror 
 	renderer.Draw(animationData->Cell(currentFrame).CellTexture(), position, sourceRectangle, colour, mirror, rotation, origin, scale);
 }
 
+void AnimationPlayer::Reset()
+{
+	currentFrame = 0;
+	currentFrameTime = 0;
+	animationFinished = false;
+	animationData = nullptr;
+}
+
 void AnimationPlayer::Destroy()
 {
 	logger.reset();
