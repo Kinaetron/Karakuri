@@ -13,19 +13,19 @@ void Timer::Reset()
 	started = false;
 }
 
-void Timer::Update(float millisecondsPerUpdate) {
+void Timer::Update(float millisecondsPerUpdate) 
+{
 	if (started) {
-		timer -= millisecondsPerUpdate;
+		timer = timer <= 0 ? 0 : timer - millisecondsPerUpdate;
 	}
 }
 
 const bool Timer::OutOfTime() const
 {
-	bool something = timer <= 0.1f;
+	bool withinError = timer <= 0.1f;
+	return started ? withinError : true;
+}
 
-	if(started) {
-		return something;
-	}
-
-	return true;
+const float Timer::Time() const {
+	return started ? timer : 0.0f;
 }

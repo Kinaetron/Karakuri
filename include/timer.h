@@ -13,7 +13,9 @@ public:
 	void Reset();
 	void Update(float millisecondsPerUpdate);
 	void Start() { started = true; }
+	const bool Started() const { return started; }
 	const bool OutOfTime() const;
+	const float Time() const;
 
 private:
 	const float time;

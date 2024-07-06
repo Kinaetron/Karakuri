@@ -134,6 +134,34 @@ public:
 	T Dot(const Vector2 value) const {
 		return (X * value.X) + (Y * value.Y);
 	}
+
+	static T Distance(Vector2<T> value1, Vector2<T> value2) 
+	{
+		T v1 = value1.X - value2.X;
+		T v2 = value1.Y - value2.Y;
+
+		return std::sqrt((v1 * v1) + (v2 * v2));
+	}
+
+	static T DistanceSquared(Vector2<T> value1, Vector2<T> value2)
+	{
+		T v1 = value1.X - value2.X;
+		T v2 = value1.Y = value2.Y;
+
+		return (v1 * v1) + (v2 * v2);
+	}
+
+	static Vector2<T> Direction(Vector2<T> current_position, Vector2<T> target)
+	{
+		T distance = Distance(current_position, target);
+
+		if (distance == 0) {
+			return Vector2<T>();
+		}
+
+		Vector2<T> directionVector = target - current_position;
+		return directionVector.Normalize();
+	}
 };
 
 #endif
