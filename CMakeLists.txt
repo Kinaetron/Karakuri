@@ -77,7 +77,7 @@ add_library(Karakuri STATIC
     src/timer.cpp)
 
 # Link spdlog to Karakuri
-target_link_libraries(Karakuri PRIVATE spdlog::spdlog)
+target_link_libraries(Karakuri PRIVATE spdlog::spdlog SDL2::SDL2-static SDL2_mixer::SDL2_mixer-static) 
 
 target_include_directories(Karakuri PUBLIC
     ${PROJECT_SOURCE_DIR}/include
