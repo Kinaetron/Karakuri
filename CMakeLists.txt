@@ -6,6 +6,8 @@ project(Karakuri)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+add_subdirectory(dependencies)
+
 # 
 add_library(Karakuri STATIC
     # Public Headers
@@ -73,6 +75,9 @@ add_library(Karakuri STATIC
     src/stb_image.h
     src/texture.cpp
     src/timer.cpp)
+
+# Link spdlog to Karakuri
+target_link_libraries(Karakuri PRIVATE spdlog::spdlog)
 
 target_include_directories(Karakuri PUBLIC
     ${PROJECT_SOURCE_DIR}/include
