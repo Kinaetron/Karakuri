@@ -171,7 +171,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\include\timer.cpp" />
     <ClCompile Include="..\src\animation_data.cpp" />
     <ClCompile Include="..\src\animation_player.cpp" />
     <ClCompile Include="..\src\aseprite.cpp" />
@@ -197,6 +196,7 @@
     <ClCompile Include="..\src\sprite_renderer.cpp" />
     <ClCompile Include="..\src\stb_image.cpp" />
     <ClCompile Include="..\src\texture.cpp" />
+    <ClCompile Include="..\src\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\animation_data.h" />

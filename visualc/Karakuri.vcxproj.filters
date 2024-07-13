@@ -87,10 +87,10 @@
     <ClCompile Include="..\src\rectangle_renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\include\timer.cpp">
+    <ClCompile Include="..\src\keyboard_combo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\keyboard_combo.cpp">
+    <ClCompile Include="..\src\timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
