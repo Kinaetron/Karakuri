@@ -25,7 +25,6 @@ add_library(Karakuri STATIC
     include/game.h
     include/gamepad.h
     include/graphics_device.h
-    include/json.hpp
     include/karakuri.h
     include/keyboard.h
     include/keyboard_combo.h
