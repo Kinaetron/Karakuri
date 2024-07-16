@@ -69,6 +69,7 @@ private:
 	bool unlock_frame_rate = true;
 	const double update_rate = 60;
 	bool isRunning = true;
+	bool resync = true;
 	void ProcessEvents();
 	const float target_milliseconds_per_update;
 	std::shared_ptr<spdlog::logger> logger;
@@ -80,7 +81,13 @@ private:
 	int display_framerate = 60;
 	int64_t snap_hz = 0;
 	int64_t snap_frequencies[8] = {};
+	int64_t time_averager[4] = {};
+	int64_t averager_residual = 0;
+	int64_t previous_frame_time = 0;
+	int64_t frame_accumlator = 0;
+	int64_t current_frame_time = 0;
+	int64_t delta_time = 0;
 	const int time_history_count = 4;
-
+	int64_t averager_sum = 0;
 };
 #endif

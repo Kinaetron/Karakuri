@@ -65,6 +65,8 @@ public:
 	*/
 	void Destroy();
 
+	friend class Game;
+
 private:
 	float color_range;
 	int scale;
