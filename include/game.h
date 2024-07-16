@@ -65,9 +65,22 @@ public:
 	GraphicsDevice graphicsDevice;
 
 private:
+	int update_multiplicity = 1;
+	bool unlock_frame_rate = true;
+	const double update_rate = 60;
 	bool isRunning = true;
 	void ProcessEvents();
 	const float target_milliseconds_per_update;
 	std::shared_ptr<spdlog::logger> logger;
+
+	int64_t clocks_per_second = 0;
+	double fixed_delta_time = 0;
+	int64_t desired_frametime = 0;
+	int64_t vsync_maxerror = 0;
+	int display_framerate = 60;
+	int64_t snap_hz = 0;
+	int64_t snap_frequencies[8] = {};
+	const int time_history_count = 4;
+
 };
 #endif

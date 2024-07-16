@@ -37,6 +37,17 @@ Game::Game(const std::string& title, int width, int height, int scale):
 		logger->error("SDL game pad initalization failed: {}", SDL_GetError());
 		return;
 	}
+
+	clocks_per_second = SDL_GetPerformanceFrequency();
+	fixed_delta_time = 1.0 / update_rate;
+	desired_frametime = clocks_per_second / update_rate;
+
+	vsync_maxerror = clocks_per_second * .0002;
+
+	SDL_DisplayMode current_display_mode;
+	if (SDL_GetCurrentDisplayMode(0, &current_display_mode) == 0) {
+
+	}
 }
 
 void Game::Initialize()
