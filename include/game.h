@@ -55,7 +55,7 @@ public:
 	/*
 	* This method returns how many milliseconds have passed since the last call. This should be about 16.67.
 	*/
-	const float MilliSecondsPerUpdate() const { return target_milliseconds_per_update; }
+	const float MilliSecondsPerUpdate() const { return fixed_deltatime; }
 
 	/*
 	* This method pauses the game for the amount of milliseconds you specify with timeToStop.
@@ -65,17 +65,14 @@ public:
 	GraphicsDevice graphicsDevice;
 
 private:
-	int update_multiplicity = 1;
-	bool unlock_frame_rate = true;
 	const double update_rate = 60;
 	bool isRunning = true;
 	bool resync = true;
 	void ProcessEvents();
-	const float target_milliseconds_per_update;
 	std::shared_ptr<spdlog::logger> logger;
 
+	double fixed_deltatime = 0;
 	int64_t clocks_per_second = 0;
-	double fixed_delta_time = 0;
 	int64_t desired_frametime = 0;
 	int64_t vsync_maxerror = 0;
 	int display_framerate = 60;

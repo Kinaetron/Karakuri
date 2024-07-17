@@ -8,7 +8,6 @@
 
 Game::Game(const std::string& title, int width, int height, int scale) :
 	graphicsDevice(title, width, height, scale),
-	target_milliseconds_per_update(1000.0f / 60.0f),
 	logger(nullptr)
 {
 	auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
@@ -39,7 +38,7 @@ Game::Game(const std::string& title, int width, int height, int scale) :
 	}
 
 	clocks_per_second = SDL_GetPerformanceFrequency();
-	fixed_delta_time = 1.0 / update_rate;
+	fixed_deltatime = 1.0 / update_rate;
 	desired_frametime = clocks_per_second / update_rate;
 
 	vsync_maxerror = clocks_per_second * .0002;
@@ -50,6 +49,9 @@ Game::Game(const std::string& title, int width, int height, int scale) :
 	if (SDL_GetCurrentDisplayMode(displayIndex, &current_display_mode) == 0) {
 		display_framerate = current_display_mode.refresh_rate;
 	}
+
+	snap_hz = display_framerate;
+	if (snap_hz <= 0) snap_hz = 60;
 
 	for (int i = 0; i < 8; i++) {
 		snap_frequencies[i] = (clocks_per_second / snap_hz) * (i + 1);
@@ -149,29 +151,13 @@ void Game::Run()
 
 		this->ProcessEvents();
 
-		if (unlock_frame_rate)
+		while (frame_accumlator >= desired_frametime)
 		{
-			while (frame_accumlator >= desired_frametime)
-			{
-				this->Update();
-				frame_accumlator -= desired_frametime;
-			}
-
-			this->Draw();
+			this->Update();
+			frame_accumlator -= desired_frametime;
 		}
-		else
-		{
-			while (frame_accumlator >= desired_frametime * update_multiplicity)
-			{
-				for (int i = 0; i < update_multiplicity; i++)
-				{
-					this->Update();
-					frame_accumlator -= desired_frametime;
-				}
-			}
 
-			this->Draw();
-		}
+		this->Draw();
 	}
 }
 
