@@ -6,10 +6,9 @@
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include <spdlog/sinks/basic_file_sink.h>
 
-Game::Game(const std::string& title, int width, int height, int scale):
-	 graphicsDevice(title, width, height, scale),
-	 target_milliseconds_per_update(1000.0f / 60.0f),
-	 logger(nullptr)
+Game::Game(const std::string& title, int width, int height, int scale) :
+	graphicsDevice(title, width, height, scale),
+	logger(nullptr)
 {
 	auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("logs/karakuri.txt", true);
@@ -32,11 +31,37 @@ Game::Game(const std::string& title, int width, int height, int scale):
 		return;
 	}
 
-	if (SDL_Init(SDL_INIT_GAMECONTROLLER) < 0) 
+	if (SDL_Init(SDL_INIT_GAMECONTROLLER) < 0)
 	{
 		logger->error("SDL game pad initalization failed: {}", SDL_GetError());
 		return;
 	}
+
+	clocks_per_second = SDL_GetPerformanceFrequency();
+	fixed_deltatime = 1.0 / update_rate;
+	desired_frametime = clocks_per_second / update_rate;
+
+	vsync_maxerror = clocks_per_second * .0002;
+
+	int displayIndex = SDL_GetWindowDisplayIndex(graphicsDevice.window);
+
+	SDL_DisplayMode current_display_mode;
+	if (SDL_GetCurrentDisplayMode(displayIndex, &current_display_mode) == 0) {
+		display_framerate = current_display_mode.refresh_rate;
+	}
+
+	snap_hz = display_framerate;
+	if (snap_hz <= 0) snap_hz = 60;
+
+	for (int i = 0; i < 8; i++) {
+		snap_frequencies[i] = (clocks_per_second / snap_hz) * (i + 1);
+	}
+
+	for (int i = 0; i < time_history_count; i++) {
+		time_averager[i] = desired_frametime;
+	}
+
+	previous_frame_time = SDL_GetPerformanceCounter();
 }
 
 void Game::Initialize()
@@ -70,22 +95,66 @@ void Game::Run()
 {
 	this->Initialize();
 
-	std::int64_t previous = 0;
-	std::int64_t lag = 0;
-
+	// This game reference is being heavily reference from this  example 
+	// https://github.com/TylerGlaiel/FrameTimingControl/blob/master/frame_timer.cpp
 	while (isRunning)
 	{
+		current_frame_time = SDL_GetPerformanceCounter();
+		delta_time = current_frame_time - previous_frame_time;
+		previous_frame_time = current_frame_time;
+
+		if (delta_time > desired_frametime * 8) {
+			delta_time = desired_frametime;
+		}
+
+		if (delta_time < 0) {
+			delta_time = 0;
+		}
+
+		for (int64_t snap : snap_frequencies)
+		{
+			if (std::abs(delta_time - snap) < vsync_maxerror)
+			{
+				delta_time = snap;
+				break;
+			}
+		}
+
+		for (int i = 0; i < time_history_count - 1; i++) {
+			time_averager[i] = time_averager[i + 1];
+		}
+
+		time_averager[time_history_count - 1] = delta_time;
+
+		for (int i = 0; i < time_history_count; i++) {
+			averager_sum += time_averager[i];
+		}
+
+		delta_time = averager_sum / time_history_count;
+
+		averager_residual += averager_sum % time_history_count;
+		delta_time += averager_residual / time_history_count;
+		averager_residual %= time_history_count;
+
+		frame_accumlator += delta_time;
+
+		if (frame_accumlator > desired_frametime * 8) {
+			resync = true;
+		}
+
+		if (resync)
+		{
+			frame_accumlator = 0;
+			delta_time = desired_frametime;
+			resync = false;
+		}
+
 		this->ProcessEvents();
 
-		std::int64_t current = SDL_GetTicks64();
-		std::int64_t elapsed = current - previous;
-		previous = current;
-		lag += elapsed;
-
-		while (lag >= target_milliseconds_per_update)
+		while (frame_accumlator >= desired_frametime)
 		{
 			this->Update();
-			lag -= static_cast<int64_t>(target_milliseconds_per_update);
+			frame_accumlator -= desired_frametime;
 		}
 
 		this->Draw();
