@@ -55,7 +55,7 @@ public:
 	/*
 	* This method returns how many milliseconds have passed since the last call. This should be about 16.67.
 	*/
-	const float MilliSecondsPerUpdate() const { return fixed_deltatime; }
+	const float MilliSecondsPerUpdate() const { return fixed_deltatime * 1000; }
 
 	/*
 	* This method pauses the game for the amount of milliseconds you specify with timeToStop.
