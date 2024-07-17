@@ -126,6 +126,8 @@ void Game::Run()
 
 		time_averager[time_history_count - 1] = delta_time;
 
+		averager_sum = 0;
+
 		for (int i = 0; i < time_history_count; i++) {
 			averager_sum += time_averager[i];
 		}
