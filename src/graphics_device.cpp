@@ -18,9 +18,9 @@ GraphicsDevice::GraphicsDevice(const std::string& title, int width, int height, 
 	logger(nullptr)
 {
 	auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("logs/karakuri.txt", true);
+	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("logs/engine.txt", true);
 
-	logger = std::make_shared<spdlog::logger>("karakuri_logger", spdlog::sinks_init_list{ console_sink, file_sink });
+	logger = std::make_shared<spdlog::logger>("engine_logger", spdlog::sinks_init_list{ console_sink, file_sink });
 	spdlog::register_logger(logger);
 
 	file_sink.reset();
