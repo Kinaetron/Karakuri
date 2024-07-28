@@ -3,21 +3,12 @@
 #include <SDL_mixer.h>
 
 #include <spdlog/spdlog.h>
-#include "spdlog/sinks/stdout_color_sinks.h"
-#include <spdlog/sinks/basic_file_sink.h>
 
 Game::Game(const std::string& title, int width, int height, int scale) :
 	graphicsDevice(title, width, height, scale),
 	logger(nullptr)
 {
-	auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("logs/karakuri.txt", true);
-
-	logger = std::make_shared<spdlog::logger>("karakuri_logger", spdlog::sinks_init_list{ console_sink, file_sink });
-	spdlog::register_logger(logger);
-
-	file_sink.reset();
-	console_sink.reset();
+	logger = spdlog::get("karakuri_logger");
 
 	if (SDL_Init(SDL_INIT_AUDIO) < 0)
 	{
@@ -62,6 +53,10 @@ Game::Game(const std::string& title, int width, int height, int scale) :
 	}
 
 	previous_frame_time = SDL_GetPerformanceCounter();
+
+	std::string platform = reinterpret_cast<const char*>(SDL_GetPlatform());
+
+	logger->info("the platform is: {}", platform);
 }
 
 void Game::Initialize()

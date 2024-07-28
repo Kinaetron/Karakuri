@@ -1,10 +1,13 @@
 #include <graphics_device.h>
 #include <vector3.h>
 
-#include <spdlog/spdlog.h>
 #include <iostream>
 #include <SDL.h>
 #include "glad.h"
+
+#include <spdlog/spdlog.h>
+#include "spdlog/sinks/stdout_color_sinks.h"
+#include <spdlog/sinks/basic_file_sink.h>
 
 GraphicsDevice::GraphicsDevice(const std::string& title, int width, int height, int scale):
 	color_range(255.0f),
@@ -14,7 +17,14 @@ GraphicsDevice::GraphicsDevice(const std::string& title, int width, int height, 
 	window(nullptr),
 	logger(nullptr)
 {
-	logger = spdlog::get("karakuri_logger");
+	auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("logs/karakuri.txt", true);
+
+	logger = std::make_shared<spdlog::logger>("karakuri_logger", spdlog::sinks_init_list{ console_sink, file_sink });
+	spdlog::register_logger(logger);
+
+	file_sink.reset();
+	console_sink.reset();
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) 
 	{
@@ -85,6 +95,13 @@ GraphicsDevice::GraphicsDevice(const std::string& title, int width, int height, 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glViewport(0, 0, width * scale, height * scale);
+
+	std::string version = reinterpret_cast<const char*>(glGetString(GL_VERSION));
+	std::string renderer = reinterpret_cast<const char*>(glGetString(GL_RENDERER));
+
+	logger->info("the graphics card being used is: {}", renderer);
+	logger->info("the version of OpenGL installed is: {}", version);
+	logger->info("successfully created the graphics device");
 }
 
 void GraphicsDevice::Clear(const Colour& colour)
