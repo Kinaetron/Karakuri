@@ -101,7 +101,6 @@ GraphicsDevice::GraphicsDevice(const std::string& title, int width, int height, 
 
 	logger->info("the graphics card being used is: {}", renderer);
 	logger->info("the version of OpenGL installed is: {}", version);
-	logger->info("successfully created the graphics device");
 }
 
 void GraphicsDevice::Clear(const Colour& colour)

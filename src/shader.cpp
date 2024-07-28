@@ -9,7 +9,7 @@
 Shader::Shader(const std::string& vertexCode, const std::string& fragmentCode):
     logger(nullptr)
 {
-    logger = spdlog::get("karakuri_logger");
+    logger = spdlog::get("engine_logger");
 
     const char* vShaderCode = vertexCode.c_str();
     const char* fShaderCode = fragmentCode.c_str();

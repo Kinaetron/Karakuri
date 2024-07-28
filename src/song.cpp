@@ -10,7 +10,7 @@ Song::Song(std::string filePath):
 	isLooping(false),
 	logger(nullptr)
 {
-	logger = spdlog::get("karakuri_logger");
+	logger = spdlog::get("engine_logger");
 
 	song = Mix_LoadMUS(filePath.c_str());
 

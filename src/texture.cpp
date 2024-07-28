@@ -11,7 +11,7 @@ Texture::Texture(const std::string& filepath)
 	 textureID(0),
 	 logger(nullptr)
 {
-	logger = spdlog::get("karakuri_logger");
+	logger = spdlog::get("engine_logger");
 
 	unsigned char* data = stbi_load(filepath.c_str(), &width, &height, &channelType, 0);
 

@@ -93,7 +93,7 @@ AnimationData::AnimationData(const std::string& animationPath, const std::string
 
 void AnimationData::InitializeAnimation(const std::string& filepath)
 {
-	logger = spdlog::get("karakuri_logger");
+	logger = spdlog::get("engine_logger");
 
 	ase_t* animation = cute_aseprite_load_from_file(filepath.c_str(), NULL);
 

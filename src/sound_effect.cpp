@@ -10,7 +10,7 @@ SoundEffect::SoundEffect(const std::string& filePath):
 	channel(-1),
 	logger(nullptr)
 {
-	logger = spdlog::get("karakuri_logger");
+	logger = spdlog::get("engine_logger");
 
 	soundEffect = Mix_LoadWAV(filePath.c_str());
 
