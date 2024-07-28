@@ -8,7 +8,7 @@ Game::Game(const std::string& title, int width, int height, int scale) :
 	graphicsDevice(title, width, height, scale),
 	logger(nullptr)
 {
-	logger = spdlog::get("karakuri_logger");
+	logger = spdlog::get("engine_logger");
 
 	if (SDL_Init(SDL_INIT_AUDIO) < 0)
 	{
