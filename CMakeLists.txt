@@ -30,7 +30,6 @@ add_library(Karakuri STATIC
     include/keyboard.h
     include/keyboard_combo.h
     include/keys.h
-    include/math_helper.h
     include/math_utility.h
     include/matrix.h
     include/mouse.h
