@@ -7,17 +7,13 @@ template <typename T, typename = std::enable_if_t<std::is_arithmetic_v<T>>>
 class MathUtility
 {
 public:
-	static T Sign(T x)
-	{
-		if (x > 0) {
-			return static_cast<T>(1);
-		}
-
-		if (x < 0) {
-			return static_cast<T>(-1);
-		}
-
-		return static_cast<T>(0);
+	/*
+	* Sends the signed variant of a number.
+	* \param gets the signed value of this number.
+	* \returns either -1, 0 or 1 depending on the sign of the number.
+	*/
+	static T Sign(T number) {
+		return (number > 0) ? 1 : ((number < 0) ? -1 : 0);
 	}
 };
 
