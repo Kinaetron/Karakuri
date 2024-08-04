@@ -1,6 +1,7 @@
 #ifndef SPRITE_RENDERER
 #define SPRITE_RENDERER
 
+#include <shader.h>
 #include <texture.h>
 #include <graphics_device.h>
 #include <vector2.h>
@@ -9,8 +10,6 @@
 #include <rectangle.h>
 #include <sprite_mirror.h>
 #include <vector>
-
-class Shader;
 
 class SpriteRenderer
 {
@@ -48,7 +47,45 @@ private:
 		float rotationCos,
 		SpriteMirror spriteMiror);
 
-	Shader* shader;
+	std::string vertexShader = R"(
+		#version 400 core
+
+		layout (location = 0) in vec2 vertex;
+		layout (location = 1) in vec2 texCoord;
+	    layout (location = 2) in vec3 colour;
+
+		out vec2 TexCoord;
+		out vec3 TexColour;
+
+		uniform mat4 matrix;
+
+		void main()
+		{
+			TexCoord = texCoord;
+			TexColour = colour;
+			
+			gl_Position = matrix * vec4(vertex, 0.0, 1.0);
+		}
+	)";
+
+	std::string fragmentShader = R"(
+		#version 400 core
+
+		in vec2 TexCoord;
+		in vec3 TexColour;
+
+		out vec4 colour;
+
+		uniform sampler2D image;
+
+		void main()
+		{
+			colour = texture(image, TexCoord) * vec4(TexColour, 1.0);
+			if (colour.a < 0.5) discard;
+		}
+	)";
+
+	Shader shader;
 	unsigned int quadVAO;
 	unsigned int VBO;
 };

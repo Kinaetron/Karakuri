@@ -43,6 +43,9 @@ add_library(Karakuri STATIC
     include/timer.h
     include/vector2.h
     include/vector3.h
+    include/shader.h
+    include/glad.h
+    include/khrplatform.h
     # Source Files
     src/animation_data.cpp
     src/animation_player.cpp
@@ -57,16 +60,13 @@ add_library(Karakuri STATIC
     src/game.cpp
     src/gamepad.cpp
     src/glad.c
-    src/glad.h
     src/graphics_device.cpp
     src/keyboard.cpp
     src/keyboard_combo.cpp
-    src/khrplatform.h
     src/mouse.cpp
     src/rectangle.cpp
     src/rectangle_renderer.cpp
     src/shader.cpp
-    src/shader.h
     src/song.cpp
     src/sound_effect.cpp
     src/sprite_renderer.cpp
