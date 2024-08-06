@@ -4,7 +4,7 @@
 #include "matrix.h"
 #include "rectangle_renderer.h"
 
-RectangleRenderer::RectangleRenderer(const GraphicsDevice& device)
+RectangleRenderer::RectangleRenderer(const std::shared_ptr<const GraphicsDevice> graphicsDevice)
 {
 	std::string vertexShader = R"(
 		#version 400 core
@@ -36,8 +36,8 @@ RectangleRenderer::RectangleRenderer(const GraphicsDevice& device)
 	)";
 
 	Matrix<float> projection = Matrix<float>::OrthographicProjection(0, 
-		 static_cast<float>(device.WindowWidth()),
-		static_cast<float>(device.WindowHeight()), 0.0f, -1.0f, 1.0f);
+		 static_cast<float>(graphicsDevice->WindowWidth()),
+		static_cast<float>(graphicsDevice->WindowHeight()), 0.0f, -1.0f, 1.0f);
 
 	shader = new Shader(vertexShader, fragmentShader);
 

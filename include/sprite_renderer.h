@@ -10,6 +10,7 @@
 #include <rectangle.h>
 #include <sprite_mirror.h>
 #include <vector>
+#include <memory>
 
 class SpriteRenderer
 {
@@ -18,7 +19,7 @@ public:
 	SpriteRenderer(SpriteRenderer&& that) = default;
 	SpriteRenderer& operator=(const SpriteRenderer& rhs) = default;
 	SpriteRenderer& operator=(SpriteRenderer&& rhs) = default;
-	SpriteRenderer(const GraphicsDevice& device);
+	SpriteRenderer(const std::shared_ptr<const GraphicsDevice> graphicsDevice);
 	void Draw(Texture& texture, Vector2<float> position, Colour colour, SpriteMirror mirror);
 	void Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, SpriteMirror mirror);
 	void Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, SpriteMirror mirror, float rotation, Vector2<float> origin, float scale);
@@ -28,7 +29,7 @@ public:
 	void Draw(Texture& texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Colour colour, SpriteMirror mirror, float rotation, Vector2<float> origin);
 
 private:
-	void InitalizeRenderData(const GraphicsDevice& device);
+	void InitalizeRenderData(const std::shared_ptr<const GraphicsDevice> graphicsDevice);
 
 	void PushVertexInformation(
 		Texture& texture,

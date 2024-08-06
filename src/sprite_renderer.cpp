@@ -10,16 +10,16 @@
 #include <vector2.h>
 #include "shader.h"
 
-SpriteRenderer::SpriteRenderer(const GraphicsDevice& device) :
+SpriteRenderer::SpriteRenderer(const std::shared_ptr<const GraphicsDevice> graphicsDevice) :
 	shader(Shader(vertexShader, fragmentShader))
 {
-	InitalizeRenderData(device);
+	InitalizeRenderData(graphicsDevice);
 }
 
-void SpriteRenderer::InitalizeRenderData(const GraphicsDevice& device)
+void SpriteRenderer::InitalizeRenderData(const std::shared_ptr<const GraphicsDevice> graphicsDevice)
 {
-	Matrix<float> projection =  Matrix<float>::OrthographicProjection(0, static_cast<float>(device.WindowWidth()),
-		static_cast<float>(device.WindowHeight()), 0.0f, -1.0f, 1.0f);
+	Matrix<float> projection =  Matrix<float>::OrthographicProjection(0, static_cast<float>(graphicsDevice->WindowWidth()),
+		static_cast<float>(graphicsDevice->WindowHeight()), 0.0f, -1.0f, 1.0f);
 
 	shader.Use();
 	shader.SetInteger("image", 0);
