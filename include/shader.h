@@ -23,7 +23,7 @@ public:
 	Shader& operator=(const Shader& rhs) = default;
 	Shader& operator=(Shader&& rhs) = default;
 	Shader(const std::string& vertexCode, const std::string& fragmentCode);
-	void Use();
+	void Use() const;
 	void SetFloat(const std::string& name, float value);
 	void SetInteger(const std::string& name, int value);
 	void SetVector2f(const std::string& name, float x, float y);

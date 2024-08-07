@@ -10,59 +10,29 @@
 #include <vector2.h>
 #include "shader.h"
 
-SpriteRenderer::SpriteRenderer(const GraphicsDevice& device)
+#include <spdlog/spdlog.h>
+
+SpriteRenderer::SpriteRenderer(const std::shared_ptr<const GraphicsDevice> graphicsDevice) :
+	shader(Shader(vertexShader, fragmentShader)),
+	logger(nullptr)
 {
-	InitalizeRenderData(device);
+	logger = spdlog::get("engine_logger");
+
+	if (graphicsDevice == nullptr) {
+		logger->error("Sprite Renderer has been given a graphics device null pointer.");
+	}
+
+	InitalizeRenderData(graphicsDevice);
 }
 
-void SpriteRenderer::InitalizeRenderData(const GraphicsDevice& device)
+void SpriteRenderer::InitalizeRenderData(const std::shared_ptr<const GraphicsDevice> graphicsDevice)
 {
-	std::string vertexShader = R"(
-		#version 400 core
+	Matrix<float> projection =  Matrix<float>::OrthographicProjection(0, static_cast<float>(graphicsDevice->WindowWidth()),
+		static_cast<float>(graphicsDevice->WindowHeight()), 0.0f, -1.0f, 1.0f);
 
-		layout (location = 0) in vec2 vertex;
-		layout (location = 1) in vec2 texCoord;
-	    layout (location = 2) in vec3 colour;
-
-		out vec2 TexCoord;
-		out vec3 TexColour;
-
-		uniform mat4 matrix;
-
-		void main()
-		{
-			TexCoord = texCoord;
-			TexColour = colour;
-			
-			gl_Position = matrix * vec4(vertex, 0.0, 1.0);
-		}
-	)";
-
-	std::string fragmentShader = R"(
-		#version 400 core
-
-		in vec2 TexCoord;
-		in vec3 TexColour;
-
-		out vec4 colour;
-
-		uniform sampler2D image;
-
-		void main()
-		{
-			colour = texture(image, TexCoord) * vec4(TexColour, 1.0);
-			if (colour.a < 0.5) discard;
-		}
-	)";
-
-	Matrix<float> projection =  Matrix<float>::OrthographicProjection(0, static_cast<float>(device.WindowWidth()),
-		static_cast<float>(device.WindowHeight()), 0.0f, -1.0f, 1.0f);
-
-	shader = new Shader(vertexShader, fragmentShader);
-
-	shader->Use();
-	shader->SetInteger("image", 0);
-	shader->SetMatrix4("matrix", projection);
+	shader.Use();
+	shader.SetInteger("image", 0);
+	shader.SetMatrix4("matrix", projection);
 
 	float vertices[] =
 	{
@@ -418,7 +388,7 @@ void SpriteRenderer::PushVertexInformation(
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	shader->Use();
+	shader.Use();
 
 	glActiveTexture(GL_TEXTURE0);
 	texture.Bind();

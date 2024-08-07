@@ -5,7 +5,7 @@
 #include <spdlog/spdlog.h>
 
 Game::Game(const std::string& title, int width, int height, int scale) :
-	graphicsDevice(title, width, height, scale),
+	gameGraphicsDevice(std::make_shared<GraphicsDevice>(title, width, height, scale)),
 	logger(nullptr)
 {
 	logger = spdlog::get("engine_logger");
@@ -34,7 +34,7 @@ Game::Game(const std::string& title, int width, int height, int scale) :
 
 	vsync_maxerror = clocks_per_second * .0002;
 
-	int displayIndex = SDL_GetWindowDisplayIndex(graphicsDevice.window);
+	int displayIndex = SDL_GetWindowDisplayIndex(gameGraphicsDevice->window);
 
 	SDL_DisplayMode current_display_mode;
 	if (SDL_GetCurrentDisplayMode(displayIndex, &current_display_mode) == 0) {
@@ -160,7 +160,6 @@ void Game::Run()
 
 void Game::Quit() 
 {
-	logger.reset();;
-	graphicsDevice.Destroy();
+	logger.reset();
 	SDL_Quit();
 }

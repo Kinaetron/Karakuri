@@ -4,8 +4,17 @@
 #include "matrix.h"
 #include "rectangle_renderer.h"
 
-RectangleRenderer::RectangleRenderer(const GraphicsDevice& device)
+#include <spdlog/spdlog.h>
+
+RectangleRenderer::RectangleRenderer(const std::shared_ptr<const GraphicsDevice> graphicsDevice):
+	logger(nullptr)
 {
+	logger = spdlog::get("engine_logger");
+
+	if (graphicsDevice == nullptr) {
+		logger->error("Sprite Renderer has been given a graphics device null pointer.");
+	}
+
 	std::string vertexShader = R"(
 		#version 400 core
 
@@ -36,8 +45,8 @@ RectangleRenderer::RectangleRenderer(const GraphicsDevice& device)
 	)";
 
 	Matrix<float> projection = Matrix<float>::OrthographicProjection(0, 
-		 static_cast<float>(device.WindowWidth()),
-		static_cast<float>(device.WindowHeight()), 0.0f, -1.0f, 1.0f);
+		 static_cast<float>(graphicsDevice->WindowWidth()),
+		static_cast<float>(graphicsDevice->WindowHeight()), 0.0f, -1.0f, 1.0f);
 
 	shader = new Shader(vertexShader, fragmentShader);
 

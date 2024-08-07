@@ -11,7 +11,6 @@ namespace spdlog {
 
 struct SDL_Window;
 
-
 class GraphicsDevice
 {
 public:

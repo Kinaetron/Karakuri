@@ -62,7 +62,10 @@ public:
 	*/
 	static void Pause(float timeToStop);
 
-	GraphicsDevice graphicsDevice;
+	/*
+	This method returns a grahics device a container for graphics information.
+	*/
+	const std::shared_ptr<GraphicsDevice> GameGraphicsDevice() { return gameGraphicsDevice; };
 
 private:
 	const double update_rate = 60;
@@ -86,5 +89,6 @@ private:
 	int64_t delta_time = 0;
 	const int time_history_count = 4;
 	int64_t averager_sum = 0;
+	std::shared_ptr<GraphicsDevice> gameGraphicsDevice;
 };
 #endif
