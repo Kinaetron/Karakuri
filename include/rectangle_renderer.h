@@ -1,8 +1,13 @@
 #ifndef RECTANGLE_RENDERER_H
 #define RECTANGLE_RENDERER_H
 
+#include <memory>
 #include <rectangle.h>
 #include <graphics_device.h>
+
+namespace spdlog {
+	class logger;
+}
 
 class Shader;
 
@@ -21,5 +26,6 @@ private:
 	Shader* shader;
 	unsigned int quadVAO;
 	unsigned int VBO;
+	std::shared_ptr<spdlog::logger> logger;
 };
 #endif // !RECTANGLE_RENDERER_H

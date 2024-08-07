@@ -4,8 +4,17 @@
 #include "matrix.h"
 #include "rectangle_renderer.h"
 
-RectangleRenderer::RectangleRenderer(const std::shared_ptr<const GraphicsDevice> graphicsDevice)
+#include <spdlog/spdlog.h>
+
+RectangleRenderer::RectangleRenderer(const std::shared_ptr<const GraphicsDevice> graphicsDevice):
+	logger(nullptr)
 {
+	logger = spdlog::get("engine_logger");
+
+	if (graphicsDevice == nullptr) {
+		logger->error("Sprite Renderer has been given a graphics device null pointer.");
+	}
+
 	std::string vertexShader = R"(
 		#version 400 core
 

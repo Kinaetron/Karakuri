@@ -10,9 +10,18 @@
 #include <vector2.h>
 #include "shader.h"
 
+#include <spdlog/spdlog.h>
+
 SpriteRenderer::SpriteRenderer(const std::shared_ptr<const GraphicsDevice> graphicsDevice) :
-	shader(Shader(vertexShader, fragmentShader))
+	shader(Shader(vertexShader, fragmentShader)),
+	logger(nullptr)
 {
+	logger = spdlog::get("engine_logger");
+
+	if (graphicsDevice == nullptr) {
+		logger->error("Sprite Renderer has been given a graphics device null pointer.");
+	}
+
 	InitalizeRenderData(graphicsDevice);
 }
 

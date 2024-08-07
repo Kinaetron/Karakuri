@@ -12,6 +12,10 @@
 #include <vector>
 #include <memory>
 
+namespace spdlog {
+	class logger;
+}
+
 class SpriteRenderer
 {
 public:
@@ -89,6 +93,7 @@ private:
 	Shader shader;
 	unsigned int quadVAO;
 	unsigned int VBO;
+	std::shared_ptr<spdlog::logger> logger;
 };
 
 #endif
