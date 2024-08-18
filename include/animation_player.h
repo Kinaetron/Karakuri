@@ -5,6 +5,7 @@
 #include <string>
 #include <memory>
 #include "frame_data.h"
+#include "update_component.h"
 #include "sprite_mirror.h"
 #include "animation_data.h"
 #include "sprite_renderer.h"
@@ -13,7 +14,7 @@ namespace spdlog {
 	class logger;
 }
 
-class AnimationPlayer
+class AnimationPlayer: public UpdateComponent
 {
 public:
 	AnimationPlayer(const AnimationPlayer& that) = default;
@@ -27,6 +28,8 @@ public:
 	* \param renderer is a SpriteRennderer.
 	*/
 	AnimationPlayer(SpriteRenderer& renderer);
+	
+	~AnimationPlayer();
 
 	/*
 	* The data of the animation that the player will play.
@@ -41,7 +44,7 @@ public:
 	* 
 	* \param millisecondsPerUpdate is the time the game takes to to call the update method, default should be 16.67.
 	*/
-	void Update(float millisecondsPerUpdate);
+	void Update(float millisecondsPerUpdate) override;
 
 	/*
 	* Draws the cell of the of a animation

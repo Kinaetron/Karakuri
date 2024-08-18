@@ -1,7 +1,9 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-class Timer
+#include "update_component.h"
+
+class Timer: public UpdateComponent
 {
 public:
 	Timer(const Timer& that) = default;
@@ -10,8 +12,9 @@ public:
 	Timer& operator=(Timer&& rhs) = default;
 
 	Timer(float time);
+	~Timer();
 	void Reset();
-	void Update(float millisecondsPerUpdate);
+	void Update(float millisecondsPerUpdate) override;
 	void Start() { started = true; }
 	const bool Started() const { return started; }
 	const bool OutOfTime() const;

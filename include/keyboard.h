@@ -2,25 +2,26 @@
 #define KEYBOARD_H
 
 #include "keys.h"
+#include "update_component.h"
 #include <array>
 #include <cstdint>
 
-class Keyboard
+class Keyboard: UpdateComponent
 {
 public:
 	/*
 	* Creates the keyboard object.
 	*/
-	Keyboard() = default;
+	Keyboard();
 	Keyboard(const Keyboard& that) = default;
 	Keyboard(Keyboard&& that) = default;
 	Keyboard& operator=(const Keyboard& rhs) = default;
 	Keyboard& operator=(Keyboard&& rhs) = default;
-
+	~Keyboard();
 	/*
 	* Updates the state of the keyboard, should be called in the Update method.
 	*/
-	void Update();
+	void Update(float millisecondsPerUpdate) override;
 
 	/*
 	* Gets if the key is down on the keyboard.

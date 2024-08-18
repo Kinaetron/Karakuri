@@ -1,8 +1,17 @@
-#include "../include/keyboard.h"
+#include "update_manager.h"
+#include "keyboard.h"
 #include <iostream>
 #include <SDL.h>
 
-void Keyboard::Update() 
+Keyboard::Keyboard() {
+	UpdateManager::Add(this);
+}
+
+Keyboard::~Keyboard() {
+	UpdateManager::Remove(this);
+}
+
+void Keyboard::Update(float millisecondsPerUpdate)
 {
 	oldKeyboardState = keyboardState;
 

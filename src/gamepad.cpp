@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <iostream>
 #include <vector2.h>
+#include "update_manager.h"
 
 Gamepad::Gamepad(int index):
 	index(index),
@@ -10,9 +11,14 @@ Gamepad::Gamepad(int index):
 	negativeAxisLimit(32768),
 	controller(nullptr)
 {
+	UpdateManager::Add(this);
 }
 
-void Gamepad::Udpate()
+Gamepad::~Gamepad() {
+	UpdateManager::Remove(this);
+}
+
+void Gamepad::Update(float millisecondsPerUpdate)
 {
 	controller = SDL_GameControllerOpen(index);
 	isConnected = !controller == NULL;
