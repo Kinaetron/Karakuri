@@ -1,10 +1,16 @@
 #include "timer.h"
+#include "update_manager.h"
 
 Timer::Timer(const float time): 
 	time(time),
 	timer(time),
 	started(false)
 {
+	UpdateManager::Add(this);
+}
+
+Timer::~Timer() {
+	UpdateManager::Remove(this);
 }
 
 void Timer::Reset() 

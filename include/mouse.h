@@ -2,11 +2,12 @@
 #define MOUSE_H
 
 #include "buttons.h"
+#include "update_component.h"
 #include <vector2.h>
 
 #include <cstdint>
 
-class Mouse
+class Mouse : public UpdateComponent
 {
 public:
 	Mouse();
@@ -14,7 +15,7 @@ public:
 	Mouse(Mouse&& that) = default;
 	Mouse& operator=(const Mouse& rhs) = default;
 	Mouse& operator=(Mouse&& rhs) = default;
-	void Update();
+	void Update(float millisecondsPerUpdate) override;
 	const bool IsButtonUp(MouseButtons button) const;
 	const bool IsButtonDown(MouseButtons button) const;
 	const bool IsButtonPressed(MouseButtons button) const;

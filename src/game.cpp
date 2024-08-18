@@ -1,7 +1,7 @@
 #include <game.h>
+#include <update_manager.h>
 #include <SDL.h>
 #include <SDL_mixer.h>
-
 #include <spdlog/spdlog.h>
 
 Game::Game(const std::string& title, int width, int height, int scale) :
@@ -150,6 +150,10 @@ void Game::Run()
 
 		while (frame_accumlator >= desired_frametime)
 		{
+			for (auto* updateComponent : UpdateManager::UpdateComponents()) {
+				updateComponent->Update(MilliSecondsPerUpdate());
+			}
+
 			this->Update();
 			frame_accumlator -= desired_frametime;
 		}

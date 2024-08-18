@@ -3,12 +3,13 @@
 
 #include "buttons.h"
 #include "vector2.h"
+#include "update_component.h"
 #include <array>
 
 struct _SDL_GameController;
 typedef struct _SDL_GameController SDL_GameController;
 
-class Gamepad
+class Gamepad: public UpdateComponent
 {
 public:
 	Gamepad(const Gamepad& that) = default;
@@ -22,10 +23,12 @@ public:
 	*/
 	Gamepad(int index);
 
+	~Gamepad();
+
 	/*
 	* Checks the current state of the controller. Call this method in the game update method.
 	*/
-	void Udpate();
+	void Update(float millisecondsPerUpdate) override;
 
 	/*
 	* Gets if the button is down on the controller.

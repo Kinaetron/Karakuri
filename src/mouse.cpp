@@ -8,7 +8,7 @@ Mouse::Mouse():
 {
 }
 
-void Mouse::Update()
+void Mouse::Update(float millisecondsPerUpdate)
 {
 	oldMouseState = mouseState;
 	mouseState = SDL_GetMouseState(&position.X, &position.Y);

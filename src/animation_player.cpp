@@ -1,3 +1,4 @@
+#include "update_manager.h"
 #include "animation_player.h"
 #include <spdlog/spdlog.h>
 
@@ -9,6 +10,11 @@ AnimationPlayer::AnimationPlayer(SpriteRenderer& renderer):
 	logger(nullptr),
 	animationFinished(false)
 {
+	UpdateManager::Add(this);
+}
+
+AnimationPlayer::~AnimationPlayer() {
+	UpdateManager::Remove(this);
 }
 
 void AnimationPlayer::Update(float millisecondsPerUpdate)
