@@ -7,7 +7,7 @@
 
 #include <cstdint>
 
-class Mouse : public UpdateComponent
+class Mouse : protected UpdateComponent
 {
 public:
 	Mouse();
@@ -15,11 +15,13 @@ public:
 	Mouse(Mouse&& that) = default;
 	Mouse& operator=(const Mouse& rhs) = default;
 	Mouse& operator=(Mouse&& rhs) = default;
-	void Update(float millisecondsPerUpdate) override;
 	const bool IsButtonUp(MouseButtons button) const;
 	const bool IsButtonDown(MouseButtons button) const;
 	const bool IsButtonPressed(MouseButtons button) const;
 	const Vector2<int> Position() const { return position; };
+
+private:
+	void Update(float millisecondsPerUpdate) override;
 
 private:
 	Vector2<int> position;

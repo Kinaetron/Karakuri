@@ -9,7 +9,7 @@
 struct _SDL_GameController;
 typedef struct _SDL_GameController SDL_GameController;
 
-class Gamepad: public UpdateComponent
+class Gamepad: protected UpdateComponent
 {
 public:
 	Gamepad(const Gamepad& that) = default;
@@ -24,11 +24,6 @@ public:
 	Gamepad(int index);
 
 	~Gamepad();
-
-	/*
-	* Checks the current state of the controller. Call this method in the game update method.
-	*/
-	void Update(float millisecondsPerUpdate) override;
 
 	/*
 	* Gets if the button is down on the controller.
@@ -90,6 +85,10 @@ public:
 	* \param duration sets the how long the vibration goes on for in milliseconds.
 	*/
 	const void Vibrate(float leftMotor, float rightMotor, int duration);
+
+
+private:
+	void Update(float millisecondsPerUpdate) override;
 
 private:
 	int index = 0;

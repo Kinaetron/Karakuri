@@ -14,11 +14,13 @@ public:
 	Timer(float time);
 	~Timer();
 	void Reset();
-	void Update(float millisecondsPerUpdate) override;
 	void Start() { started = true; }
 	const bool Started() const { return started; }
 	const bool OutOfTime() const;
 	const float Time() const;
+
+private:
+	void Update(float millisecondsPerUpdate) override;
 
 private:
 	const float time;
