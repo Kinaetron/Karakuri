@@ -6,7 +6,7 @@
 #include <array>
 #include <cstdint>
 
-class Keyboard: UpdateComponent
+class Keyboard: protected UpdateComponent
 {
 public:
 	/*
@@ -18,10 +18,6 @@ public:
 	Keyboard& operator=(const Keyboard& rhs) = default;
 	Keyboard& operator=(Keyboard&& rhs) = default;
 	~Keyboard();
-	/*
-	* Updates the state of the keyboard, should be called in the Update method.
-	*/
-	void Update(float millisecondsPerUpdate) override;
 
 	/*
 	* Gets if the key is down on the keyboard.
@@ -45,6 +41,9 @@ public:
 	const bool IsKeyPressed(Keys key) const;
 
 	const int static NumKeys() { return 231; }
+
+private:
+	void Update(float millisecondsPerUpdate) override;
 
 private:
 	std::array<uint8_t, 512> keyboardState {};
