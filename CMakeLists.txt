@@ -19,8 +19,6 @@ add_library(Karakuri STATIC
     include/circle.h
     include/collision.h
     include/colour.h
-    include/combo_listener.h
-    include/controller_combo.h
     include/frame_data.h
     include/game.h
     include/gamepad.h
@@ -28,7 +26,6 @@ add_library(Karakuri STATIC
     include/json.hpp
     include/karakuri.h
     include/keyboard.h
-    include/keyboard_combo.h
     include/keys.h
     include/math_utility.h
     include/matrix.h
@@ -54,15 +51,12 @@ add_library(Karakuri STATIC
     src/circle.cpp
     src/collision.cpp
     src/colour.cpp
-    src/combo_listener.cpp
-    src/controller_combo.cpp
     src/frame_data.cpp
     src/game.cpp
     src/gamepad.cpp
     src/glad.c
     src/graphics_device.cpp
     src/keyboard.cpp
-    src/keyboard_combo.cpp
     src/mouse.cpp
     src/rectangle.cpp
     src/rectangle_renderer.cpp
