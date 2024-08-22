@@ -43,6 +43,7 @@ add_library(Karakuri STATIC
     include/shader.h
     include/glad.h
     include/khrplatform.h
+    include/update_component.h
     # Source Files
     src/animation_data.cpp
     src/animation_player.cpp
