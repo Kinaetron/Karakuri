@@ -7,7 +7,6 @@ class UpdateComponent
 {
 protected:
 	virtual void Update(float millisecondsPerUpdate) = 0;
-
 	friend class Game;
 };
 #endif

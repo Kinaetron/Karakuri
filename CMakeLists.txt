@@ -44,6 +44,7 @@ add_library(Karakuri STATIC
     include/glad.h
     include/khrplatform.h
     include/update_component.h
+    include/update_manager.h
     # Source Files
     src/animation_data.cpp
     src/animation_player.cpp
@@ -68,7 +69,8 @@ add_library(Karakuri STATIC
     src/stb_image.cpp
     src/stb_image.h
     src/texture.cpp
-    src/timer.cpp)
+    src/timer.cpp
+    src/update_manager.cpp)
 
 # Link spdlog to Karakuri
 target_link_libraries(Karakuri PRIVATE spdlog::spdlog SDL2::SDL2-static SDL2_mixer::SDL2_mixer-static) 
