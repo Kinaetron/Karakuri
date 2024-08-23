@@ -24,8 +24,6 @@
 #include "animation_player.h"
 #include "math_utility.h"
 #include "sprite_mirror.h"
-#include "controller_combo.h"
-#include "combo_listener.h"
 #include "rectangle_renderer.h"
 #include "timer.h"
 
