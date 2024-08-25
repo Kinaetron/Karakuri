@@ -2,7 +2,7 @@
 #include "animation_player.h"
 #include <spdlog/spdlog.h>
 
-AnimationPlayer::AnimationPlayer(SpriteRenderer& renderer):
+AnimationPlayer::AnimationPlayer(Renderer& renderer):
 	currentFrame(0),
 	currentFrameTime(0.0f),
 	animationData(nullptr),
@@ -73,7 +73,7 @@ void AnimationPlayer::Draw(Vector2<float> position, Colour colour, SpriteMirror 
 		return;
 	}
 
-	renderer.Draw(animationData->Cell(currentFrame).CellTexture(), position, colour, mirror);
+	renderer.DrawSprite(animationData->Cell(currentFrame).CellTexture(), position, colour, mirror);
 }
 
 void AnimationPlayer::Draw(Vector2<float> position, Colour colour, SpriteMirror mirror, float rotation, Vector2<float> origin, float scale)
@@ -87,7 +87,7 @@ void AnimationPlayer::Draw(Vector2<float> position, Colour colour, SpriteMirror 
 		static_cast<float>(animationData->Cell(currentFrame).CellTexture().Height()),
 		Vector2<float>::Zero());
 
-	renderer.Draw(animationData->Cell(currentFrame).CellTexture(), position, sourceRectangle,  colour, mirror, rotation, origin, scale);
+	renderer.DrawSprite(animationData->Cell(currentFrame).CellTexture(), position, sourceRectangle,  colour, mirror, rotation, origin, scale);
 }
 
 void AnimationPlayer::Draw(Vector2<float> position, Colour colour, SpriteMirror mirror, float rotation, Vector2<float> origin, Vector2<float> scale)
@@ -101,7 +101,7 @@ void AnimationPlayer::Draw(Vector2<float> position, Colour colour, SpriteMirror 
 		static_cast<float>(animationData->Cell(currentFrame).CellTexture().Height()),
 		Vector2<float>::Zero());
 
-	renderer.Draw(animationData->Cell(currentFrame).CellTexture(), position, sourceRectangle, colour, mirror, rotation, origin, scale);
+	renderer.DrawSprite(animationData->Cell(currentFrame).CellTexture(), position, sourceRectangle, colour, mirror, rotation, origin, scale);
 }
 
 void AnimationPlayer::Reset()
