@@ -14,7 +14,9 @@
 
 SpriteRenderer::SpriteRenderer(const std::shared_ptr<const GraphicsDevice> graphicsDevice) :
 	shader(Shader(vertexShader, fragmentShader)),
-	logger(nullptr)
+	logger(nullptr),
+	stateMatrix(Matrix<float>::Identity()),
+	projectionMatrix(Matrix<float>::Identity())
 {
 	logger = spdlog::get("engine_logger");
 
@@ -25,14 +27,17 @@ SpriteRenderer::SpriteRenderer(const std::shared_ptr<const GraphicsDevice> graph
 	InitalizeRenderData(graphicsDevice);
 }
 
+void SpriteRenderer::State(Matrix<float> matrix) {
+	stateMatrix = matrix;
+}
+
 void SpriteRenderer::InitalizeRenderData(const std::shared_ptr<const GraphicsDevice> graphicsDevice)
 {
-	Matrix<float> projection =  Matrix<float>::OrthographicProjection(0, static_cast<float>(graphicsDevice->WindowWidth()),
+	projectionMatrix =  Matrix<float>::OrthographicProjection(0, static_cast<float>(graphicsDevice->WindowWidth()),
 		static_cast<float>(graphicsDevice->WindowHeight()), 0.0f, -1.0f, 1.0f);
 
 	shader.Use();
 	shader.SetInteger("image", 0);
-	shader.SetMatrix4("matrix", projection);
 
 	float vertices[] =
 	{
@@ -389,6 +394,9 @@ void SpriteRenderer::PushVertexInformation(
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	shader.Use();
+
+	Matrix<float> finalMatrix = projectionMatrix * stateMatrix;
+	shader.SetMatrix4("matrix", finalMatrix);
 
 	glActiveTexture(GL_TEXTURE0);
 	texture.Bind();

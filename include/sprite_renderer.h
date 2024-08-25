@@ -24,6 +24,7 @@ public:
 	SpriteRenderer& operator=(const SpriteRenderer& rhs) = default;
 	SpriteRenderer& operator=(SpriteRenderer&& rhs) = default;
 	SpriteRenderer(const std::shared_ptr<const GraphicsDevice> graphicsDevice);
+	void State(Matrix<float> matrix);
 	void Draw(Texture& texture, Vector2<float> position, Colour colour, SpriteMirror mirror);
 	void Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, SpriteMirror mirror);
 	void Draw(Texture& texture, Vector2<float> position, Rectangle sourceRectangle, Colour colour, SpriteMirror mirror, float rotation, Vector2<float> origin, float scale);
@@ -90,6 +91,8 @@ private:
 		}
 	)";
 
+	Matrix<float> stateMatrix;
+	Matrix<float> projectionMatrix;
 	Shader shader;
 	unsigned int quadVAO;
 	unsigned int VBO;
