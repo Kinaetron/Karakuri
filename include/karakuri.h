@@ -14,7 +14,6 @@
 #include "rectangle.h"
 #include "song.h"
 #include "sound_effect.h"
-#include "sprite_renderer.h"
 #include "texture.h"
 #include "vector2.h"
 #include "vector3.h"
@@ -24,7 +23,7 @@
 #include "animation_player.h"
 #include "math_utility.h"
 #include "sprite_mirror.h"
-#include "rectangle_renderer.h"
 #include "timer.h"
+#include "renderer.h"
 
 #endif

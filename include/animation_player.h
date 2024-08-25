@@ -8,7 +8,7 @@
 #include "update_component.h"
 #include "sprite_mirror.h"
 #include "animation_data.h"
-#include "sprite_renderer.h"
+#include "renderer.h"
 
 namespace spdlog {
 	class logger;
@@ -27,7 +27,7 @@ public:
 	*
 	* \param renderer is a SpriteRennderer.
 	*/
-	AnimationPlayer(SpriteRenderer& renderer);
+	AnimationPlayer(Renderer& renderer);
 	
 	~AnimationPlayer();
 
@@ -91,7 +91,7 @@ private:
 	int currentFrame;
 	float currentFrameTime;
 	bool animationFinished;
-	SpriteRenderer& renderer;
+	Renderer& renderer;
 	AnimationData* animationData;
 	std::shared_ptr<spdlog::logger> logger;
 };

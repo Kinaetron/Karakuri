@@ -31,11 +31,9 @@ add_library(Karakuri STATIC
     include/matrix.h
     include/mouse.h
     include/rectangle.h
-    include/rectangle_renderer.h
     include/song.h
     include/sound_effect.h
     include/sprite_mirror.h
-    include/sprite_renderer.h
     include/texture.h
     include/timer.h
     include/vector2.h
@@ -45,6 +43,7 @@ add_library(Karakuri STATIC
     include/khrplatform.h
     include/update_component.h
     include/update_manager.h
+    include/renderer.h
     # Source Files
     src/animation_data.cpp
     src/animation_player.cpp
@@ -61,16 +60,15 @@ add_library(Karakuri STATIC
     src/keyboard.cpp
     src/mouse.cpp
     src/rectangle.cpp
-    src/rectangle_renderer.cpp
     src/shader.cpp
     src/song.cpp
     src/sound_effect.cpp
-    src/sprite_renderer.cpp
     src/stb_image.cpp
     src/stb_image.h
     src/texture.cpp
     src/timer.cpp
-    src/update_manager.cpp)
+    src/update_manager.cpp
+    src/renderer.cpp)
 
 # Link spdlog to Karakuri
 target_link_libraries(Karakuri PRIVATE spdlog::spdlog SDL2::SDL2-static SDL2_mixer::SDL2_mixer-static) 
